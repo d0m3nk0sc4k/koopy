@@ -1,2 +1,1 @@
-# koopy
-App to simplify shopping
+![Header image](assets/logo/header.png "Header")
