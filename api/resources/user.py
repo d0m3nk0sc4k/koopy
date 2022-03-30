@@ -1,7 +1,7 @@
 from flask_restful import Resource
-import peewee
+from ...database.tables import *
 
 class User(Resource):
     def get(__self__, user_id):
-        #peewee query
+        db.connect()
         return {'text': user_id}, 200
