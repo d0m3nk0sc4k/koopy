@@ -3,6 +3,7 @@ from flask_restful import Resource
 from database.tables import Product
 from playhouse.shortcuts import model_to_dict, dict_to_model
 
+
 class ProductInfo(Resource):
     def get(__self__, product_name):
         products = Product.select().where(Product.name == product_name)
@@ -39,6 +40,7 @@ class NewProduct(Resource):
         else:
             return {"message": "Something went wrong. Please try again."}, 500
 
+
 class DeleteProduct(Resource):
     def post(__self__):
         try:
@@ -46,7 +48,8 @@ class DeleteProduct(Resource):
         except:
             return {"message": "Body has to have JSON data with product data."}, 400
 
-        products = Product.select().where(Product.name == data["name"] and Product.producer == data["producer"])
+        products = Product.select().where(
+            Product.name == data["name"] and Product.producer == data["producer"])
 
         if not products.exists():
             return {"message": "Product does not exist."}, 400
@@ -54,9 +57,11 @@ class DeleteProduct(Resource):
         for product in products:
             product.delete().execute()
 
-        Product.delete().where(Product.name == data["name"] and Product.producer == data["producer"]).execute()
-        
+        Product.delete().where(Product.name ==
+                               data["name"] and Product.producer == data["producer"]).execute()
+
         return {"message": "Product successfully deleted."}
+
 
 class UpdateProduct(Resource):
     def post(__self__):
@@ -74,8 +79,8 @@ class UpdateProduct(Resource):
 
         for info in data:
             product[info] = data[info]
-        
+
         product = dict_to_model(Product, product)
         product.save()
-        
+
         return {"message": "Product successfully updated."}

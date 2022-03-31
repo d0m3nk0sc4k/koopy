@@ -5,6 +5,7 @@ from datetime import datetime
 from playhouse.shortcuts import model_to_dict
 from json import dumps, loads
 
+
 class UserInfo(Resource):
     def get(__self__, user_id):
         user = User.select().where(User.mail == user_id)
@@ -12,6 +13,7 @@ class UserInfo(Resource):
             return loads(dumps(model_to_dict(user.get()), sort_keys=True, default=str))
         else:
             return {'message': 'User with that email does not exist.'}
+
 
 class UserRegistration(Resource):
     def post(__self__):
@@ -24,10 +26,12 @@ class UserRegistration(Resource):
 
         if user.exists():
             return {"message": "User with that mail already exists"}, 403
-        
-        User.create(name=data["name"], mail=data["mail"], password=data["password"], last_login=datetime.now())
-        
+
+        User.create(name=data["name"], mail=data["mail"],
+                    password=data["password"], last_login=datetime.now())
+
         return {"status": "ok"}, 200
+
 
 class UserLogin(Resource):
     def get(__self__):
@@ -48,6 +52,7 @@ class UserLogin(Resource):
             return {"message": "ok"}, 200
         else:
             return {"message": "Wrong password"}, 403
+
 
 class UserDelete(Resource):
     def post(__self__):
