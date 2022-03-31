@@ -17,7 +17,6 @@ class UserRegistration(Resource):
     def post(__self__):
         try:
             data = request.get_json(force=True)
-            print(data)
         except:
             return {"message": "Body has to have JSON data with user credentials."}, 400
 
@@ -45,8 +44,7 @@ class UserLogin(Resource):
         user = user.get()
 
         if (data["password"] == user.password):
-            q = User.update({"last_login": datetime.now()}).where(User.mail == data["mail"])
-            q.execute()
+            user.update({"last_login": datetime.now()}).execute()
             return {"message": "ok"}, 200
         else:
             return {"message": "Wrong password"}, 403
