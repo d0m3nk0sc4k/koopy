@@ -1,11 +1,17 @@
 from flask import request
 from flask_restful import Resource
-from database.tables import *
-from datetime import date
+from database.tables import User
+from datetime import datetime
+from playhouse.shortcuts import model_to_dict
+from json import dumps, loads
 
 class UserInfo(Resource):
     def get(__self__, user_id):
-        return {'text': user_id}, 200
+        user = User.select().where(User.mail == user_id)
+        if user.exists():
+            return loads(dumps(model_to_dict(user.get()), sort_keys=True, default=str))
+        else:
+            return {'message': 'User with that email does not exist.'}
 
 class UserRegistration(Resource):
     def post(__self__):
@@ -18,10 +24,9 @@ class UserRegistration(Resource):
         user = User.select().where(User.mail == data["mail"])
 
         if user.exists():
-            db.close()
             return {"message": "User with that mail already exists"}, 403
         
-        User.create(name=data["name"], mail=data["mail"], password=data["password"], last_login=date.today())
+        User.create(name=data["name"], mail=data["mail"], password=data["password"], last_login=datetime.now())
         
         return {"status": "ok"}, 200
 
@@ -37,9 +42,11 @@ class UserLogin(Resource):
         if not user.exists():
             return {"message": "User with that mail does not exist"}, 403
 
-        password = User.get(User.mail == data["mail"])
+        user = user.get()
 
-        if (data["password"] == password.password):
+        if (data["password"] == user.password):
+            q = User.update({"last_login": datetime.now()}).where(User.mail == data["mail"])
+            q.execute()
             return {"message": "ok"}, 200
         else:
             return {"message": "Wrong password"}, 403
