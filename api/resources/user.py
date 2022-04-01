@@ -1,9 +1,10 @@
 from flask import request
 from flask_restful import Resource
-from database.tables import User
+from database.tables import User, UserPassword
 from datetime import datetime
 from playhouse.shortcuts import model_to_dict
 from json import dumps, loads
+from .functions import check_for_data
 
 
 class UserInfo(Resource):
@@ -15,30 +16,24 @@ class UserInfo(Resource):
             return {'message': 'User with that email does not exist.'}
 
 
-class UserRegistration(Resource):
+class NewUser(Resource):
     def post(__self__):
-        try:
-            data = request.get_json(force=True)
-        except:
-            return {"message": "Body has to have JSON data with user credentials."}, 400
+        data = check_for_data()
 
         user = User.select().where(User.mail == data["mail"])
 
         if user.exists():
             return {"message": "User with that mail already exists"}, 403
 
-        User.create(name=data["name"], mail=data["mail"],
-                    password=data["password"], last_login=datetime.now())
+        user = User.create(name=data["name"], mail=data["mail"])
+        UserPassword.create(password=data['password'], last_login=datetime.now(), id_u=user.id)
 
         return {"status": "ok"}, 200
 
 
-class UserLogin(Resource):
+class LoginUser(Resource):
     def get(__self__):
-        try:
-            data = request.get_json(force=True)
-        except:
-            return {"message": "Body has to have JSON data with user credentials."}, 400
+        data = check_for_data()
 
         user = User.select().where(User.mail == data["mail"])
 
@@ -46,20 +41,18 @@ class UserLogin(Resource):
             return {"message": "User with that mail does not exist"}, 403
 
         user = user.get()
+        password = user.password.get()
 
-        if (data["password"] == user.password):
-            user.update({"last_login": datetime.now()}).execute()
+        if (data["password"] == password.password):
+            password.update({"last_login": datetime.now()}).execute()
             return {"message": "ok"}, 200
         else:
             return {"message": "Wrong password"}, 403
 
 
-class UserDelete(Resource):
+class DeleteUser(Resource):
     def post(__self__):
-        try:
-            data = request.get_json(force=True)
-        except:
-            return {"message": "Body has to have JSON data with user credentials."}, 400
+        data = check_for_data()
 
         User.delete().where(User.mail == data["mail"]).execute()
 

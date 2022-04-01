@@ -13,16 +13,21 @@ class User(BaseModel):
     id = AutoField()
     name = TextField()
     mail = TextField(unique=True)
-    password = TextField()
     profile_img = TextField(null=True)
-    last_login = DateTimeField()
 
+
+class UserPassword(BaseModel):
+    id = AutoField()
+    password = TextField()
+    last_login = DateTimeField()
+    id_u = ForeignKeyField(User, backref='password')
 
 class Family(BaseModel):
     id = AutoField()
     name = TextField()
     address = TextField()
     admin = ForeignKeyField(User, backref='family_admin')
+    qrcode = TextField()
 
 
 class Family_has_User(BaseModel):
@@ -59,7 +64,10 @@ class List_has_Product(BaseModel):
 if __name__ == '__main__':
     db.connect()
 
+    db.drop_tables([User, Family, Family_has_User,
+                     Product, List, List_has_Product, UserPassword])
+
     db.create_tables([User, Family, Family_has_User,
-                     Product, List, List_has_Product])
+                     Product, List, List_has_Product, UserPassword])
 
     db.close()
