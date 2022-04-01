@@ -22,7 +22,7 @@ class NewFamily(Resource):
         family = Family.select().where(Family.name == data['name'] and Family.address == data['address'])
 
         if family.exists():
-            return {"message": "Family with that name and address already exists."}
+            return {"message": "Family with that name and address already exists."}, 409
 
         family = Family.create(name=data['name'], address=data['address'], admin=data['admin'], qrcode=uuid5(NAMESPACE_URL, data['name']+data['address']))
         Family_has_User.create(id_f = family.id, id_u = data['admin'])
@@ -42,6 +42,11 @@ class DeleteFamily(Resource):
         
         for user in users:
             user.delete().execute()
+
+        lists = family.lists
+
+        for list in lists:
+            list.delete().execute()
 
         family.delete().execute()
 

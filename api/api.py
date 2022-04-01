@@ -24,10 +24,12 @@ api.add_resource(UpdateProduct, '/api/product/update')
 api.add_resource(FamilyInfo, '/api/family/<string:family_id>')
 api.add_resource(NewFamily, '/api/family/new')
 api.add_resource(DeleteFamily, '/api/family/delete')
+api.add_resource(JoinFamily, '/api/family/join')
 
 # LIST API
 api.add_resource(ListInfo, '/api/list/<string:list_id>')
 api.add_resource(NewList, '/api/list/new')
+api.add_resource(DeleteList, '/api/list/delete')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

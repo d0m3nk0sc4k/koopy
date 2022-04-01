@@ -21,7 +21,7 @@ class NewList(Resource):
         list = List.select().where(List.name == data["name"] and List.id_f == data["family_id"])
 
         if list.exists():
-            return {"message": "List with that name in family already exists."}, 400
+            return {"message": "List with that name in family already exists."}, 409
         
         list = List.create(name=data["name"], id_f=data["family_id"], admin=data["admin"], created=datetime.now())
 
@@ -31,4 +31,16 @@ class DeleteList(Resource):
     def post(__self__):
         data = check_for_data()
 
-        
+        list = List.select().where(List.id == data['id'])
+
+        if not list.exist():
+            return {"message": "List does not exist"}
+
+        products = List.get().products
+
+        for product in products:
+            product.delete().execute()
+
+        list.delete().execute()
+
+        return {"message": "List successfully deleted"}
