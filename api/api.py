@@ -4,9 +4,17 @@ from resources.user import *
 from resources.product import *
 from resources.family import *
 from resources.list import *
+from resources.homepage import *
+from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
 api = Api(app)
+
+app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this "super secret" with something else!
+jwt = JWTManager(app)
+
+# FIRST PAGE
+api.add_resource(Homepage, '/api/')
 
 #  USER API
 api.add_resource(UserInfo, '/api/user/<string:user_id>')

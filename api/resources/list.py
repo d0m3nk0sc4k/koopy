@@ -5,8 +5,10 @@ from database.tables import List
 from playhouse.shortcuts import model_to_dict
 from json import dumps, loads
 from .functions import check_for_data
+from flask_jwt_extended import jwt_required
 
 class ListInfo(Resource):
+    @jwt_required()
     def get(__self__, list_id):
         list = List.select().where(List.id == list_id)
         if list.exists():
@@ -15,6 +17,7 @@ class ListInfo(Resource):
             return {'message': 'List with that id does not exist.'}
 
 class NewList(Resource):
+    @jwt_required()
     def post(__self__):
         data = check_for_data()
 
@@ -28,6 +31,7 @@ class NewList(Resource):
         return model_to_dict(list)
 
 class DeleteList(Resource):
+    @jwt_required()
     def post(__self__):
         data = check_for_data()
 

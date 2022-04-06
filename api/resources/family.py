@@ -6,8 +6,10 @@ from playhouse.shortcuts import model_to_dict
 from json import dumps, loads
 from .functions import check_for_data
 from uuid import uuid5, NAMESPACE_URL
+from flask_jwt_extended import jwt_required
 
 class FamilyInfo(Resource):
+    @jwt_required()
     def get(__self__, family_id):
         family = Family.select().where(Family.id == family_id)
         if family.exists():
@@ -16,6 +18,7 @@ class FamilyInfo(Resource):
             return {'message': 'Family with that id does not exist.'}
 
 class NewFamily(Resource):
+    @jwt_required()
     def post(__self__):
         data = check_for_data()
 
@@ -30,6 +33,7 @@ class NewFamily(Resource):
         return  loads(dumps(model_to_dict(Family.get(Family.id == family.id)), sort_keys=True, default=str))
 
 class DeleteFamily(Resource):
+    @jwt_required()
     def post(__self__):
         data = check_for_data()
 
@@ -53,6 +57,7 @@ class DeleteFamily(Resource):
         return {"message": "ok"}
 
 class JoinFamily(Resource):
+    @jwt_required()
     def post(__self__):
         data = check_for_data()
 

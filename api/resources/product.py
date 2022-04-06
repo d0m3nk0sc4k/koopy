@@ -3,9 +3,11 @@ from flask_restful import Resource
 from database.tables import Product
 from playhouse.shortcuts import model_to_dict, dict_to_model
 from .functions import check_for_data
+from flask_jwt_extended import jwt_required
 
 
 class ProductInfo(Resource):
+    @jwt_required()
     def get(__self__, product_name):
         products = Product.select().where(Product.name == product_name)
 
@@ -16,6 +18,7 @@ class ProductInfo(Resource):
 
 
 class NewProduct(Resource):
+    @jwt_required()
     def post(__self__):
         data = check_for_data()
 
@@ -40,6 +43,7 @@ class NewProduct(Resource):
 
 
 class DeleteProduct(Resource):
+    @jwt_required()
     def post(__self__):
         data = check_for_data()
 
@@ -59,6 +63,7 @@ class DeleteProduct(Resource):
 
 
 class UpdateProduct(Resource):
+    @jwt_required()
     def post(__self__):
         data = check_for_data()
 

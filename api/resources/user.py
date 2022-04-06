@@ -5,9 +5,10 @@ from datetime import datetime
 from playhouse.shortcuts import model_to_dict
 from json import dumps, loads
 from .functions import check_for_data
-
+from flask_jwt_extended import create_access_token, jwt_required
 
 class UserInfo(Resource):
+    @jwt_required()
     def get(__self__, user_id):
         user = User.select().where(User.mail == user_id)
         if user.exists():
@@ -17,6 +18,7 @@ class UserInfo(Resource):
 
 
 class NewUser(Resource):
+    @jwt_required()
     def post(__self__):
         data = check_for_data()
 
@@ -45,12 +47,14 @@ class LoginUser(Resource):
 
         if (data["password"] == password.password):
             password.update({"last_login": datetime.now()}).execute()
-            return {"message": "ok"}, 200
+            token = create_access_token(identity=user.id)
+            return {"token": token}, 200
         else:
             return {"message": "Wrong password"}, 403
 
 
 class DeleteUser(Resource):
+    @jwt_required()
     def post(__self__):
         data = check_for_data()
 
