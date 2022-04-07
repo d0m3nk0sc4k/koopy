@@ -6,9 +6,11 @@ from playhouse.shortcuts import model_to_dict
 from json import dumps, loads
 from .functions import check_for_data
 from flask_jwt_extended import create_access_token, jwt_required
+from flasgger import swag_from
 
 class UserInfo(Resource):
     @jwt_required()
+    @swag_from('apidoc/userinfo.yml')
     def get(__self__, user_id):
         user = User.select().where(User.id == user_id)
         if user.exists():
@@ -31,10 +33,9 @@ class NewUser(Resource):
         token = create_access_token(identity=user.id)
         return {"token": token}, 200
 
-        return {"status": "ok"}, 200
-
 
 class LoginUser(Resource):
+    @swag_from('apidoc/loginuser.yml')
     def get(__self__):
         data = check_for_data()
 

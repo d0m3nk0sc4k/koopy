@@ -1,0 +1,29 @@
+Get info about user
+---
+security:
+  bearerAuth:
+    type: https
+    scheme: bearer
+    bearerFormat: JWT
+tags:
+  - "User"
+parameters:
+  - in: path
+    name: user_id
+    required: true
+    description: The ID of user
+    type: string
+responses:
+  200:
+    description: The single user data
+    schema:
+      properties:
+        id:
+          type: integer
+        mail:
+          type: string
+          format: email
+        name:
+          type: string
+        profile_img:
+          type: string

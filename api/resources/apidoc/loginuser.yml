@@ -1,0 +1,20 @@
+Login user
+---
+tags:
+  - "User"
+parameters:
+  - in: body
+    schema:
+      properties:
+        mail:
+          type: string
+          format: email
+        password:
+          type: string
+responses:
+  200:
+    description: Bearer token
+    schema:
+      properties:
+        token:
+          type: string
