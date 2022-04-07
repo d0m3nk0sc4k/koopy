@@ -37,7 +37,7 @@ class NewProduct(Resource):
                 name=data["name"], producer=data["producer"])
 
         if product.id > 0:
-            return {"message": "Product added."}
+            return {"message": "Product added."}, 201
         else:
             return {"message": "Something went wrong. Please try again."}, 500
 
@@ -59,7 +59,7 @@ class DeleteProduct(Resource):
         Product.delete().where(Product.name ==
                                data["name"] and Product.producer == data["producer"]).execute()
 
-        return {"message": "Product successfully deleted."}
+        return {"message": "Product successfully deleted."}, 204
 
 
 class UpdateProduct(Resource):
@@ -80,4 +80,4 @@ class UpdateProduct(Resource):
         product = dict_to_model(Product, product)
         product.save()
 
-        return {"message": "Product successfully updated."}
+        return {"message": "Product successfully updated."}, 201

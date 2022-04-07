@@ -16,7 +16,7 @@ class UserInfo(Resource):
         if user.exists():
             return loads(dumps(model_to_dict(user.get()), sort_keys=True, default=str))
         else:
-            return {'message': 'User with that email does not exist.'}
+            return {'message': 'User with that email does not exist.'}, 400
 
 
 class NewUser(Resource):
@@ -26,12 +26,12 @@ class NewUser(Resource):
         user = User.select().where(User.mail == data["mail"])
 
         if user.exists():
-            return {"message": "User with that mail already exists"}, 403
+            return {"message": "User with that mail already exists"}, 400
 
         user = User.create(name=data["name"], mail=data["mail"])
         UserPassword.create(password=data['password'], last_login=datetime.now(), id_u=user.id)
         token = create_access_token(identity=user.id)
-        return {"token": token}, 200
+        return {"token": token}, 201
 
 
 class LoginUser(Resource):
@@ -42,7 +42,7 @@ class LoginUser(Resource):
         user = User.select().where(User.mail == data["mail"])
 
         if not user.exists():
-            return {"message": "User with that mail does not exist"}, 403
+            return {"message": "User with that mail does not exist"}, 400
 
         user = user.get()
         password = user.password.get()
@@ -63,7 +63,7 @@ class DeleteUser(Resource):
         user = User.select().where(User.mail == data['mail'])
 
         if not user.exists():
-            return {"message": "User does not exist."}
+            return {"message": "User does not exist."}, 400
 
         user = user.get()
 
@@ -71,4 +71,4 @@ class DeleteUser(Resource):
 
         user.delete().execute()
 
-        return {"message": "User successfully deleted"}, 200
+        return {"message": "User successfully deleted"}, 204

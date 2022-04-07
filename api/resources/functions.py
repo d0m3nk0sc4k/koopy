@@ -5,4 +5,4 @@ def check_for_data():
         data = request.get_json(force=True)
         return data
     except:
-        return {"message": "Does not exist"}
+        return {"message": "Body is required"}, 400

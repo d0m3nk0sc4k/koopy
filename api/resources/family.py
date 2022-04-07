@@ -13,9 +13,9 @@ class FamilyInfo(Resource):
     def get(__self__, family_id):
         family = Family.select().where(Family.id == family_id)
         if family.exists():
-            return loads(dumps(model_to_dict(family.get()), sort_keys=True, default=str))
+            return loads(dumps(model_to_dict(family.get()), sort_keys=True, default=str)), 200
         else:
-            return {'message': 'Family with that id does not exist.'}
+            return {'message': 'Family with that id does not exist.'}, 400
 
 class NewFamily(Resource):
     @jwt_required()
@@ -25,12 +25,12 @@ class NewFamily(Resource):
         family = Family.select().where(Family.name == data['name'] and Family.address == data['address'])
 
         if family.exists():
-            return {"message": "Family with that name and address already exists."}, 409
+            return {"message": "Family with that name and address already exists."}, 400
 
         family = Family.create(name=data['name'], address=data['address'], admin=data['admin'], qrcode=uuid5(NAMESPACE_URL, data['name']+data['address']))
         Family_has_User.create(id_f = family.id, id_u = data['admin'])
 
-        return  loads(dumps(model_to_dict(Family.get(Family.id == family.id)), sort_keys=True, default=str))
+        return  loads(dumps(model_to_dict(Family.get(Family.id == family.id)), sort_keys=True, default=str)), 201
 
 class DeleteFamily(Resource):
     @jwt_required()
@@ -54,7 +54,7 @@ class DeleteFamily(Resource):
 
         family.delete().execute()
 
-        return {"message": "ok"}
+        return {"message": "Successfully deleted"}, 204
 
 class JoinFamily(Resource):
     @jwt_required()
@@ -64,8 +64,8 @@ class JoinFamily(Resource):
         family = Family.select(Family.id).where(Family.qrcode == data["join_key"])
 
         if not family.exists():
-            return {"message": "Family does not exist."}
+            return {"message": "Family does not exist."}, 400
         
         Family_has_User.create(id_u = data["user"], id_f = family)
 
-        return {"message": "Joined the family."}
+        return {"message": "Joined the family."}, 201
