@@ -10,7 +10,7 @@ from flask_jwt_extended import JWTManager
 app = Flask(__name__)
 api = Api(app)
 
-app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this "super secret" with something else!
+app.config["JWT_SECRET_KEY"] = "ijpdhnmUb2iArs9x9pLn93EsZgmshLYrbzGpv$f4xQgP@eEWbH$h$N9AfwH3DN@5yX@nBm^3MBGEu$MZ#3Ur4ehh&*66mjJi6CxhXM2Ws6%G*AmGRFD%NEr7BezD2qrg"
 jwt = JWTManager(app)
 
 # FIRST PAGE

@@ -10,7 +10,7 @@ from flask_jwt_extended import create_access_token, jwt_required
 class UserInfo(Resource):
     @jwt_required()
     def get(__self__, user_id):
-        user = User.select().where(User.mail == user_id)
+        user = User.select().where(User.id == user_id)
         if user.exists():
             return loads(dumps(model_to_dict(user.get()), sort_keys=True, default=str))
         else:
@@ -18,7 +18,6 @@ class UserInfo(Resource):
 
 
 class NewUser(Resource):
-    @jwt_required()
     def post(__self__):
         data = check_for_data()
 
@@ -29,6 +28,8 @@ class NewUser(Resource):
 
         user = User.create(name=data["name"], mail=data["mail"])
         UserPassword.create(password=data['password'], last_login=datetime.now(), id_u=user.id)
+        token = create_access_token(identity=user.id)
+        return {"token": token}, 200
 
         return {"status": "ok"}, 200
 
@@ -55,9 +56,18 @@ class LoginUser(Resource):
 
 class DeleteUser(Resource):
     @jwt_required()
-    def post(__self__):
+    def delete(__self__):
         data = check_for_data()
 
-        User.delete().where(User.mail == data["mail"]).execute()
+        user = User.select().where(User.mail == data['mail'])
+
+        if not user.exists():
+            return {"message": "User does not exist."}
+
+        user = user.get()
+
+        user.password.get().delete().execute()
+
+        user.delete().execute()
 
         return {"message": "User successfully deleted"}, 200
