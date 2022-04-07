@@ -1,4 +1,4 @@
-Login user
+Register new user
 ---
 tags:
   - "User"
@@ -6,26 +6,22 @@ parameters:
   - in: body
     schema:
       properties:
+        name:
+          type: string
         mail:
           type: string
           format: email
         password:
           type: string
 responses:
-  200:
-    description: User logged in successfully 
+  201:
+    description: User created successfully
     schema:
       properties:
         token:
           type: string
   400:
-    description: User does not exist
-    schema:
-      properties:
-        message:
-          type: string
-  403:
-    description: Wrong password
+    description: User with that email already exists
     schema:
       properties:
         message:

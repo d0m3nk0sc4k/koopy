@@ -20,6 +20,7 @@ class UserInfo(Resource):
 
 
 class NewUser(Resource):
+    @swag_from('apidoc/newuser.yml')
     def post(__self__):
         data = check_for_data()
 
@@ -57,6 +58,7 @@ class LoginUser(Resource):
 
 class DeleteUser(Resource):
     @jwt_required()
+    @swag_from('apidoc/deleteuser.yml')
     def delete(__self__):
         data = check_for_data()
 

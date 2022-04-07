@@ -15,7 +15,7 @@ parameters:
     type: string
 responses:
   200:
-    description: The single user data
+    description: User info got successfully
     schema:
       properties:
         id:
@@ -26,4 +26,10 @@ responses:
         name:
           type: string
         profile_img:
+          type: string
+  401:
+    description: Unauthorized - no token present
+    schema:
+      properties:
+        msg:
           type: string
