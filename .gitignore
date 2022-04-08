@@ -25,6 +25,6 @@ doc/api/
 __pycache__/
 *.pyc
 
-app/test/
-app/web/
-app/windows/
+app/koopy/test/
+app/koopy/web/
+app/koopy/windows/
