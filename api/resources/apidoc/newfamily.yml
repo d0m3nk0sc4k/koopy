@@ -1,5 +1,10 @@
 Register new family
 ---
+security:
+  bearerAuth:
+    type: https
+    scheme: bearer
+    bearerFormat: JWT
 tags:
   - "Family"
 parameters:
