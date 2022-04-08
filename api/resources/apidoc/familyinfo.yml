@@ -1,0 +1,51 @@
+Get info about family
+---
+security:
+  bearerAuth:
+    type: https
+    scheme: bearer
+    bearerFormat: JWT
+tags:
+  - "Family"
+parameters:
+  - in: path
+    name: family_id
+    required: true
+    description: The ID of family
+    type: string
+responses:
+  200:
+    description: Family info got successfully
+    schema:
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        address:
+          type: string
+        qrcode:
+          type: string
+        admin:
+          properties:
+            id:
+              type: integer
+            mail:
+              type: string
+              format: email
+            name:
+              type: string
+            profile_img:
+              type: string
+  400:
+    description: Family not found
+    schema:
+      properties:
+        message:
+          type: string
+  401:
+    description: Unauthorized - no token present
+    schema:
+      properties:
+        msg:
+          type: string

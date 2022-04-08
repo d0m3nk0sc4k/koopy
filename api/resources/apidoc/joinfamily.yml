@@ -1,0 +1,36 @@
+Join family
+---
+security:
+  bearerAuth:
+    type: https
+    scheme: bearer
+    bearerFormat: JWT
+tags:
+  - "Family"
+parameters:
+  - in: body
+    schema:
+      properties:
+        user:
+          type: integer
+        join_key:
+          type: string
+responses:
+  201:
+    description: Joined family successfully
+    schema:
+      properties:
+        message:
+          type: string
+  400:
+    description: Family does not exist
+    schema:
+      properties:
+        message:
+          type: string
+  401:
+    description: Unauthorized - no token present
+    schema:
+      properties:
+        msg:
+          type: string

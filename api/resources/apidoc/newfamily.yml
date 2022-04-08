@@ -1,0 +1,50 @@
+Register new family
+---
+tags:
+  - "Family"
+parameters:
+  - in: body
+    schema:
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+        admin:
+          type: integer
+responses:
+  201:
+    description: Family created successfully
+    schema:
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        address:
+          type: string
+        qrcode:
+          type: string
+        admin:
+          properties:
+            id:
+              type: integer
+            mail:
+              type: string
+              format: email
+            name:
+              type: string
+            profile_img:
+              type: string
+  400:
+    description: Family with that name and address already exists
+    schema:
+      properties:
+        message:
+          type: string
+  401:
+    description: Unauthorized - no token present
+    schema:
+      properties:
+        msg:
+          type: string

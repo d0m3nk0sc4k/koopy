@@ -7,9 +7,11 @@ from json import dumps, loads
 from .functions import check_for_data
 from uuid import uuid5, NAMESPACE_URL
 from flask_jwt_extended import jwt_required
+from flasgger import swag_from
 
 class FamilyInfo(Resource):
     @jwt_required()
+    @swag_from('apidoc/familyinfo.yml')
     def get(__self__, family_id):
         family = Family.select().where(Family.id == family_id)
         if family.exists():
@@ -19,6 +21,7 @@ class FamilyInfo(Resource):
 
 class NewFamily(Resource):
     @jwt_required()
+    @swag_from('apidoc/newfamily.yml')
     def post(__self__):
         data = check_for_data()
 
@@ -34,7 +37,8 @@ class NewFamily(Resource):
 
 class DeleteFamily(Resource):
     @jwt_required()
-    def post(__self__):
+    @swag_from('apidoc/deletefamily.yml')
+    def delete(__self__):
         data = check_for_data()
 
         try:
@@ -58,6 +62,7 @@ class DeleteFamily(Resource):
 
 class JoinFamily(Resource):
     @jwt_required()
+    @swag_from('apidoc/joinfamily.yml')
     def post(__self__):
         data = check_for_data()
 
