@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-from flask import Flask
+from flask import Flask, url_for
 from flask_restful import Api
 from resources.user import *
 from resources.product import *
 from resources.family import *
 from resources.list import *
 from resources.homepage import *
+from resources.favicon import *
 from flask_jwt_extended import JWTManager
 from flasgger import Swagger
 
@@ -17,8 +18,7 @@ app.config['SWAGGER'] = {
     'title': 'Koopy',
     'specs_route': '/api/docs/',
     'termsOfService': '',
-    'description': 'API for Koopy application',
-
+    'description': 'API for Koopy application'
 }
 
 swagger_config = Swagger.DEFAULT_CONFIG
@@ -32,6 +32,7 @@ jwt = JWTManager(app)
 
 # FIRST PAGE
 api.add_resource(Homepage, '/api/')
+api.add_resource(Favicon, '/api/favicon')
 
 #  USER API
 api.add_resource(UserInfo, '/api/user/<string:user_id>')
