@@ -1,0 +1,66 @@
+Create new list
+---
+security:
+  bearerAuth:
+    type: https
+    scheme: bearer
+    bearerFormat: JWT
+tags:
+  - "List"
+parameters:
+  - in: body
+    schema:
+      properties:
+        name:
+          type: string
+        family_id:
+          type: integer
+        admin:
+          type: integer
+responses:
+  201:
+    description: List created successfully
+    schema:
+      properties:
+        admin:
+          properties:
+            id:
+              type: integer
+            mail:
+              type: string
+              format: email
+            name:
+              type: string
+            profile_img:
+              type: string
+        name:
+          type: string
+        id_f:
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+            address:
+              type: string
+            qrcode:
+              type: string
+            admin:
+              properties:
+                id:
+                  type: integer
+                mail:
+                  type: string
+                  format: email
+                name:
+                  type: string
+                profile_img:
+                  type: string
+        created:
+          type: string
+  400:
+    description: List with that name in family already exists
+    schema:
+      properties:
+        message:
+          type: string

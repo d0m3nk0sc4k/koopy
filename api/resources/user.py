@@ -19,23 +19,7 @@ class UserInfo(Resource):
             return {'message': 'User with that email does not exist.'}, 400
 
 
-class NewUser(Resource):
-    @swag_from('apidoc/newuser.yml')
-    def post(__self__):
-        data = check_for_data()
-
-        user = User.select().where(User.mail == data["mail"])
-
-        if user.exists():
-            return {"message": "User with that mail already exists"}, 400
-
-        user = User.create(name=data["name"], mail=data["mail"])
-        UserPassword.create(password=data['password'], last_login=datetime.now(), id_u=user.id)
-        token = create_access_token(identity=user.id)
-        return {"token": token}, 201
-
-
-class LoginUser(Resource):
+class User(Resource):
     @swag_from('apidoc/loginuser.yml')
     def get(__self__):
         data = check_for_data()
@@ -43,7 +27,7 @@ class LoginUser(Resource):
         user = User.select().where(User.mail == data["mail"])
 
         if not user.exists():
-            return {"message": "User with that mail does not exist"}, 400
+            return {"message": "User does not exist"}, 400
 
         user = user.get()
         password = user.password.get()
@@ -54,9 +38,7 @@ class LoginUser(Resource):
             return {"token": token}, 200
         else:
             return {"message": "Wrong password"}, 403
-
-
-class DeleteUser(Resource):
+    
     @jwt_required()
     @swag_from('apidoc/deleteuser.yml')
     def delete(__self__):
@@ -74,3 +56,17 @@ class DeleteUser(Resource):
         user.delete().execute()
 
         return {"message": "User successfully deleted"}, 204
+
+    @swag_from('apidoc/newuser.yml')
+    def post(__self__):
+        data = check_for_data()
+
+        user = User.select().where(User.mail == data["mail"])
+
+        if user.exists():
+            return {"message": "User with that mail already exists"}, 400
+
+        user = User.create(name=data["name"], mail=data["mail"])
+        UserPassword.create(password=data['password'], last_login=datetime.now(), id_u=user.id)
+        token = create_access_token(identity=user.id)
+        return {"token": token}, 201

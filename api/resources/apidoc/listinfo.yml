@@ -1,4 +1,4 @@
-Get info about family
+Get info about list
 ---
 security:
   bearerAuth:
@@ -6,7 +6,7 @@ security:
     scheme: bearer
     bearerFormat: JWT
 tags:
-  - "Family"
+  - "List"
 parameters:
   - in: body
     schema:
@@ -15,16 +15,14 @@ parameters:
           type: integer
 responses:
   200:
-    description: Family info got successfully
+    description: Info about list
     schema:
       properties:
         id:
           type: integer
         name:
           type: string
-        address:
-          type: string
-        qrcode:
+        created:
           type: string
         admin:
           properties:
@@ -37,8 +35,29 @@ responses:
               type: string
             profile_img:
               type: string
+        id_f:
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+            address:
+              type: string
+            qrcode:
+              type: string
+            admin:
+              properties:
+                id:
+                  type: integer
+                mail:
+                  type: string
+                  format: email
+                name:
+                  type: string
+                profile_img:
+                  type: string
   400:
-    description: Family not found
+    description: List not found
     schema:
       properties:
         message:

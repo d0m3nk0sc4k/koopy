@@ -9,17 +9,17 @@ from uuid import uuid5, NAMESPACE_URL
 from flask_jwt_extended import jwt_required
 from flasgger import swag_from
 
-class FamilyInfo(Resource):
+class Family(Resource):
     @jwt_required()
     @swag_from('apidoc/familyinfo.yml')
-    def get(__self__, family_id):
-        family = Family.select().where(Family.id == family_id)
+    def get(__self__):
+        data = check_for_data()
+        family = Family.select().where(Family.id == data['id'])
         if family.exists():
             return loads(dumps(model_to_dict(family.get()), sort_keys=True, default=str)), 200
         else:
             return {'message': 'Family with that id does not exist.'}, 400
 
-class NewFamily(Resource):
     @jwt_required()
     @swag_from('apidoc/newfamily.yml')
     def post(__self__):
@@ -35,7 +35,6 @@ class NewFamily(Resource):
 
         return  loads(dumps(model_to_dict(Family.get(Family.id == family.id)), sort_keys=True, default=str)), 201
 
-class DeleteFamily(Resource):
     @jwt_required()
     @swag_from('apidoc/deletefamily.yml')
     def delete(__self__):
@@ -60,10 +59,9 @@ class DeleteFamily(Resource):
 
         return {"message": "Successfully deleted"}, 204
 
-class JoinFamily(Resource):
     @jwt_required()
     @swag_from('apidoc/joinfamily.yml')
-    def post(__self__):
+    def put(__self__):
         data = check_for_data()
 
         family = Family.select(Family.id).where(Family.qrcode == data["join_key"])

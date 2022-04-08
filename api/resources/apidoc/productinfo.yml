@@ -1,0 +1,42 @@
+Get info about product
+---
+security:
+  bearerAuth:
+    type: https
+    scheme: bearer
+    bearerFormat: JWT
+tags:
+  - "Product"
+parameters:
+  - in: body
+    schema:
+      properties:
+        name:
+          type: string
+responses:
+  200:
+    description: Array of products with that name
+    schema:
+      type: "array"
+      items:
+        properties:
+          id:
+            type: integer
+          name:
+            type: string
+          barcode:
+            type: string
+          producer:
+            type: string
+  400:
+    description: Product not found
+    schema:
+      properties:
+        message:
+          type: string
+  401:
+    description: Unauthorized - no token present
+    schema:
+      properties:
+        msg:
+          type: string

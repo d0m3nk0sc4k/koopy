@@ -6,18 +6,22 @@ from playhouse.shortcuts import model_to_dict
 from json import dumps, loads
 from .functions import check_for_data
 from flask_jwt_extended import jwt_required
+from flasgger import swag_from
 
-class ListInfo(Resource):
+class List(Resource):
     @jwt_required()
-    def get(__self__, list_id):
-        list = List.select().where(List.id == list_id)
+    @swag_from('apidoc/listinfo.yml')
+    def get(__self__):
+        data = check_for_data()
+
+        list = List.select().where(List.id == data['id'])
         if list.exists():
-            return loads(dumps(model_to_dict(list.get()), sort_keys=True, default=str))
+            return loads(dumps(model_to_dict(list.get()), sort_keys=True, default=str)), 200
         else:
             return {'message': 'List with that id does not exist.'}, 400
-
-class NewList(Resource):
+        
     @jwt_required()
+    @swag_from('apidoc/newlist.yml')
     def post(__self__):
         data = check_for_data()
 
@@ -30,9 +34,9 @@ class NewList(Resource):
 
         return model_to_dict(list), 201
 
-class DeleteList(Resource):
     @jwt_required()
-    def post(__self__):
+    @swag_from('apidoc/deletelist.yml')
+    def delete(__self__):
         data = check_for_data()
 
         list = List.select().where(List.id == data['id'])

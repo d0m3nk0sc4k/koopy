@@ -1,0 +1,38 @@
+Update product
+---
+security:
+  bearerAuth:
+    type: https
+    scheme: bearer
+    bearerFormat: JWT
+tags:
+  - "Product"
+parameters:
+  - in: body
+    schema:
+      properties:
+        name:
+          type: string
+        producer:
+          type: string
+        barcode:
+          type: string
+responses:
+  201:
+    description: Product updated successfully
+    schema:
+      properties:
+        message:
+          type: string
+  400:
+    description: Product does not exist
+    schema:
+      properties:
+        message:
+          type: string
+  401:
+    description: Unauthorized - no token present
+    schema:
+      properties:
+        msg:
+          type: string

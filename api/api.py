@@ -35,26 +35,16 @@ api.add_resource(Homepage, '/api/')
 
 #  USER API
 api.add_resource(UserInfo, '/api/user/<string:user_id>')
-api.add_resource(NewUser, '/api/user/register')
-api.add_resource(LoginUser, '/api/user/login')
-api.add_resource(DeleteUser, '/api/user/delete')
+api.add_resource(User, '/api/user')
 
 #  PRODUCT API
-api.add_resource(ProductInfo, '/api/product/<string:product_name>')
-api.add_resource(NewProduct, '/api/product/new')
-api.add_resource(DeleteProduct, '/api/product/delete')
-api.add_resource(UpdateProduct, '/api/product/update')
+api.add_resource(Product, '/api/product')
 
 # FAMILY API
-api.add_resource(FamilyInfo, '/api/family/<string:family_id>')
-api.add_resource(NewFamily, '/api/family/new')
-api.add_resource(DeleteFamily, '/api/family/delete')
-api.add_resource(JoinFamily, '/api/family/join')
+api.add_resource(Family, '/api/family')
 
 # LIST API
-api.add_resource(ListInfo, '/api/list/<string:list_id>')
-api.add_resource(NewList, '/api/list/new')
-api.add_resource(DeleteList, '/api/list/delete')
+api.add_resource(List, '/api/list')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

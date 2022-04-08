@@ -1,0 +1,34 @@
+Delete list
+---
+security:
+  bearerAuth:
+    type: https
+    scheme: bearer
+    bearerFormat: JWT
+tags:
+  - "List"
+parameters:
+  - in: body
+    schema:
+      properties:
+        id:
+          type: integer
+responses:
+  204:
+    description: List deleted successfully
+    schema:
+      properties:
+        message:
+          type: string
+  400:
+    description: List does not exist
+    schema:
+      properties:
+        message:
+          type: string
+  401:
+    description: Unauthorized - no token present
+    schema:
+      properties:
+        msg:
+          type: string

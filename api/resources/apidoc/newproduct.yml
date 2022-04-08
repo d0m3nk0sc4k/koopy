@@ -1,4 +1,4 @@
-Get info about family
+Create new product
 ---
 security:
   bearerAuth:
@@ -6,16 +6,20 @@ security:
     scheme: bearer
     bearerFormat: JWT
 tags:
-  - "Family"
+  - "Product"
 parameters:
   - in: body
     schema:
       properties:
-        id:
-          type: integer
+        name:
+          type: string
+        producer:
+          type: string
+        barcode:
+          type: string
 responses:
-  200:
-    description: Family info got successfully
+  201:
+    description: Product added successfully
     schema:
       properties:
         id:
@@ -38,7 +42,7 @@ responses:
             profile_img:
               type: string
   400:
-    description: Family not found
+    description: Product already exists
     schema:
       properties:
         message:
@@ -48,4 +52,10 @@ responses:
     schema:
       properties:
         msg:
+          type: string
+  500:
+    decription: Internal server error
+    schema:
+      properties:
+        message:
           type: string
