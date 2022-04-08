@@ -1,4 +1,4 @@
-Get info about user
+Delete user
 ---
 security:
   bearerAuth:
