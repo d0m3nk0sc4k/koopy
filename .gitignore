@@ -24,3 +24,7 @@ doc/api/
 
 __pycache__/
 *.pyc
+
+app/test/
+app/web/
+app/windows/
