@@ -28,3 +28,4 @@ __pycache__/
 app/koopy/test/
 app/koopy/web/
 app/koopy/windows/
+.vscode/

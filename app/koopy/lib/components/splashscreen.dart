@@ -9,30 +9,26 @@ class SimpleStateMachine extends StatefulWidget {
 }
 
 class _SimpleStateMachineState extends State<SimpleStateMachine> {
-  SMIBool? _bump;
+  SMIBool? _loaded;
 
-  void _onRiveInit(Artboard artboard) {
-    final controller = StateMachineController.fromArtboard(artboard, 'Splashscreen');
+  void _onInit(Artboard artboard) async {
+    final controller =
+        StateMachineController.fromArtboard(artboard, 'Splashscreen');
     artboard.addController(controller!);
-    _bump = controller.findInput<bool>('Loaded') as SMIBool;
+    _loaded = controller.findInput<bool>('Loaded') as SMIBool;
+    // load data from API
+    //await Future.delayed(const Duration(seconds: 5));
+    //_loaded?.change(true);
   }
-
-  void _hitBump() => _bump?.change(true);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Simple Animation'),
-      ),
       body: Center(
-        child: GestureDetector(
-          child: RiveAnimation.asset(
-            'assets/animations/splashscreen.riv',
-            fit: BoxFit.cover,
-            onInit: _onRiveInit,
-          ),
-          onTap: _hitBump,
+        child: RiveAnimation.asset(
+          'assets/animations/splashscreen.riv',
+          fit: BoxFit.fitWidth,
+          onInit: _onInit,
         ),
       ),
     );

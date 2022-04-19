@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:koopy/components/login.dart';
 import 'components/splashscreen.dart';
 
 void main() {
-  runApp(MaterialApp(home: SimpleStateMachine()));
+  runApp(MaterialApp(home: Scaffold(
+    body: LoginScreen(),
+  )));
 }
 
 class MyApp extends StatelessWidget {
