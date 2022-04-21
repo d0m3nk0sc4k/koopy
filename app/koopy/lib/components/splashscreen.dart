@@ -1,15 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:koopy/components/routes/fadePageRoute.dart';
 import 'package:rive/rive.dart';
+import 'login/login.dart';
 
-class SimpleStateMachine extends StatefulWidget {
-  const SimpleStateMachine({Key? key}) : super(key: key);
+class Splashscreen extends StatefulWidget {
+  const Splashscreen({Key? key}) : super(key: key);
 
   @override
-  _SimpleStateMachineState createState() => _SimpleStateMachineState();
+  _SplashscreenState createState() => _SplashscreenState();
 }
 
-class _SimpleStateMachineState extends State<SimpleStateMachine> {
+class _SplashscreenState extends State<Splashscreen> {
   SMIBool? _loaded;
+  double opacity = 1;
+
+  Future gotData() async {
+    await Future.delayed(const Duration(seconds: 5));
+    _loaded?.change(true);
+    await Future.delayed(const Duration(milliseconds: 1000));
+  }
+
+  @override
+  void initState() {
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
+      await gotData();
+      setState(() {
+        opacity = 0;
+      });
+      Navigator.pushReplacement(
+        context,
+        FadePageRoute(
+          const Scaffold(
+            body: LoginScreen(),
+          ),
+        ),
+      );
+    });
+    super.initState();
+  }
 
   void _onInit(Artboard artboard) async {
     final controller =
@@ -17,18 +45,20 @@ class _SimpleStateMachineState extends State<SimpleStateMachine> {
     artboard.addController(controller!);
     _loaded = controller.findInput<bool>('Loaded') as SMIBool;
     // load data from API
-    //await Future.delayed(const Duration(seconds: 5));
-    //_loaded?.change(true);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: RiveAnimation.asset(
-          'assets/animations/splashscreen.riv',
-          fit: BoxFit.fitWidth,
-          onInit: _onInit,
+        child: AnimatedOpacity(
+          opacity: opacity,
+          duration: const Duration(milliseconds: 200),
+          child: RiveAnimation.asset(
+            'assets/animations/splashscreen.riv',
+            fit: BoxFit.fitWidth,
+            onInit: _onInit,
+          ),
         ),
       ),
     );
