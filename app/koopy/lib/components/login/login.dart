@@ -1,8 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:koopy/components/login/loginForm.dart';
+
+import 'loginBackscreen.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -11,14 +13,10 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [
-        TextField(
-          autofocus: true,
-          decoration: InputDecoration(
-            helperText: "Uporabnisko ime"
-          ),
-        )
+    return Stack(
+      children: [
+        const LoginBackscreen(),
+        LoginForm(),
       ],
     );
   }
