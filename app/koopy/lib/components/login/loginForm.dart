@@ -29,7 +29,8 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
+      await Future.delayed(const Duration(milliseconds: 200));
       loadFields();
     });
     super.initState();

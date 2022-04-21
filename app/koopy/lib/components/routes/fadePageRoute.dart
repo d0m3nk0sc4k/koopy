@@ -4,7 +4,7 @@ class FadePageRoute<T> extends PageRoute<T> {
   FadePageRoute(this.child);
 
   @override
-      Color get barrierColor => Colors.black;
+      Color get barrierColor => Colors.white;
 
       @override
       String? get barrierLabel => null;
@@ -24,5 +24,5 @@ class FadePageRoute<T> extends PageRoute<T> {
   bool get maintainState => true;
 
   @override
-  Duration get transitionDuration => Duration(milliseconds: 500);
+  Duration get transitionDuration => const Duration(milliseconds: 500);
 }

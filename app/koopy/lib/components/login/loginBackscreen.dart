@@ -35,7 +35,8 @@ class _LoginBackscreenState extends State<LoginBackscreen> {
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
+      await Future.delayed(const Duration(milliseconds: 200));
       loadContainers();
     });
     super.initState();
