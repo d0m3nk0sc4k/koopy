@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:koopy/main.dart';
 import 'package:koopy/theme/theme.dart';
+import 'package:http/http.dart' as http;
 
 class LoginForm extends StatefulWidget {
-  LoginForm({Key? key}) : super(key: key);
+  const LoginForm({Key? key}) : super(key: key);
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -13,6 +15,12 @@ class _LoginFormState extends State<LoginForm> {
   static double offset2 = 50;
   static double opacity1 = 0;
   static double opacity2 = 0;
+  final TextEditingController _controller = TextEditingController();
+
+  void login() async {
+    String email = _controller.value.text;
+    await http.get(Uri.parse(baseURL+"user/checkMail/"+email)).then((value) => print(value));
+  }
 
   void loadFields() async {
     await Future.delayed(const Duration(milliseconds: 300));
@@ -55,6 +63,7 @@ class _LoginFormState extends State<LoginForm> {
                 opacity: opacity1,
                 duration: const Duration(milliseconds: 200),
                 child: TextField(
+                  controller: _controller,
                   cursorColor: theme.colorScheme.primary,
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -87,7 +96,7 @@ class _LoginFormState extends State<LoginForm> {
             opacity: opacity2,
             duration: const Duration(milliseconds: 200),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: login,
               child: const Padding(
                 child: Text(
                   "NEXT",
