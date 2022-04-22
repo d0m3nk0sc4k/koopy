@@ -1,17 +1,12 @@
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:koopy/theme/theme.dart';
-import 'components/splashscreen.dart';
+import 'package:koopy/components/Home.dart';
+import 'package:koopy/components/login/login.dart';
+import 'package:koopy/components/theme.dart';
 
-String baseURL = "https://koopy.koscak.xyz/api/";
-
-void main() {
-  runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: theme,
-      home: const Scaffold(
-        body: Splashscreen(),
+void main() => runApp(
+      GetMaterialApp(
+        home: const Login(),
+        theme: theme,
       ),
-    ),
-  );
-}
+    );
