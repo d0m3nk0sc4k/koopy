@@ -35,7 +35,7 @@ class LoginController extends GetxController {
     await Future.delayed(const Duration(milliseconds: 100));
     topLeft.value = [100, -300];
     await Future.delayed(const Duration(milliseconds: 200));
-    Get.to(() => const Home(), transition: Transition.fadeIn);
+    Get.to(() => Home(), transition: Transition.fadeIn);
   }
 
   TextEditingController email = TextEditingController();

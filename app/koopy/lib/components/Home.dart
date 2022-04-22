@@ -13,7 +13,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final Controller c = Get.put(Controller());
 
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Text("ASD"),
       ),
