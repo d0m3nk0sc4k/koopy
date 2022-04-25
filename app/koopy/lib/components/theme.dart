@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 
+ColorScheme light = ColorScheme(
+    primary: Color(0xFF4472CA),
+    onPrimary: Color(0xFFa0cdff),
+    secondary: Color(0xFFF86624),
+    onSecondary: Color(0xFFFFB694),
+    background: Color(0xFFfefcfb),
+    onBackground: Color(0xFF2E2C2F),
+    surface: Color(0xFFFEFCFB),
+    onSurface: Color(0xFF2E2C2F),
+    error: Color(0xFFF15152),
+    onError: Color(0xFFFEFCFB),
+    brightness: Brightness.light
+  );
+
 ThemeData theme = ThemeData(
-  colorScheme: const ColorScheme(
-    onSurface: Color.fromRGBO(39, 90, 83, 1),
-    secondary: Color.fromRGBO(148, 199, 101, 1),
-    primary: Color.fromRGBO(39, 90, 83, 1),
-    background: Color.fromRGBO(245, 240, 227, 1),
-    onPrimary: Color.fromRGBO(245, 240, 227, 1),
-    onBackground: Color.fromRGBO(39, 90, 83, 1),
-    surface: Color.fromRGBO(245, 240, 227, 1),
-    onError: Color.fromRGBO(245, 240, 227, 1),
-    error: Color.fromRGBO(227, 73, 43, 1),
-    brightness: Brightness.light,
-    onSecondary: Color.fromRGBO(0, 0, 0, 1)
-  )
+  brightness: Brightness.light,
+  colorScheme: light,
 );
