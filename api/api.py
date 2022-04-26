@@ -41,6 +41,7 @@ api.add_resource(Favicon, '/api/favicon')
 api.add_resource(UserInfo, '/api/user/<string:user_id>')
 api.add_resource(UserClass, '/api/user')
 api.add_resource(UserLogin, '/api/user/login')
+api.add_resource(UserCheck, '/api/user/check/<string:user_mail>')
 
 #  PRODUCT API
 api.add_resource(Product, '/api/product')

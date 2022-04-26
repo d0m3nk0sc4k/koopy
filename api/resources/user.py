@@ -19,6 +19,16 @@ class UserInfo(Resource):
             return {'message': 'User with that email does not exist.'}, 400
 
 
+class UserCheck(Resource):
+    @swag_from('apidoc/usercheck.yml')
+    def get(__self__, user_mail):
+        user = User.select().where(User.mail == user_mail)
+        if user.exists():
+            return {"message": "Email taken."}, 400
+        else:
+            return {"message": "Email free."}, 200
+
+
 class UserLogin(Resource):
     @swag_from('apidoc/loginuser.yml')
     def post(__self__):
