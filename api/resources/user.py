@@ -19,9 +19,9 @@ class UserInfo(Resource):
             return {'message': 'User with that email does not exist.'}, 400
 
 
-class User(Resource):
+class UserLogin(Resource):
     @swag_from('apidoc/loginuser.yml')
-    def get(__self__):
+    def post(__self__):
         data = check_for_data()
 
         user = User.select().where(User.mail == data["mail"])
@@ -38,7 +38,9 @@ class User(Resource):
             return {"token": token}, 200
         else:
             return {"message": "Wrong password"}, 403
-    
+
+
+class User(Resource):
     @jwt_required()
     @swag_from('apidoc/deleteuser.yml')
     def delete(__self__):
