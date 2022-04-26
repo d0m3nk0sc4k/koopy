@@ -13,6 +13,13 @@ from flasgger import Swagger
 app = Flask(__name__)
 api = Api(app)
 
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+    return response
+
 app.config["JWT_SECRET_KEY"] = "ijpdhnmUb2iArs9x9pLn93EsZgmshLYrbzGpv$f4xQgP@eEWbH$h$N9AfwH3DN@5yX@nBm^3MBGEu$MZ#3Ur4ehh&*66mjJi6CxhXM2Ws6%G*AmGRFD%NEr7BezD2qrg"
 app.config['SWAGGER'] = {
     'title': 'Koopy',
