@@ -5,18 +5,28 @@ import 'package:koopy/components/theme.dart';
 import 'package:password_strength/password_strength.dart';
 
 class PasswordController extends GetxController {
-  RxMap<String, double> animationOffsets = {"title": 500.0, "subtitle": 500.0, "input": 500.0, "input1": 500.0, "button": 500.0, "signIn": 500.0}.obs;
+  RxMap<String, double> animationOffsets = {
+    "title": 500.0,
+    "subtitle": 500.0,
+    "input": 500.0,
+    "input1": 500.0,
+    "button": 500.0,
+    "signIn": 500.0,
+    "strength": 0.0,
+  }.obs;
   RxDouble passwordStrength = 0.0.obs;
   RxString passwordStrengthString = "".obs;
   Rx<Color> strengthColor = light.error.obs;
 
   TextEditingController password = TextEditingController();
-  TextEditingController repeatPassword = TextEditingController();
+  RxString repeatPassword = "".obs;
 
   void next() async {
     animationOffsets["button"] = -500.0;
     await Future.delayed(Duration(milliseconds: 100));
     animationOffsets["input1"] = -500.0;
+    await Future.delayed(Duration(milliseconds: 50));
+    animationOffsets["strength"] = -500.0;
     await Future.delayed(Duration(milliseconds: 50));
     animationOffsets["input"] = -500.0;
     await Future.delayed(Duration(milliseconds: 50));
@@ -24,7 +34,7 @@ class PasswordController extends GetxController {
     await Future.delayed(Duration(milliseconds: 100));
     animationOffsets["title"] = -500.0;
     await Future.delayed(Duration(milliseconds: 200));
-    Get.to(() => Home());
+    Get.off(() => Home());
   }
 
   void onChange(String password) {
@@ -45,6 +55,14 @@ class PasswordController extends GetxController {
     } else {
       passwordStrengthString.value = "Respect.";
       strengthColor.value = light.primary;
+    }
+  }
+
+  void comparePasswords(String repeat) {
+    if (repeat != password.text) {
+      repeatPassword.value = "Passwords do not match!";
+    } else {
+      repeatPassword.value = "";
     }
   }
 
