@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:koopy/components/functions/checkForToken.dart';
+import 'package:koopy/components/login/Login.dart';
 import 'package:koopy/components/register/Register.dart';
 import 'package:koopy/components/theme.dart';
 import 'package:rive/rive.dart';
@@ -29,10 +31,17 @@ class SplashscreenController extends GetxController {
 
   @override
   void onReady() async {
-    await Future.delayed(Duration(milliseconds: 3000));
-    loaded();
-    await Future.delayed(Duration(milliseconds: 1800));
-    offset.value = 0;
+    await checkForToken().then((value) async {
+      print("Value: " + value);
+      await Future.delayed(Duration(milliseconds: 2000));
+      loaded();
+      await Future.delayed(Duration(milliseconds: 1800));
+      if (value != "") {
+        Get.off(() => Register()); // TODO: Change with Homescreen()
+      } else {
+        offset.value = 0;
+      }
+    });
 
     super.onReady();
   }
@@ -47,21 +56,23 @@ class Splash extends StatelessWidget {
 
     return Stack(
       children: [
-        Obx(() => AnimatedContainer(
-          duration: Duration(milliseconds: 600),
-          curve: Curves.easeInCubic,
-          transform: Matrix4.translationValues(c.offsetLogo.value, 0, 0),
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: RiveAnimation.asset(
-                "assets/animations/splashscreen.riv",
-                fit: BoxFit.contain,
-                onInit: c._onInit,
+        Obx(
+          () => AnimatedContainer(
+            duration: Duration(milliseconds: 600),
+            curve: Curves.easeInCubic,
+            transform: Matrix4.translationValues(c.offsetLogo.value, 0, 0),
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: RiveAnimation.asset(
+                  "assets/animations/splashscreen.riv",
+                  fit: BoxFit.contain,
+                  onInit: c._onInit,
+                ),
               ),
             ),
           ),
-        ),),
+        ),
         Obx(
           () => AnimatedContainer(
             curve: Curves.easeOutCubic,
@@ -80,7 +91,10 @@ class Splash extends StatelessWidget {
                       ),
                       child: IconButton(
                         onPressed: c.navigate,
-                        icon: Icon(Icons.navigate_next, color: light.primary,),
+                        icon: Icon(
+                          Icons.navigate_next,
+                          color: light.primary,
+                        ),
                       ),
                     ),
                   ),
