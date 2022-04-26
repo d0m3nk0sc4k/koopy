@@ -39,7 +39,7 @@ api.add_resource(Favicon, '/api/favicon')
 
 #  USER API
 api.add_resource(UserInfo, '/api/user/<string:user_id>')
-api.add_resource(User, '/api/user')
+api.add_resource(UserClass, '/api/user')
 api.add_resource(UserLogin, '/api/user/login')
 
 #  PRODUCT API

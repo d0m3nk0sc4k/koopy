@@ -40,7 +40,7 @@ class UserLogin(Resource):
             return {"message": "Wrong password"}, 403
 
 
-class User(Resource):
+class UserClass(Resource):
     @jwt_required()
     @swag_from('apidoc/deleteuser.yml')
     def delete(__self__):
