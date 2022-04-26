@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:koopy/components/functions/checkForToken.dart' as fun;
 import 'package:koopy/components/register/Register.dart';
 import 'package:koopy/components/theme.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,6 +10,9 @@ class LoginController extends GetxController {
   RxDouble offsetUsername = 500.0.obs;
   RxDouble offsetPassword = 500.0.obs;
   RxDouble offsetButtons = 500.0.obs;
+
+  RxString errorUsername = "".obs;
+  RxString errorPassword = "".obs;
 
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -23,6 +27,32 @@ class LoginController extends GetxController {
     offsetTitle.value = -500.0;
 
     Get.off(() => new Register(), transition: Transition.fadeIn);
+  }
+
+  void login() async {
+    RegExp regex = RegExp(r"[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]{2,3})");
+
+    if (!regex.hasMatch(username.value.text)) {
+      errorUsername.value = "Please enter valid e-mail address.";
+      return;
+    }
+
+    var status = await fun.login(username.value.text, password.value.text);
+
+    if (status.isEmpty) {
+      Get.off(() => Register()); //TODO: Replace with Homescreen()
+    } else if (status['statusCode'] == 400) {
+      errorUsername.value = status['message'];
+    } else if (status['statusCode'] == 403) {
+      errorPassword.value = status['message'];
+    } else {
+      Get.snackbar("Error", "Something went wrong! Please try again.", backgroundColor: light.error, snackPosition: SnackPosition.BOTTOM);
+    }
+  }
+
+  void clearErrors() {
+    errorPassword.value = "";
+    errorUsername.value = "";
   }
 
   @override
@@ -81,7 +111,9 @@ class Login extends StatelessWidget {
                   controller: c.username,
                   style: TextStyle(color: light.primary),
                   cursorColor: light.primary,
+                  onChanged: (value) {c.clearErrors();},
                   decoration: InputDecoration(
+                    errorText: c.errorUsername.value == "" ? null : c.errorUsername.value,
                     labelText: "E-Mail",
                     labelStyle: TextStyle(color: light.primary),
                   ),
@@ -100,7 +132,9 @@ class Login extends StatelessWidget {
                   obscureText: true,
                   style: TextStyle(color: light.primary),
                   cursorColor: light.primary,
+                  onChanged: (value) {c.clearErrors();},
                   decoration: InputDecoration(
+                    errorText: c.errorPassword.value == "" ? null : c.errorPassword.value ,
                     labelText: "Password",
                     labelStyle: TextStyle(color: light.primary),
                   ),
@@ -132,7 +166,7 @@ class Login extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(2.0),
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: c.login,
                           icon: Icon(
                             Icons.navigate_next,
                             color: light.background,
