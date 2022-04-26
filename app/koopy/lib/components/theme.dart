@@ -12,6 +12,7 @@ ColorScheme light = ColorScheme(
   onSurface: Color(0xFF2E2C2F),
   error: Color(0xFFF15152),
   onError: Color(0xFFFEFCFB),
+  tertiary: Color(0xFF20A39E),
   brightness: Brightness.light,
 );
 
@@ -19,18 +20,18 @@ ThemeData theme = ThemeData(
   brightness: Brightness.light,
   colorScheme: light,
   backgroundColor: light.primary,
-  scaffoldBackgroundColor: light.primary,
+  scaffoldBackgroundColor: light.background,
   textTheme: GoogleFonts.nunitoTextTheme()
 );
 
 TextStyle title = TextStyle(
   color: light.primary,
   fontSize: 38.0,
-  fontWeight: FontWeight.w900,
+  fontWeight: FontWeight.w800,
 );
 
 TextStyle subtitle = TextStyle(
-  color: light.primary,
+  color: light.onBackground,
   fontSize: 20.0,
   fontWeight: FontWeight.w900,
 );

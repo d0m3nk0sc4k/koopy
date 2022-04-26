@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:koopy/components/functions/checkForToken.dart' as fun;
+import 'package:koopy/components/functions/login.dart' as fun;
 import 'package:koopy/components/register/Register.dart';
+import 'package:koopy/components/register/RegisterController.dart';
 import 'package:koopy/components/theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -76,8 +77,6 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     LoginController c = Get.put(LoginController());
     RegisterController rc = Get.find();
-
-    c.username.value = rc.username.value;
 
     return Obx(
       () => Scaffold(
