@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:koopy/components/functions/Fernet.dart';
 import 'package:koopy/components/functions/login.dart' as fun;
+import 'package:koopy/components/home/Home.dart';
 import 'package:koopy/components/register/Register.dart';
-import 'package:koopy/components/register/RegisterController.dart';
 import 'package:koopy/components/theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -31,23 +32,26 @@ class LoginController extends GetxController {
   }
 
   void login() async {
-    RegExp regex = RegExp(r"[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]{2,3})");
+    RegExp regex = RegExp(
+        r"[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]{2,3})");
 
     if (!regex.hasMatch(username.value.text)) {
       errorUsername.value = "Please enter valid e-mail address.";
       return;
     }
 
-    var status = await fun.login(username.value.text, password.value.text);
+    var status = await fun.login(
+        username.value.text, encryptFernet(password.value.text));
 
     if (status.isEmpty) {
-      Get.off(() => Register()); //TODO: Replace with Homescreen()
+      Get.off(() => Home());
     } else if (status['statusCode'] == 400) {
       errorUsername.value = status['message'];
     } else if (status['statusCode'] == 403) {
       errorPassword.value = status['message'];
     } else {
-      Get.snackbar("Error", "Something went wrong! Please try again.", backgroundColor: light.error, snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar("Error", "Something went wrong! Please try again.",
+          backgroundColor: light.error, snackPosition: SnackPosition.BOTTOM);
     }
   }
 
@@ -76,7 +80,6 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LoginController c = Get.put(LoginController());
-    RegisterController rc = Get.find();
 
     return Obx(
       () => Scaffold(
@@ -110,9 +113,13 @@ class Login extends StatelessWidget {
                   controller: c.username,
                   style: TextStyle(color: light.primary),
                   cursorColor: light.primary,
-                  onChanged: (value) {c.clearErrors();},
+                  onChanged: (value) {
+                    c.clearErrors();
+                  },
                   decoration: InputDecoration(
-                    errorText: c.errorUsername.value == "" ? null : c.errorUsername.value,
+                    errorText: c.errorUsername.value == ""
+                        ? null
+                        : c.errorUsername.value,
                     labelText: "E-Mail",
                     labelStyle: TextStyle(color: light.primary),
                   ),
@@ -131,9 +138,13 @@ class Login extends StatelessWidget {
                   obscureText: true,
                   style: TextStyle(color: light.primary),
                   cursorColor: light.primary,
-                  onChanged: (value) {c.clearErrors();},
+                  onChanged: (value) {
+                    c.clearErrors();
+                  },
                   decoration: InputDecoration(
-                    errorText: c.errorPassword.value == "" ? null : c.errorPassword.value ,
+                    errorText: c.errorPassword.value == ""
+                        ? null
+                        : c.errorPassword.value,
                     labelText: "Password",
                     labelStyle: TextStyle(color: light.primary),
                   ),

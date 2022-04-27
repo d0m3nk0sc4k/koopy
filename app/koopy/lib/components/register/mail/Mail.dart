@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:koopy/components/login/Login.dart';
 import 'package:koopy/components/register/mail/MailController.dart';
 import 'package:koopy/components/theme.dart';
 
@@ -102,7 +103,7 @@ class Mail extends StatelessWidget {
                       transform: Matrix4.translationValues(
                           c.animationOffsets["signIn"]!, 0, 0),
                       child: TextButton(
-                        onPressed: () {}, // TODO: next
+                        onPressed: () => (Get.off(() => Login())),
                         child: Text(
                           "Want to sign in?",
                           style: TextStyle(
