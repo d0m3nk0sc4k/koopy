@@ -19,7 +19,7 @@ responses:
         token:
           type: string
         id:
-          type: int
+          type: integer
   400:
     description: User does not exist
     schema:
