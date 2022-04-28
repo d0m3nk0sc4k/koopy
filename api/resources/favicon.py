@@ -3,4 +3,4 @@ from flask import send_file
 
 class Favicon(Resource):
     def get(__self__):
-        return send_file('../assets/logo/primary.png', mimetype='image/png')
+        return send_file('../assets/logo/secondary.png', mimetype='image/png')
