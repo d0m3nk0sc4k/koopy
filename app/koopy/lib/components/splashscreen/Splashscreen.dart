@@ -41,7 +41,7 @@ class Splash extends StatelessWidget {
                 children: [
                   Center(
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(26.0),
                       child: Ink(
                         decoration: const ShapeDecoration(
                           shape: CircleBorder(),

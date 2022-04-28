@@ -136,7 +136,7 @@ class Password extends StatelessWidget {
                             minimumSize: Size.fromHeight(50),
                           ),
                           child: Text(
-                            "NEXT",
+                            "CREATE ACCOUNT",
                             style: TextStyle(
                               color: light.background,
                               fontWeight: FontWeight.w700,
@@ -147,21 +147,6 @@ class Password extends StatelessWidget {
                     ),
                     Expanded(
                       child: SizedBox(),
-                    ),
-                    AnimatedContainer(
-                      duration: Duration(milliseconds: 200),
-                      curve: Curves.easeInOutCubic,
-                      transform: Matrix4.translationValues(
-                          c.animationOffsets["signIn"]!, 0, 0),
-                      child: TextButton(
-                        onPressed: c.next,
-                        child: Text(
-                          "Want to sign in?",
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
                     ),
                   ],
                 ),

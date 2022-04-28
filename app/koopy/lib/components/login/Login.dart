@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:koopy/components/functions/Fernet.dart';
+import 'package:koopy/components/functions/EncryptPassword.dart';
 import 'package:koopy/components/functions/login.dart' as fun;
 import 'package:koopy/components/home/Home.dart';
 import 'package:koopy/components/register/Register.dart';
@@ -41,7 +41,7 @@ class LoginController extends GetxController {
     }
 
     var status = await fun.login(
-        username.value.text, encryptFernet(password.value.text));
+        username.value.text, encryptPassword(password.value.text));
 
     if (status.isEmpty) {
       Get.off(() => Home());

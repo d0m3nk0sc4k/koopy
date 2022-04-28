@@ -1,14 +1,7 @@
-import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:http/http.dart' as http;
-import 'package:koopy/components/functions/Fernet.dart';
-import 'package:koopy/components/home/Home.dart';
-import 'package:koopy/components/register/mail/MailController.dart';
-import 'package:koopy/components/register/name/NameController.dart';
+import 'package:koopy/components/register/accountCreation/AccountCreation.dart';
 import 'package:koopy/components/theme.dart';
-import 'package:koopy/components/variables.dart';
 import 'package:password_strength/password_strength.dart';
 
 class PasswordController extends GetxController {
@@ -31,38 +24,11 @@ class PasswordController extends GetxController {
   TextEditingController repeatedPass = TextEditingController();
   RxString repeatPassword = "".obs;
 
-  Future registerUser() async {
-    MailController mc = Get.find();
-    NameController nc = Get.find();
-
-    await http
-        .post(
-      Uri.parse(baseUrl + "user"),
-      body: json.encode(
-        {
-          "mail": mc.mail.text,
-          "name": nc.name.text,
-          "password": encryptFernet(password.text)
-        },
-      ),
-    )
-        .then(
-      (response) {
-        if (response.statusCode == 201) {
-          final storage = GetStorage();
-          storage.write('token', json.decode(response.body)["token"]);
-        }
-      },
-    );
-  }
-
   void next() async {
     comparePasswords(repeatedPass.text);
     if (!passwordOK) {
       return;
     }
-
-    await registerUser();
 
     animationOffsets["button"] = -500.0;
     await Future.delayed(Duration(milliseconds: 100));
@@ -76,7 +42,7 @@ class PasswordController extends GetxController {
     await Future.delayed(Duration(milliseconds: 100));
     animationOffsets["title"] = -500.0;
     await Future.delayed(Duration(milliseconds: 200));
-    Get.off(() => Home());
+    Get.to(() => AccountCreation());
   }
 
   void onChange(String password) {

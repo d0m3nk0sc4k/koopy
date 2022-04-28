@@ -6,12 +6,21 @@ import 'package:koopy/components/variables.dart';
 Future<String> checkForToken() async {
   final storage = GetStorage();
   if (storage.read('token') != null) {
-    await http.get(Uri.parse(baseUrl+"user/1")).then((response) async {
+    return await http.get(Uri.parse(baseUrl + "user/1"), headers: {
+      'Authorization': "Bearer " + storage.read('token')
+    }).then((response) async {
       if (response.statusCode == 401) {
-        await login(storage.read('username'), storage.read('password'));
+        if (storage.read('username') != null &&
+            storage.read('password') != null) {
+          await login(storage.read('username'), storage.read('password'));
+          return storage.read('token');
+        } else {
+          return "";
+        }
+      } else {
+        return storage.read('token');
       }
     });
-    return storage.read('token');
   } else if (storage.read('username') != null &&
       storage.read('password') != null) {
     await login(storage.read('username'), storage.read('password'));
