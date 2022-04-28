@@ -1,13 +1,12 @@
-import 'package:koopy/components/functions/checkForToken.dart';
-import 'package:koopy/components/register/Register.dart';
+import 'package:koopy/components/functions/CheckToken.dart';
+import 'package:koopy/components/home/Home.dart';
 import 'package:get/get.dart';
 import 'package:koopy/components/register/mail/Mail.dart';
 import 'package:rive/rive.dart';
 
 class SplashscreenController extends GetxController {
-  RxDouble offset =
-      100.0.obs; // Bottom button to next page offset (it is hidden)
-  RxDouble offsetLogo = 0.0.obs; // Var used for animation (fly from screen)
+  RxDouble offset = 100.0.obs;
+  RxDouble offsetLogo = 0.0.obs;
 
   SMIBool? _loaded; // Var for Rive State Machine
 
@@ -24,14 +23,15 @@ class SplashscreenController extends GetxController {
     await Future.delayed(Duration(milliseconds: 150));
     offset.value = 100.0;
     await Future.delayed(Duration(milliseconds: 500));
-    Get.off(() => Mail(), transition: Transition.fadeIn);
+    Get.off(() => Mail());
   }
 
   // Run once, when widget is rendered
   @override
   void onReady() async {
+    super.onReady();
     // check if token is in store
-    await checkForToken().then((value) async {
+    await CheckToken().then((value) async {
       // wait for 2 more seconds
       await Future.delayed(Duration(milliseconds: 2000));
       _loaded?.change(true);
@@ -39,12 +39,14 @@ class SplashscreenController extends GetxController {
       await Future.delayed(Duration(milliseconds: 2000));
       // if token is in store
       if (value != "") {
-        Get.off(() => Register()); // TODO: Change with Homescreen()
+        offsetLogo.value = -500.0;
+        await Future.delayed(Duration(milliseconds: 150));
+        offset.value = 100.0;
+        await Future.delayed(Duration(milliseconds: 500));
+        Get.off(() => Home());
       } else {
         offset.value = 0;
       }
     });
-
-    super.onReady();
   }
 }

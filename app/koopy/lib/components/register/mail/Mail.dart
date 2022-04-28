@@ -58,11 +58,8 @@ class Mail extends StatelessWidget {
                         controller: c.mail,
                         style: TextStyle(color: light.primary),
                         cursorColor: light.primary,
-                        onChanged: (value) => c.clearErrors(),
+                        keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                          errorText: c.mailError.value == ""
-                              ? null
-                              : c.mailError.value,
                           labelText: "E-Mail",
                           labelStyle: TextStyle(color: light.primary),
                         ),
@@ -96,21 +93,6 @@ class Mail extends StatelessWidget {
                     ),
                     Expanded(
                       child: SizedBox(),
-                    ),
-                    AnimatedContainer(
-                      duration: Duration(milliseconds: 200),
-                      curve: Curves.easeInOutCubic,
-                      transform: Matrix4.translationValues(
-                          c.animationOffsets["signIn"]!, 0, 0),
-                      child: TextButton(
-                        onPressed: () => (Get.off(() => Login())),
-                        child: Text(
-                          "Want to sign in?",
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
                     ),
                   ],
                 ),

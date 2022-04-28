@@ -1,9 +1,9 @@
 import 'package:http/http.dart' as http;
 import 'package:get_storage/get_storage.dart';
-import 'package:koopy/components/functions/login.dart';
+import 'package:koopy/components/functions/Login.dart';
 import 'package:koopy/components/variables.dart';
 
-Future<String> checkForToken() async {
+Future<String> CheckToken() async {
   final storage = GetStorage();
   if (storage.read('token') != null) {
     return await http.get(Uri.parse(baseUrl + "user/1"), headers: {

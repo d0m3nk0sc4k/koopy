@@ -1,8 +1,7 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:get_storage/get_storage.dart';
-import 'package:koopy/components/functions/EncryptPassword.dart';
-import 'package:koopy/components/variables.dart';
+import 'package:koopy/main.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 Future login(String username, String password) async {
   final storage = GetStorage();

@@ -1,78 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:koopy/components/functions/EncryptPassword.dart';
-import 'package:koopy/components/functions/login.dart' as fun;
-import 'package:koopy/components/home/Home.dart';
-import 'package:koopy/components/register/Register.dart';
+import 'package:koopy/components/login/LoginController.dart';
 import 'package:koopy/components/theme.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-class LoginController extends GetxController {
-  RxDouble offsetTitle = 500.0.obs;
-  RxDouble offsetUsername = 500.0.obs;
-  RxDouble offsetPassword = 500.0.obs;
-  RxDouble offsetButtons = 500.0.obs;
-
-  RxString errorUsername = "".obs;
-  RxString errorPassword = "".obs;
-
-  TextEditingController username = TextEditingController();
-  TextEditingController password = TextEditingController();
-
-  void register() async {
-    offsetButtons.value = -500.0;
-    await Future.delayed(Duration(milliseconds: 100));
-    offsetPassword.value = -500.0;
-    await Future.delayed(Duration(milliseconds: 50));
-    offsetUsername.value = -500.0;
-    await Future.delayed(Duration(milliseconds: 100));
-    offsetTitle.value = -500.0;
-
-    Get.off(() => new Register(), transition: Transition.fadeIn);
-  }
-
-  void login() async {
-    RegExp regex = RegExp(
-        r"[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]{2,3})");
-
-    if (!regex.hasMatch(username.value.text)) {
-      errorUsername.value = "Please enter valid e-mail address.";
-      return;
-    }
-
-    var status = await fun.login(
-        username.value.text, encryptPassword(password.value.text));
-
-    if (status.isEmpty) {
-      Get.off(() => Home());
-    } else if (status['statusCode'] == 400) {
-      errorUsername.value = status['message'];
-    } else if (status['statusCode'] == 403) {
-      errorPassword.value = status['message'];
-    } else {
-      Get.snackbar("Error", "Something went wrong! Please try again.",
-          backgroundColor: light.error, snackPosition: SnackPosition.BOTTOM);
-    }
-  }
-
-  void clearErrors() {
-    errorPassword.value = "";
-    errorUsername.value = "";
-  }
-
-  @override
-  void onReady() async {
-    offsetTitle.value = 0;
-    await Future.delayed(Duration(milliseconds: 100));
-    offsetUsername.value = 0;
-    await Future.delayed(Duration(milliseconds: 50));
-    offsetPassword.value = 0;
-    await Future.delayed(Duration(milliseconds: 100));
-    offsetButtons.value = 0;
-
-    super.onReady();
-  }
-}
 
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
@@ -98,7 +27,7 @@ class Login extends StatelessWidget {
                 transform: Matrix4.translationValues(c.offsetTitle.value, 0, 0),
                 child: Text(
                   "Great to see you again!",
-                  style: GoogleFonts.nunito(textStyle: title),
+                  style: title,
                 ),
               ),
               SizedBox(
@@ -113,13 +42,8 @@ class Login extends StatelessWidget {
                   controller: c.username,
                   style: TextStyle(color: light.primary),
                   cursorColor: light.primary,
-                  onChanged: (value) {
-                    c.clearErrors();
-                  },
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                    errorText: c.errorUsername.value == ""
-                        ? null
-                        : c.errorUsername.value,
                     labelText: "E-Mail",
                     labelStyle: TextStyle(color: light.primary),
                   ),
@@ -138,13 +62,7 @@ class Login extends StatelessWidget {
                   obscureText: true,
                   style: TextStyle(color: light.primary),
                   cursorColor: light.primary,
-                  onChanged: (value) {
-                    c.clearErrors();
-                  },
                   decoration: InputDecoration(
-                    errorText: c.errorPassword.value == ""
-                        ? null
-                        : c.errorPassword.value,
                     labelText: "Password",
                     labelStyle: TextStyle(color: light.primary),
                   ),
@@ -154,37 +72,26 @@ class Login extends StatelessWidget {
                 height: 30,
               ),
               AnimatedContainer(
-                curve: Curves.easeInOutCubic,
                 duration: Duration(milliseconds: 200),
+                curve: Curves.easeInOutCubicEmphasized,
                 transform:
                     Matrix4.translationValues(c.offsetUsername.value, 0, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextButton(
-                      onPressed: c.register,
-                      child: Text(
-                        "Sign Up",
-                        style: subtitle,
+                child: Center(
+                  child: ElevatedButton(
+                    onPressed: c.login,
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                      minimumSize: Size.fromHeight(50),
+                    ),
+                    child: Text(
+                      "LOGIN",
+                      style: TextStyle(
+                        color: light.background,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
-                    Ink(
-                      decoration: const ShapeDecoration(
-                        shape: CircleBorder(),
-                        color: Color(0xFF4472CA),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: IconButton(
-                          onPressed: c.login,
-                          icon: Icon(
-                            Icons.navigate_next,
-                            color: light.background,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
               Expanded(

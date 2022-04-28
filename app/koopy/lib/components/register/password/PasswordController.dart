@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:koopy/components/global/Snackbar.dart';
 import 'package:koopy/components/register/accountCreation/AccountCreation.dart';
 import 'package:koopy/components/theme.dart';
 import 'package:password_strength/password_strength.dart';
@@ -22,11 +23,22 @@ class PasswordController extends GetxController {
 
   TextEditingController password = TextEditingController();
   TextEditingController repeatedPass = TextEditingController();
-  RxString repeatPassword = "".obs;
 
   void next() async {
+    if (password.text.isEmpty) {
+      showSnackbar(title: "No password", message: "Please enter a password!");
+      return;
+    }
+
+    if (strength < 0.7) {
+      showSnackbar(title: "Too weak", message: "Password is too weak, please choose stronger one!");
+      return;
+    }
+
     comparePasswords(repeatedPass.text);
+
     if (!passwordOK) {
+      showSnackbar(title: "No match", message: "Entered passwords do not match!");
       return;
     }
 
@@ -68,10 +80,8 @@ class PasswordController extends GetxController {
 
   void comparePasswords(String repeat) {
     if (repeat != password.text) {
-      repeatPassword.value = "Passwords do not match!";
       passwordOK = false;
     } else if (!password.text.isEmpty) {
-      repeatPassword.value = "";
       if (strength >= 0.7) passwordOK = true;
     }
   }

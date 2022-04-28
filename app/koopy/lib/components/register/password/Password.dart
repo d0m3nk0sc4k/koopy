@@ -108,12 +108,8 @@ class Password extends StatelessWidget {
                         obscureText: true,
                         style: TextStyle(color: light.primary),
                         cursorColor: light.primary,
-                        onChanged: (value) => c.comparePasswords(value),
                         controller: c.repeatedPass,
                         decoration: InputDecoration(
-                          errorText: c.repeatPassword.value == ""
-                              ? null
-                              : c.repeatPassword.value,
                           labelText: "Repeat password",
                           labelStyle: TextStyle(color: light.primary),
                         ),
