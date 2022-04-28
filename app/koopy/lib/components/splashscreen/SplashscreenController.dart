@@ -1,6 +1,8 @@
 import 'package:koopy/components/functions/CheckToken.dart';
 import 'package:koopy/components/home/Home.dart';
 import 'package:get/get.dart';
+import 'package:koopy/components/initial_setup/register/family/Family.dart';
+import 'package:koopy/components/initial_setup/register/family/FamilyController.dart';
 import 'package:koopy/components/initial_setup/register/mail/Mail.dart';
 import 'package:rive/rive.dart';
 
@@ -23,7 +25,7 @@ class SplashscreenController extends GetxController {
     await Future.delayed(Duration(milliseconds: 150));
     offset.value = 100.0;
     await Future.delayed(Duration(milliseconds: 500));
-    Get.off(() => Mail());
+    Get.off(() => AddFamily());
   }
 
   // Run once, when widget is rendered
@@ -43,7 +45,7 @@ class SplashscreenController extends GetxController {
         await Future.delayed(Duration(milliseconds: 150));
         offset.value = 100.0;
         await Future.delayed(Duration(milliseconds: 500));
-        Get.off(() => Home());
+        Get.off(() => AddFamily());
       } else {
         offset.value = 0;
       }
