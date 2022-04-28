@@ -45,7 +45,7 @@ class UserLogin(Resource):
         if (data["password"] == password.password):
             password.update({"last_login": datetime.now()}).execute()
             token = create_access_token(identity=user.id)
-            return {"token": token}, 200
+            return {"token": token, "id": user.id}, 200
         else:
             return {"message": "Wrong password"}, 403
 
@@ -81,4 +81,4 @@ class UserClass(Resource):
         user = User.create(name=data["name"], mail=data["mail"])
         UserPassword.create(password=data['password'], last_login=datetime.now(), id_u=user.id)
         token = create_access_token(identity=user.id)
-        return {"token": token}, 201
+        return {"token": token, "id": user.id}, 201
