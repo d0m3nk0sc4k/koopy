@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:koopy/components/functions/EncryptPassword.dart';
-import 'package:koopy/components/functions/login.dart' as fun;
+import 'package:koopy/components/functions/Login.dart' as fun;
 import 'package:koopy/components/global/Snackbar.dart';
 import 'package:koopy/components/home/Home.dart';
-import 'package:koopy/components/register/mail/MailController.dart';
+import 'package:koopy/components/initial_setup/register/mail/MailController.dart';
 
 class LoginController extends GetxController {
   MailController mc = Get.find();

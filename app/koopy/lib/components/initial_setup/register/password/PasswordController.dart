@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:koopy/components/global/Snackbar.dart';
-import 'package:koopy/components/register/accountCreation/AccountCreation.dart';
+import 'package:koopy/components/initial_setup/register/accountCreation/AccountCreation.dart';
 import 'package:koopy/components/theme.dart';
 import 'package:password_strength/password_strength.dart';
 

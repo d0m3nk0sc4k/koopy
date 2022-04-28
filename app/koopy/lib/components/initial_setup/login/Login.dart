@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:koopy/components/login/LoginController.dart';
+import 'package:koopy/components/initial_setup/login/LoginController.dart';
 import 'package:koopy/components/theme.dart';
 
 class Login extends StatelessWidget {

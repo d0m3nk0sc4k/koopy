@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:koopy/components/global/Snackbar.dart';
-import 'package:koopy/components/login/Login.dart';
-import 'package:koopy/components/register/name/Name.dart';
+import 'package:koopy/components/initial_setup/login/Login.dart';
+import 'package:koopy/components/initial_setup/register/name/Name.dart';
 import 'package:koopy/components/theme.dart';
 import 'package:koopy/main.dart';
 

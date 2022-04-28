@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:koopy/components/register/accountCreation/AccountCreationController.dart';
+import 'package:koopy/components/initial_setup/register/accountCreation/AccountCreationController.dart';
 import 'package:rive/rive.dart';
 
 class AccountCreation extends StatelessWidget {

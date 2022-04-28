@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:koopy/components/register/password/PasswordController.dart';
+import 'package:koopy/components/initial_setup/register/password/PasswordController.dart';
 import 'package:koopy/components/theme.dart';
 
 class Password extends StatelessWidget {

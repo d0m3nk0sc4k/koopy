@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:koopy/components/login/Login.dart';
-import 'package:koopy/components/register/mail/MailController.dart';
+import 'package:koopy/components/initial_setup/register/name/NameController.dart';
 import 'package:koopy/components/theme.dart';
 
-class Mail extends StatelessWidget {
-  const Mail({Key? key}) : super(key: key);
+class Name extends StatelessWidget {
+  const Name({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    MailController c = Get.put(MailController());
+    NameController c = Get.put(NameController());
 
     return Obx(
       () => Scaffold(
@@ -32,7 +31,7 @@ class Mail extends StatelessWidget {
                       transform: Matrix4.translationValues(
                           c.animationOffsets["title"]!, 0, 0),
                       child: Text(
-                        "Welcome!",
+                        "A little info about you!",
                         style: title,
                       ),
                     ),
@@ -42,7 +41,7 @@ class Mail extends StatelessWidget {
                       transform: Matrix4.translationValues(
                           c.animationOffsets["subtitle"]!, 0, 0),
                       child: Text(
-                        "It is good to see you!",
+                        "Can you tell me your name?",
                         style: subtitle,
                       ),
                     ),
@@ -55,12 +54,11 @@ class Mail extends StatelessWidget {
                       transform: Matrix4.translationValues(
                           c.animationOffsets["input"]!, 0, 0),
                       child: TextField(
-                        controller: c.mail,
+                        controller: c.name,
                         style: TextStyle(color: light.primary),
                         cursorColor: light.primary,
-                        keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                          labelText: "E-Mail",
+                          labelText: "Name",
                           labelStyle: TextStyle(color: light.primary),
                         ),
                       ),
@@ -75,7 +73,7 @@ class Mail extends StatelessWidget {
                           c.animationOffsets["button"]!, 0, 0),
                       child: Center(
                         child: ElevatedButton(
-                          onPressed: () => c.checkMail(),
+                          onPressed: c.next,
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12)),
@@ -93,6 +91,21 @@ class Mail extends StatelessWidget {
                     ),
                     Expanded(
                       child: SizedBox(),
+                    ),
+                    AnimatedContainer(
+                      duration: Duration(milliseconds: 200),
+                      curve: Curves.easeInOutCubic,
+                      transform: Matrix4.translationValues(
+                          c.animationOffsets["signIn"]!, 0, 0),
+                      child: TextButton(
+                        onPressed: c.next,
+                        child: Text(
+                          "Want to sign in?",
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),

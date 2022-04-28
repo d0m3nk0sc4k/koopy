@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:koopy/components/register/password/Password.dart';
+import 'package:koopy/components/initial_setup/register/password/Password.dart';
 
 class NameController extends GetxController {
   RxMap<String, double> animationOffsets = {"title": 500.0, "subtitle": 500.0, "input": 500.0, "button": 500.0, "signIn": 500.0}.obs;

@@ -1,7 +1,7 @@
 import 'package:koopy/components/functions/CheckToken.dart';
 import 'package:koopy/components/home/Home.dart';
 import 'package:get/get.dart';
-import 'package:koopy/components/register/mail/Mail.dart';
+import 'package:koopy/components/initial_setup/register/mail/Mail.dart';
 import 'package:rive/rive.dart';
 
 class SplashscreenController extends GetxController {
