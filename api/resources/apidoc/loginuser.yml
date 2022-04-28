@@ -18,6 +18,8 @@ responses:
       properties:
         token:
           type: string
+        id:
+          type: int
   400:
     description: User does not exist
     schema:
