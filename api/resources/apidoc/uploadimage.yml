@@ -1,0 +1,32 @@
+Upload profile image
+---
+security:
+  bearerAuth:
+    type: https
+    scheme: bearer
+    bearerFormat: JWT
+tags:
+  - "User"
+parameters:
+  - in: body
+    schema:
+      properties:
+        file:
+          type: file
+        user:
+          type: integer
+responses:
+  200:
+    description: empty
+  401:
+    description: Unauthorized - no token present
+    schema:
+      properties:
+        msg:
+          type: string
+  500:
+    decription: Internal server error
+    schema:
+      properties:
+        message:
+          type: string

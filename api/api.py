@@ -8,6 +8,7 @@ from resources.family import *
 from resources.list import *
 from resources.homepage import *
 from resources.favicon import *
+from resources.image import *
 from flask_jwt_extended import JWTManager
 from flasgger import Swagger
 
@@ -23,6 +24,7 @@ app.config['SWAGGER'] = {
     'termsOfService': '',
     'description': 'API for Koopy application'
 }
+app.config['UPLOAD_FOLDER'] = '/mnt/koopy/profile'
 
 swagger_config = Swagger.DEFAULT_CONFIG
 swagger_config['swagger_ui_bundle_js'] = '//unpkg.com/swagger-ui-dist@3/swagger-ui-bundle.js'
@@ -37,11 +39,15 @@ jwt = JWTManager(app)
 api.add_resource(Homepage, '/api/')
 api.add_resource(Favicon, '/api/favicon')
 
+#  IMAGE API
+api.add_resource(ImageGet, '/api/image/<string:image_name>')
+api.add_resource(ImagePost, '/api/image')
+
 #  USER API
-api.add_resource(UserInfo, '/api/user/<string:user_id>')
 api.add_resource(UserClass, '/api/user')
 api.add_resource(UserLogin, '/api/user/login')
 api.add_resource(UserCheck, '/api/user/check/<string:user_mail>')
+api.add_resource(UserInfo, '/api/user/<string:user_id>')
 
 #  PRODUCT API
 api.add_resource(Product, '/api/product')

@@ -1,0 +1,24 @@
+Get image
+---
+security:
+  bearerAuth:
+    type: https
+    scheme: bearer
+    bearerFormat: JWT
+tags:
+  - "User"
+parameters:
+  - in: path
+    name: user_id
+    required: true
+    description: The ID of user
+    type: integer
+responses:
+  200:
+    description: Got image
+  401:
+    description: Unauthorized - no token present
+    schema:
+      properties:
+        msg:
+          type: string
