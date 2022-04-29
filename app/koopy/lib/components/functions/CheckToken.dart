@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'package:get_storage/get_storage.dart';
 import 'package:koopy/components/functions/Login.dart';
-import 'package:koopy/components/variables.dart';
+import 'package:koopy/main.dart';
 
 Future<String> CheckToken() async {
   final storage = GetStorage();
