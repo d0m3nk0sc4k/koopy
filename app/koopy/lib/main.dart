@@ -13,6 +13,7 @@ void main() async {
   );
   runApp(
     GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Splash(),
       theme: theme,
     ),

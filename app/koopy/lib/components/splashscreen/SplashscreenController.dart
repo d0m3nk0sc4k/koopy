@@ -1,9 +1,7 @@
 import 'package:koopy/components/functions/CheckToken.dart';
 import 'package:koopy/components/home/Home.dart';
 import 'package:get/get.dart';
-import 'package:koopy/components/initial_setup/register/family/Family.dart';
-import 'package:koopy/components/initial_setup/register/family/FamilyController.dart';
-import 'package:koopy/components/initial_setup/register/mail/Mail.dart';
+import 'package:koopy/components/initial_setup/register/Register.dart';
 import 'package:rive/rive.dart';
 
 class SplashscreenController extends GetxController {
@@ -25,7 +23,7 @@ class SplashscreenController extends GetxController {
     await Future.delayed(Duration(milliseconds: 150));
     offset.value = 100.0;
     await Future.delayed(Duration(milliseconds: 500));
-    Get.off(() => AddFamily());
+    Get.off(() => Register());
   }
 
   // Run once, when widget is rendered
@@ -35,7 +33,7 @@ class SplashscreenController extends GetxController {
     // check if token is in store
     await CheckToken().then((value) async {
       // wait for 2 more seconds
-      await Future.delayed(Duration(milliseconds: 2000));
+      await Future.delayed(Duration(milliseconds: 1000));
       _loaded?.change(true);
       // wait till animation is complete
       await Future.delayed(Duration(milliseconds: 2000));
@@ -45,7 +43,7 @@ class SplashscreenController extends GetxController {
         await Future.delayed(Duration(milliseconds: 150));
         offset.value = 100.0;
         await Future.delayed(Duration(milliseconds: 500));
-        Get.off(() => AddFamily());
+        Get.off(() => Home());
       } else {
         offset.value = 0;
       }
