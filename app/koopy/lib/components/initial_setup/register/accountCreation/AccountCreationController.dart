@@ -32,12 +32,22 @@ class AccountCreationController extends GetxController {
       ),
     )
         .then(
-      (response) {
+      (response) async {
         if (response.statusCode == 201) {
           final storage = GetStorage();
           final data = json.decode(response.body);
           storage.write('token', data["token"]);
           storage.write('userID', data["id"]);
+          await http.get(
+              Uri.parse(baseUrl + "user/" + storage.read('userID').toString()),
+              headers: {
+                'Authorization': "Bearer " + data['token']
+              }).then((value) {
+            if (value.statusCode == 200) {
+              storage.write('userData', jsonDecode(value.body));
+            }
+            print(value.body);
+          });
         }
       },
     );
