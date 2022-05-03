@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:koopy/components/functions/EncryptPassword.dart';
-import 'package:koopy/components/initial_setup/register/family/Family.dart';
+import 'package:koopy/components/initial_setup/register/image/Image.dart';
 import 'package:koopy/components/initial_setup/register/mail/MailController.dart';
 import 'package:koopy/components/initial_setup/register/name/NameController.dart';
 import 'package:koopy/components/initial_setup/register/password/PasswordController.dart';
@@ -79,7 +79,7 @@ class AccountCreationController extends GetxController {
     statusOpacity.value = 0;
     offset.value = 500;
     await Future.delayed(Duration(milliseconds: 500));
-    Get.to(() => AddFamily());
+    Get.off(() => Image());
     super.onReady();
   }
 }

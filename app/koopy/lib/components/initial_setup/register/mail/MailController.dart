@@ -25,21 +25,38 @@ class MailController extends GetxController {
     return regex.hasMatch(mail.text);
   }
 
-  Future<bool> existsMail() async {
-    return await http
-        .get(Uri.parse(baseUrl + "user/check/" + mail.text))
-        .then((value) => (value.statusCode == 400));
+  Future<int> existsMail() async {
+    try {
+      return await http
+          .get(
+        Uri.parse(baseUrl + "user/check/" + mail.text),
+      )
+          .then(
+        (value) {
+          if (value.statusCode == 400) return 1;
+          return 0;
+        },
+      );
+    } catch (e) {
+      showSnackbar(
+            title: "Unavailable",
+            message: "Server is currently unavailable. Please try again!",
+          );
+      return 2;
+    }
   }
 
   void checkMail() async {
-    if (!validMail()) {
+    if (validMail() == 0) {
       showSnackbar(
           title: "Invalid mail",
           message: "Please enter valid mail in format: name@example.com");
       return;
     }
 
-    if (await existsMail()) {
+    int status = await existsMail();
+
+    if (status == 1) {
       showSnackbar(
         title: "Existing user",
         message: "User with that email already exists. Want to sign in?",
@@ -47,7 +64,7 @@ class MailController extends GetxController {
         onTap: toLogin,
       );
       animationOffsets["signIn"] = 0;
-    } else {
+    } else if (status != 2) {
       next();
     }
   }

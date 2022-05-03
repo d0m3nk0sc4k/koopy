@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:koopy/components/global/Snackbar.dart';
-import 'package:koopy/components/initial_setup/register/accountCreation/AccountCreation.dart';
+import 'package:koopy/components/initial_setup/register/image/Image.dart' as i;
 import 'package:koopy/components/theme.dart';
 import 'package:password_strength/password_strength.dart';
 
@@ -30,7 +30,7 @@ class PasswordController extends GetxController {
       return;
     }
 
-    if (strength < 0.7) {
+    if (strength < 0.3) {
       showSnackbar(title: "Too weak", message: "Password is too weak, please choose stronger one!");
       return;
     }
@@ -54,7 +54,7 @@ class PasswordController extends GetxController {
     await Future.delayed(Duration(milliseconds: 100));
     animationOffsets["title"] = -500.0;
     await Future.delayed(Duration(milliseconds: 200));
-    Get.to(() => AccountCreation());
+    Get.to(() => i.Image());
   }
 
   void onChange(String password) {
@@ -63,13 +63,13 @@ class PasswordController extends GetxController {
     double maxWidth = MediaQuery.of(Get.context!).size.width - 44;
     passwordStrength.value = maxWidth * strength;
 
-    if (strength < 0.5) {
+    if (strength < 0.3) {
       passwordStrengthString.value = "Really!?!";
       strengthColor.value = light.error;
-    } else if (strength >= 0.5 && strength < 0.7) {
+    } else if (strength >= 0.3 && strength < 0.5) {
       passwordStrengthString.value = "I know you can do better!";
       strengthColor.value = light.secondary;
-    } else if (strength >= 0.7 && strength < 0.9) {
+    } else if (strength >= 0.5 && strength < 0.8) {
       passwordStrengthString.value = "Just a little...";
       strengthColor.value = light.tertiary;
     } else {
@@ -82,7 +82,7 @@ class PasswordController extends GetxController {
     if (repeat != password.text) {
       passwordOK = false;
     } else if (!password.text.isEmpty) {
-      if (strength >= 0.7) passwordOK = true;
+      if (strength >= 0.3) passwordOK = true;
     }
   }
 

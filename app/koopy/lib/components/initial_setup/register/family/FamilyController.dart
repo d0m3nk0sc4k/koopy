@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
+import 'package:koopy/components/home/Home.dart';
 import 'package:koopy/main.dart';
 
 class FamilyController extends GetxController {
@@ -38,7 +39,9 @@ class FamilyController extends GetxController {
     await http.put(Uri.parse(baseUrl+"family"), body: json.encode({"join_key": joinKey.text, "user": storage.read("userID")}));
   }
 
-  void notNow() async {}
+  void notNow() async {
+    Get.off(() => Home());
+  }
 
   @override
   void onReady() async {
