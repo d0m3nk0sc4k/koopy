@@ -56,14 +56,14 @@ class Password extends StatelessWidget {
                       child: TextField(
                         obscureText: true,
                         controller: c.password,
-                        style: TextStyle(color: light.primary),
-                        cursorColor: light.primary,
+                        style: TextStyle(color: Theme.of(Get.context!).colorScheme.primary),
+                        cursorColor: Theme.of(Get.context!).colorScheme.primary,
                         onChanged: (value) {
                           c.onChange(value);
                         },
                         decoration: InputDecoration(
                           labelText: "Password",
-                          labelStyle: TextStyle(color: light.primary),
+                          labelStyle: TextStyle(color: Theme.of(Get.context!).colorScheme.primary),
                         ),
                       ),
                     ),
@@ -106,12 +106,12 @@ class Password extends StatelessWidget {
                           c.animationOffsets["input1"]!, 0, 0),
                       child: TextField(
                         obscureText: true,
-                        style: TextStyle(color: light.primary),
-                        cursorColor: light.primary,
+                        style: TextStyle(color: Theme.of(Get.context!).colorScheme.primary),
+                        cursorColor: Theme.of(Get.context!).colorScheme.primary,
                         controller: c.repeatedPass,
                         decoration: InputDecoration(
                           labelText: "Repeat password",
-                          labelStyle: TextStyle(color: light.primary),
+                          labelStyle: TextStyle(color: Theme.of(Get.context!).colorScheme.primary),
                         ),
                       ),
                     ),
@@ -134,7 +134,7 @@ class Password extends StatelessWidget {
                           child: Text(
                             "CREATE ACCOUNT",
                             style: TextStyle(
-                              color: light.background,
+                              color: Theme.of(Get.context!).colorScheme.background,
                               fontWeight: FontWeight.w700,
                             ),
                           ),

@@ -106,7 +106,7 @@ class AddFamily extends StatelessWidget {
                           child: Text(
                             "JOIN",
                             style: TextStyle(
-                              color: light.background,
+                              color: Theme.of(Get.context!).colorScheme.background,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
@@ -120,7 +120,7 @@ class AddFamily extends StatelessWidget {
                       onPressed: c.notNow,
                       child: Text(
                         "Not now",
-                        style: TextStyle(color: light.primary),
+                        style: TextStyle(color: Theme.of(Get.context!).colorScheme.primary),
                       ),
                     ),
                     Expanded(

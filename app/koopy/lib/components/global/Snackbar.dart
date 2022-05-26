@@ -6,10 +6,10 @@ void showSnackbar({required String title, required String message, color, onTap}
   Get.snackbar(
         title,
         message,
-        backgroundColor: (color == null || color.runtimeType != Color) ? light.error : color,
+        backgroundColor: (color == null || color.runtimeType != Color) ? error : color,
         snackPosition: SnackPosition.BOTTOM,
         margin: EdgeInsets.symmetric(vertical: 20, horizontal: 14),
-        colorText: light.onError,
+        colorText: Theme.of(Get.context!).colorScheme.background,
         animationDuration: Duration(milliseconds: 200),
         onTap: (_) {onTap();}
       );

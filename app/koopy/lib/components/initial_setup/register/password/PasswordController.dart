@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:koopy/components/global/Snackbar.dart';
+import 'package:koopy/components/initial_setup/register/accountCreation/AccountCreation.dart';
 import 'package:koopy/components/initial_setup/register/image/Image.dart' as i;
 import 'package:koopy/components/theme.dart';
 import 'package:password_strength/password_strength.dart';
@@ -17,7 +18,7 @@ class PasswordController extends GetxController {
   }.obs;
   RxDouble passwordStrength = 0.0.obs;
   RxString passwordStrengthString = "".obs;
-  Rx<Color> strengthColor = light.error.obs;
+  Rx<Color> strengthColor = error.obs;
   bool passwordOK = false;
   double strength = 0.0;
 
@@ -31,14 +32,17 @@ class PasswordController extends GetxController {
     }
 
     if (strength < 0.3) {
-      showSnackbar(title: "Too weak", message: "Password is too weak, please choose stronger one!");
+      showSnackbar(
+          title: "Too weak",
+          message: "Password is too weak, please choose stronger one!");
       return;
     }
 
     comparePasswords(repeatedPass.text);
 
     if (!passwordOK) {
-      showSnackbar(title: "No match", message: "Entered passwords do not match!");
+      showSnackbar(
+          title: "No match", message: "Entered passwords do not match!");
       return;
     }
 
@@ -54,7 +58,8 @@ class PasswordController extends GetxController {
     await Future.delayed(Duration(milliseconds: 100));
     animationOffsets["title"] = -500.0;
     await Future.delayed(Duration(milliseconds: 200));
-    Get.to(() => i.Image());
+    // Get.to(() => i.Image());
+    Get.to(() => AccountCreation());
   }
 
   void onChange(String password) {
@@ -65,16 +70,13 @@ class PasswordController extends GetxController {
 
     if (strength < 0.3) {
       passwordStrengthString.value = "Really!?!";
-      strengthColor.value = light.error;
-    } else if (strength >= 0.3 && strength < 0.5) {
+      strengthColor.value = error;
+    } else if (strength >= 0.3 && strength < 0.8) {
       passwordStrengthString.value = "I know you can do better!";
-      strengthColor.value = light.secondary;
-    } else if (strength >= 0.5 && strength < 0.8) {
-      passwordStrengthString.value = "Just a little...";
-      strengthColor.value = light.tertiary;
+      strengthColor.value = warning;
     } else {
-      passwordStrengthString.value = "Respect.";
-      strengthColor.value = light.primary;
+      passwordStrengthString.value = "Well done.";
+      strengthColor.value = success;
     }
   }
 

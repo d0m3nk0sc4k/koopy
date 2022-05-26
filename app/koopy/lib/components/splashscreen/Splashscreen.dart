@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:koopy/components/splashscreen/SplashscreenController.dart';
-
-import 'package:koopy/components/theme.dart';
 import 'package:rive/rive.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +12,7 @@ class Splash extends StatelessWidget {
 
     return Obx(
       () => Scaffold(
-        backgroundColor: light.primary,
+        backgroundColor: Theme.of(Get.context!).colorScheme.primary,
         body: Stack(
           children: [
             AnimatedContainer(
@@ -51,7 +49,7 @@ class Splash extends StatelessWidget {
                           onPressed: c.navigate,
                           icon: Icon(
                             Icons.navigate_next,
-                            color: light.primary,
+                            color: Theme.of(Get.context!).colorScheme.primary,
                           ),
                         ),
                       ),

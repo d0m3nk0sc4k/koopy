@@ -55,11 +55,11 @@ class Name extends StatelessWidget {
                           c.animationOffsets["input"]!, 0, 0),
                       child: TextField(
                         controller: c.name,
-                        style: TextStyle(color: light.primary),
-                        cursorColor: light.primary,
+                        style: TextStyle(color: Theme.of(Get.context!).colorScheme.primary),
+                        cursorColor: Theme.of(Get.context!).colorScheme.primary,
                         decoration: InputDecoration(
                           labelText: "Name",
-                          labelStyle: TextStyle(color: light.primary),
+                          labelStyle: TextStyle(color: Theme.of(Get.context!).colorScheme.primary),
                         ),
                       ),
                     ),
@@ -82,7 +82,7 @@ class Name extends StatelessWidget {
                           child: Text(
                             "NEXT",
                             style: TextStyle(
-                              color: light.background,
+                              color: Theme.of(Get.context!).colorScheme.background,
                               fontWeight: FontWeight.w700,
                             ),
                           ),

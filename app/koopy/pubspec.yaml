@@ -17,6 +17,7 @@ dependencies:
   encrypt: 5.0.1
   flutter_barcode_scanner: 2.0.0
   image_picker: 0.8.5
+  font_awesome_flutter: 10.1.0
   
   flutter:
     sdk: flutter

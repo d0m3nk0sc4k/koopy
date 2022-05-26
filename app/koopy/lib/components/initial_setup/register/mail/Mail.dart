@@ -52,15 +52,22 @@ class Mail extends StatelessWidget {
                       curve: Curves.easeInOutCubic,
                       duration: Duration(milliseconds: 200),
                       transform: Matrix4.translationValues(
-                          c.animationOffsets["input"]!, 0, 0),
+                        c.animationOffsets["input"]!,
+                        0,
+                        0,
+                      ),
                       child: TextField(
                         controller: c.mail,
-                        style: TextStyle(color: light.primary),
-                        cursorColor: light.primary,
+                        style: TextStyle(
+                          color: Theme.of(Get.context!).colorScheme.primary,
+                        ),
+                        cursorColor: Theme.of(Get.context!).colorScheme.primary,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           labelText: "E-Mail",
-                          labelStyle: TextStyle(color: light.primary),
+                          labelStyle: TextStyle(
+                            color: Theme.of(Get.context!).colorScheme.primary,
+                          ),
                         ),
                       ),
                     ),
@@ -83,7 +90,8 @@ class Mail extends StatelessWidget {
                           child: Text(
                             "NEXT",
                             style: TextStyle(
-                              color: light.background,
+                              color:
+                                  Theme.of(Get.context!).colorScheme.background,
                               fontWeight: FontWeight.w700,
                             ),
                           ),

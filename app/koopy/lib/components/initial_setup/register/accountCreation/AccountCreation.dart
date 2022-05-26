@@ -33,7 +33,12 @@ class AccountCreation extends StatelessWidget {
               duration: Duration(
                 milliseconds: 200,
               ),
-              child: Text(c.status.value),
+              child: Text(
+                c.status.value,
+                style: TextStyle(
+                  color: Theme.of(Get.context!).colorScheme.onBackground,
+                ),
+              ),
             ),
           ],
         ),

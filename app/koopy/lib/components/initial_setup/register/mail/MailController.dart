@@ -38,16 +38,17 @@ class MailController extends GetxController {
         },
       );
     } catch (e) {
+      print(e);
       showSnackbar(
             title: "Unavailable",
-            message: "Server is currently unavailable. Please try again!",
+            message: "Server is currently unavailable. Please try again later!",
           );
       return 2;
     }
   }
 
   void checkMail() async {
-    if (validMail() == 0) {
+    if (validMail() == false) {
       showSnackbar(
           title: "Invalid mail",
           message: "Please enter valid mail in format: name@example.com");
@@ -60,7 +61,7 @@ class MailController extends GetxController {
       showSnackbar(
         title: "Existing user",
         message: "User with that email already exists. Want to sign in?",
-        color: light.secondary,
+        color: warning,
         onTap: toLogin,
       );
       animationOffsets["signIn"] = 0;

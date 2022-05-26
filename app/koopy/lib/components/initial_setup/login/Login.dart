@@ -12,7 +12,7 @@ class Login extends StatelessWidget {
 
     return Obx(
       () => Scaffold(
-        backgroundColor: light.background,
+        backgroundColor: Theme.of(Get.context!).colorScheme.background,
         body: Padding(
           padding: EdgeInsets.all(22.0),
           child: Column(
@@ -40,12 +40,12 @@ class Login extends StatelessWidget {
                     Matrix4.translationValues(c.offsetUsername.value, 0, 0),
                 child: TextField(
                   controller: c.username,
-                  style: TextStyle(color: light.primary),
-                  cursorColor: light.primary,
+                  style: TextStyle(color: Theme.of(Get.context!).colorScheme.primary),
+                  cursorColor: Theme.of(Get.context!).colorScheme.primary,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     labelText: "E-Mail",
-                    labelStyle: TextStyle(color: light.primary),
+                    labelStyle: TextStyle(color: Theme.of(Get.context!).colorScheme.primary),
                   ),
                 ),
               ),
@@ -60,11 +60,11 @@ class Login extends StatelessWidget {
                 child: TextField(
                   controller: c.password,
                   obscureText: true,
-                  style: TextStyle(color: light.primary),
-                  cursorColor: light.primary,
+                  style: TextStyle(color: Theme.of(Get.context!).colorScheme.primary),
+                  cursorColor: Theme.of(Get.context!).colorScheme.primary,
                   decoration: InputDecoration(
                     labelText: "Password",
-                    labelStyle: TextStyle(color: light.primary),
+                    labelStyle: TextStyle(color: Theme.of(Get.context!).colorScheme.primary),
                   ),
                 ),
               ),
@@ -87,7 +87,7 @@ class Login extends StatelessWidget {
                     child: Text(
                       "LOGIN",
                       style: TextStyle(
-                        color: light.background,
+                        color: Theme.of(Get.context!).colorScheme.background,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
