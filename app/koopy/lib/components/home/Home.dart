@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:koopy/components/home/lists/Lists.dart';
 import 'package:koopy/components/home/navigation/Navigation.dart';
+import 'package:koopy/components/home/screen/HomeScreen.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class Home extends StatelessWidget {
         body: Stack(
           children: [
             Navigation(),
-            Lists(),
+            HomeScreen(),
           ],
         ),
       ),

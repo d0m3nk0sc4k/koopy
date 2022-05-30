@@ -25,32 +25,28 @@ class Navigation extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  AnimatedContainer(
-                    duration: Duration(milliseconds: 200),
-                    curve: Curves.easeInOutCubic,
-                    child: ClipOval(
-                      child: Material(
-                        color: Theme.of(Get.context!)
-                            .colorScheme
-                            .onSurface
-                            .withOpacity(c.opacities["Home"]!.value),
-                        child: InkWell(
-                          onTap: () {
-                            c.changePage("Home");
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.all(10),
-                            child: SizedBox(
-                              width: 26,
-                              height: 26,
-                              child: Center(
-                                child: FaIcon(
-                                  FontAwesomeIcons.house,
-                                  color: Theme.of(Get.context!)
-                                      .colorScheme
-                                      .onSurface,
-                                  size: 20,
-                                ),
+                  ClipOval(
+                    child: Material(
+                      color: Theme.of(Get.context!).colorScheme.surface,
+                      child: InkWell(
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        onTap: () {
+                          c.changePage("Home");
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: SizedBox(
+                            width: 26,
+                            height: 26,
+                            child: Center(
+                              child: FaIcon(
+                                FontAwesomeIcons.house,
+                                color: Theme.of(Get.context!)
+                                    .colorScheme
+                                    .onSurface
+                                    .withOpacity(c.opacities["Home"]!.value),
+                                size: 20,
                               ),
                             ),
                           ),
@@ -60,11 +56,10 @@ class Navigation extends StatelessWidget {
                   ),
                   ClipOval(
                     child: Material(
-                      color: Theme.of(Get.context!)
-                          .colorScheme
-                          .onSurface
-                          .withOpacity(c.opacities["Lists"]!.value),
+                      color: Theme.of(Get.context!).colorScheme.surface,
                       child: InkWell(
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
                         onTap: () {
                           c.changePage("Lists");
                         },
@@ -78,7 +73,8 @@ class Navigation extends StatelessWidget {
                                 FontAwesomeIcons.listCheck,
                                 color: Theme.of(Get.context!)
                                     .colorScheme
-                                    .onSurface,
+                                    .onSurface
+                                    .withOpacity(c.opacities["Lists"]!.value),
                                 size: 20,
                               ),
                             ),
@@ -89,11 +85,10 @@ class Navigation extends StatelessWidget {
                   ),
                   ClipOval(
                     child: Material(
-                      color: Theme.of(Get.context!)
-                          .colorScheme
-                          .onSurface
-                          .withOpacity(c.opacities["Family"]!.value),
+                      color: Theme.of(Get.context!).colorScheme.surface,
                       child: InkWell(
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
                         onTap: () {
                           c.changePage("Family");
                         },
@@ -107,7 +102,8 @@ class Navigation extends StatelessWidget {
                                 FontAwesomeIcons.peopleGroup,
                                 color: Theme.of(Get.context!)
                                     .colorScheme
-                                    .onSurface,
+                                    .onSurface
+                                    .withOpacity(c.opacities["Family"]!.value),
                                 size: 20,
                               ),
                             ),
@@ -118,11 +114,10 @@ class Navigation extends StatelessWidget {
                   ),
                   ClipOval(
                     child: Material(
-                      color: Theme.of(Get.context!)
-                          .colorScheme
-                          .onSurface
-                          .withOpacity(c.opacities["Settings"]!.value),
+                      color: Theme.of(Get.context!).colorScheme.surface,
                       child: InkWell(
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
                         onTap: () {
                           c.changePage("Settings");
                         },
@@ -136,7 +131,9 @@ class Navigation extends StatelessWidget {
                                 FontAwesomeIcons.gears,
                                 color: Theme.of(Get.context!)
                                     .colorScheme
-                                    .onSurface,
+                                    .onSurface
+                                    .withOpacity(
+                                        c.opacities["Settings"]!.value),
                                 size: 20,
                               ),
                             ),
