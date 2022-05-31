@@ -11,7 +11,6 @@ from werkzeug.utils import secure_filename
 from os import path
 
 class ImageGet(Resource):
-    @jwt_required()
     @swag_from('apidoc/getimage.yml')
     def get(__self__, image_name):
         return send_file('/mnt/koopy/profile/' + image_name, mimetype='image/png')
@@ -27,4 +26,4 @@ class ImagePost(Resource):
         
         User.update({'profile_img': filename}).where(User.id == user).execute()
 
-        return "asd"
+        return file.filename[:-3]
