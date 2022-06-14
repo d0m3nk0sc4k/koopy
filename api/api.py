@@ -62,7 +62,7 @@ api.add_resource(FamilyDelete, '/api/family/delete')
 api.add_resource(FamilyJoin, '/api/family/join')
 
 # LIST API
-api.add_resource(List, '/api/list/info/<string:list_id>')
+api.add_resource(ListInfo, '/api/list/info/<string:list_id>')
 api.add_resource(ListNew, '/api/list/new')
 api.add_resource(ListDelete, '/api/list/delete')
 
