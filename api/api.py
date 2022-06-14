@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from datetime import timedelta
 from flask import Flask, url_for
 from flask_restful import Api
 from flask_cors import CORS
@@ -18,6 +19,7 @@ api = Api(app)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 app.config["JWT_SECRET_KEY"] = "ijpdhnmUb2iArs9x9pLn93EsZgmshLYrbzGpv$f4xQgP@eEWbH$h$N9AfwH3DN@5yX@nBm^3MBGEu$MZ#3Ur4ehh&*66mjJi6CxhXM2Ws6%G*AmGRFD%NEr7BezD2qrg"
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=24)
 app.config['SWAGGER'] = {
     'title': 'Koopy',
     'specs_route': '/api/docs/',
