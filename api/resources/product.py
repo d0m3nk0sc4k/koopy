@@ -7,19 +7,19 @@ from flask_jwt_extended import jwt_required
 from flasgger import swag_from
 
 
-class Product(Resource):
+class ProductInfo(Resource):
     @jwt_required()
     @swag_from('apidoc/productinfo.yml')
-    def get(__self__):
-        data = check_for_data()
+    def get(__self__, product_name):
 
-        products = Product.select().where(Product.name == data['name'])
+        products = Product.select().where(Product.name == product_name)
 
         if products.exists():
             return [model_to_dict(product) for product in products], 200
         else:
             return {"message": "Product with that name does not exist."}, 400
 
+class ProductNew(Resource):
     @jwt_required()
     @swag_from('apidoc/newproduct.yml')
     def post(__self__):
@@ -44,6 +44,7 @@ class Product(Resource):
         else:
             return {"message": "Something went wrong. Please try again."}, 500
 
+class ProductDelete(Resource):
     @jwt_required()
     @swag_from('apidoc/deleteproduct.yml')
     def delete(__self__):
@@ -63,6 +64,7 @@ class Product(Resource):
 
         return {"message": "Product successfully deleted."}, 204
 
+class ProductUpdate(Resource):
     @jwt_required()
     @swag_from('apidoc/updateproduct.yml')
     def put(__self__):

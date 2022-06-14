@@ -50,13 +50,21 @@ api.add_resource(UserCheck, '/api/user/check/<string:user_mail>')
 api.add_resource(UserInfo, '/api/user/<string:user_id>')
 
 #  PRODUCT API
-api.add_resource(Product, '/api/product')
+api.add_resource(ProductInfo, '/api/product/info/<string:product_name>')
+api.add_resource(ProductNew, '/api/product/new')
+api.add_resource(ProductDelete, '/api/product/delete')
+api.add_resource(ProductUpdate, '/api/product/update')
 
 # FAMILY API
-api.add_resource(Family, '/api/family')
+api.add_resource(FamilyInfo, '/api/family/info/<string:family_id>')
+api.add_resource(FamilyNew, '/api/family/new')
+api.add_resource(FamilyDelete, '/api/family/delete')
+api.add_resource(FamilyJoin, '/api/family/join')
 
 # LIST API
-api.add_resource(List, '/api/list')
+api.add_resource(List, '/api/list/info/<string:list_id>')
+api.add_resource(ListNew, '/api/list/new')
+api.add_resource(ListDelete, '/api/list/delete')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

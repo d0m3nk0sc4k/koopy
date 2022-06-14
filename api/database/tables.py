@@ -22,6 +22,7 @@ class UserPassword(BaseModel):
     last_login = DateTimeField()
     id_u = ForeignKeyField(User, backref='password')
 
+
 class Family(BaseModel):
     id = AutoField()
     name = TextField()
@@ -65,7 +66,7 @@ if __name__ == '__main__':
     db.connect()
 
     db.drop_tables([User, Family, Family_has_User,
-                     Product, List, List_has_Product, UserPassword])
+                    Product, List, List_has_Product, UserPassword])
 
     db.create_tables([User, Family, Family_has_User,
                      Product, List, List_has_Product, UserPassword])

@@ -8,18 +8,17 @@ from .functions import check_for_data
 from flask_jwt_extended import jwt_required
 from flasgger import swag_from
 
-class List(Resource):
+class ListInfo(Resource):
     @jwt_required()
     @swag_from('apidoc/listinfo.yml')
-    def get(__self__):
-        data = check_for_data()
-
-        list = List.select().where(List.id == data['id'])
+    def get(__self__, list_id):
+        list = List.select().where(List.id == list_id)
         if list.exists():
             return loads(dumps(model_to_dict(list.get()), sort_keys=True, default=str)), 200
         else:
             return {'message': 'List with that id does not exist.'}, 400
-        
+
+class ListNew(Resource):
     @jwt_required()
     @swag_from('apidoc/newlist.yml')
     def post(__self__):
@@ -34,6 +33,7 @@ class List(Resource):
 
         return model_to_dict(list), 201
 
+class ListDelete(Resource):
     @jwt_required()
     @swag_from('apidoc/deletelist.yml')
     def delete(__self__):

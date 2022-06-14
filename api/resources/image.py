@@ -26,4 +26,4 @@ class ImagePost(Resource):
         
         User.update({'profile_img': filename}).where(User.id == user).execute()
 
-        return file.filename[:-3]
+        return file.filename[:4]

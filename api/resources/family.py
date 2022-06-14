@@ -1,7 +1,7 @@
 from flask import request
 from flask_restful import Resource
-from datetime import datetime
-from database.tables import Family, Family_has_User
+from database.tables import Family
+from database.tables import Family_has_User
 from playhouse.shortcuts import model_to_dict
 from json import dumps, loads
 from .functions import check_for_data
@@ -9,17 +9,17 @@ from uuid import uuid5, NAMESPACE_URL
 from flask_jwt_extended import jwt_required
 from flasgger import swag_from
 
-class Family(Resource):
+class FamilyInfo(Resource):
     @jwt_required()
     @swag_from('apidoc/familyinfo.yml')
-    def get(__self__):
-        data = check_for_data()
-        family = Family.select().where(Family.id == data['id'])
+    def get(__self__, family_id):
+        family = Family.select().where(Family.id == family_id)
         if family.exists():
             return loads(dumps(model_to_dict(family.get()), sort_keys=True, default=str)), 200
         else:
             return {'message': 'Family with that id does not exist.'}, 400
 
+class FamilyNew(Resource):
     @jwt_required()
     @swag_from('apidoc/newfamily.yml')
     def post(__self__):
@@ -35,6 +35,7 @@ class Family(Resource):
 
         return  loads(dumps(model_to_dict(Family.get(Family.id == family.id)), sort_keys=True, default=str)), 201
 
+class FamilyDelete(Resource):
     @jwt_required()
     @swag_from('apidoc/deletefamily.yml')
     def delete(__self__):
@@ -59,6 +60,7 @@ class Family(Resource):
 
         return {"message": "Successfully deleted"}, 204
 
+class FamilyJoin(Resource):
     @jwt_required()
     @swag_from('apidoc/joinfamily.yml')
     def put(__self__):
