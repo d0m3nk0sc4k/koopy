@@ -9,6 +9,16 @@ from flask_jwt_extended import create_access_token, jwt_required
 from flasgger import swag_from
 
 
+class UserFamilies(Resource):
+    @jwt_required()
+    @swag_from('apidoc/userfamilies.yml')
+    def get(__self__, user_id):
+        user = User.select().where(User.id == user_id)
+        if user.exists():
+            return loads(dumps(model_to_dict(user.families), sort_keys=True, default=str))
+        else:
+            return {'message': 'User with that email does not exist.'}, 400
+
 class UserInfo(Resource):
     @jwt_required()
     @swag_from('apidoc/userinfo.yml')

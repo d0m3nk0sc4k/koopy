@@ -50,6 +50,7 @@ api.add_resource(UserClass, '/api/user')
 api.add_resource(UserLogin, '/api/user/login')
 api.add_resource(UserCheck, '/api/user/check/<string:user_mail>')
 api.add_resource(UserInfo, '/api/user/<string:user_id>')
+api.add_resource(UserFamilies, '/api/user/families/<string:user_id>')
 
 #  PRODUCT API
 api.add_resource(ProductInfo, '/api/product/info/<string:product_name>')
