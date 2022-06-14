@@ -1,6 +1,6 @@
 from flask import request
 from flask_restful import Resource
-from database.tables import User, UserPassword
+from database.tables import User, UserPassword, Family
 from datetime import datetime
 from playhouse.shortcuts import model_to_dict
 from json import dumps, loads
@@ -13,11 +13,16 @@ class UserFamilies(Resource):
     @jwt_required()
     @swag_from('apidoc/userfamilies.yml')
     def get(__self__, user_id):
-        user = User.select().where(User.id == user_id)
-        if user.exists():
-            return loads(dumps(model_to_dict(user.families), sort_keys=True, default=str))
-        else:
-            return {'message': 'User with that email does not exist.'}, 400
+        user = User.select().where(User.id == user_id).get()
+        families = user.families
+
+        toReturn = dict()
+
+        for family in families:
+            familyName = Family.select(Family.name).where(Family.id == family)
+            toReturn[familyName] = family
+
+        return loads(toReturn)
 
 class UserInfo(Resource):
     @jwt_required()
