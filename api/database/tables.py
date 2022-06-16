@@ -60,6 +60,7 @@ class List_has_Product(BaseModel):
     bought = DateTimeField(null=True)
     added_u = ForeignKeyField(User, backref='added_products')
     bought_u = ForeignKeyField(User, backref='bought_products', null=True)
+    quantity = IntegerField(null=False, default=1)
 
 
 if __name__ == '__main__':

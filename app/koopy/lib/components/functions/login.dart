@@ -22,7 +22,6 @@ Future login(String username, String password) async {
         if (value.statusCode == 200) {
           storage.write('userData', jsonDecode(value.body));
         }
-        print(value.body);
       });
       return {};
     } else {

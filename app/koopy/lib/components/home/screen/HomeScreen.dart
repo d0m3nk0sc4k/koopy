@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:koopy/components/home/screen/filters/Filters.dart';
-import 'package:koopy/components/home/screen/title/Title.dart';
+import 'package:koopy/components/home/screen/header/Header.dart';
+import 'package:koopy/components/home/screen/list/List.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -13,8 +13,11 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            FamilyTitle(),
-            Filters(),
+            Header(),
+            SizedBox(
+              height: 50,
+            ),
+            List(),
           ],
         ),
       ),

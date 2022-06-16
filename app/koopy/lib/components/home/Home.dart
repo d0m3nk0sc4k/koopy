@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:koopy/components/home/navigation/Navigation.dart';
 import 'package:koopy/components/home/screen/HomeScreen.dart';
 
 class Home extends StatelessWidget {
@@ -13,7 +12,7 @@ class Home extends StatelessWidget {
         backgroundColor: Theme.of(Get.context!).colorScheme.background,
         body: Stack(
           children: [
-            Navigation(),
+            //Navigation(),
             HomeScreen(),
           ],
         ),
