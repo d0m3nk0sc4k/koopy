@@ -16,14 +16,7 @@ Future login(String username, String password) async {
       storage.write('username', username);
       storage.write('password', password);
       storage.write('userID', json.decode(value.body)['id']);
-      await http.get(Uri.parse(baseUrl + "user/" + storage.read('userID').toString()), headers: {
-        'Authorization': "Bearer " + token
-      }).then((value) {
-        if (value.statusCode == 200) {
-          storage.write('userData', jsonDecode(value.body));
-        }
-      });
-      return {};
+      return "";
     } else {
       return {
         "statusCode": value.statusCode,

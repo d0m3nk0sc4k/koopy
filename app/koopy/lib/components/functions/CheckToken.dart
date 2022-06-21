@@ -7,8 +7,27 @@ import 'package:koopy/main.dart';
 
 Future<String> CheckToken() async {
   final storage = GetStorage();
+
+  String? username = await storage.read("username");
+  String? password = await storage.read("password");
+
+  if (username == null || password == null) {
+    return "";
+  } else {
+    var temp = await login(username, password).then((value) {
+      if (value == "") {
+        return "OK";
+      } else {
+        return "";
+      }
+    });
+    return temp;
+  }
+
+  /*
   if (storage.read('token') != null) {
-    return await http.get(Uri.parse(baseUrl + "user/" + storage.read('userID').toString()),
+    return await http.get(
+        Uri.parse(baseUrl + "user/" + storage.read('userID').toString()),
         headers: {
           'Authorization': "Bearer " + storage.read('token')
         }).then((response) async {
@@ -16,7 +35,8 @@ Future<String> CheckToken() async {
         if (storage.read('username') != null &&
             storage.read('password') != null) {
           await login(storage.read('username'), storage.read('password'));
-          await http.get(Uri.parse(baseUrl + "user/" + storage.read('userID').toString()),
+          await http.get(
+              Uri.parse(baseUrl + "user/" + storage.read('userID').toString()),
               headers: {
                 'Authorization': "Bearer " + storage.read('token')
               }).then((response) async {
@@ -35,7 +55,8 @@ Future<String> CheckToken() async {
   } else if (storage.read('username') != null &&
       storage.read('password') != null) {
     await login(storage.read('username'), storage.read('password'));
-    await http.get(Uri.parse(baseUrl + "user/" + storage.read('userID').toString()),
+    await http.get(
+        Uri.parse(baseUrl + "user/" + storage.read('userID').toString()),
         headers: {
           'Authorization': "Bearer " + storage.read('token')
         }).then((response) async {
@@ -46,5 +67,5 @@ Future<String> CheckToken() async {
     return storage.read('token');
   } else {
     return "";
-  }
+  }*/
 }

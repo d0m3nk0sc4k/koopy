@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:koopy/components/initial_setup/register/family/FamilyController.dart';
+import 'package:koopy/components/initial_setup/register/family/AddNewFamilyController.dart';
 import 'package:koopy/components/theme.dart';
 
-class AddFamily extends StatelessWidget {
-  const AddFamily({Key? key}) : super(key: key);
+class AddNewFamily extends StatelessWidget {
+  const AddNewFamily({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    FamilyController c = Get.put(FamilyController());
+    AddNewFamilyContoller c = Get.put(AddNewFamilyContoller());
 
     return Obx(
       () => Scaffold(
@@ -31,7 +31,7 @@ class AddFamily extends StatelessWidget {
                       transform: Matrix4.translationValues(
                           c.animationOffsets["title"]!, 0, 0),
                       child: Text(
-                        "Join a family?",
+                        "Create new family?",
                         style: title,
                       ),
                     ),
@@ -48,18 +48,8 @@ class AddFamily extends StatelessWidget {
                     SizedBox(
                       height: 30,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(
-                          onPressed: c.readQR,
-                          icon: Icon(Icons.qr_code),
-                        ),
-                      ],
-                    ),
                     AnimatedContainer(
                       duration: Duration(milliseconds: 200),
-                      transform: Matrix4.translationValues(c.animationOffsets["input"]!, 0, 0),
                       child: TextField(
                         controller: c.name,
                         decoration: InputDecoration(
@@ -70,22 +60,10 @@ class AddFamily extends StatelessWidget {
                     ),
                     AnimatedContainer(
                       duration: Duration(milliseconds: 200),
-                      transform: Matrix4.translationValues(c.animationOffsets["input"]!, 0, 0),
                       child: TextField(
                         controller: c.address,
                         decoration: InputDecoration(
                           label: Text("Address"),
-                          isDense: true,
-                        ),
-                      ),
-                    ),
-                    AnimatedContainer(
-                      duration: Duration(milliseconds: 200),
-                      transform: Matrix4.translationValues(c.animationOffsets["input"]!, 0, 0),
-                      child: TextField(
-                        controller: c.joinKey,
-                        decoration: InputDecoration(
-                          label: Text("Join key"),
                           isDense: true,
                         ),
                       ),
@@ -107,7 +85,7 @@ class AddFamily extends StatelessWidget {
                             minimumSize: Size.fromHeight(50),
                           ),
                           child: Text(
-                            "JOIN",
+                            "CREATE",
                             style: TextStyle(
                               color: Theme.of(Get.context!).colorScheme.onBackground,
                               fontWeight: FontWeight.w700,
@@ -122,7 +100,7 @@ class AddFamily extends StatelessWidget {
                     TextButton(
                       onPressed: c.createNew,
                       child: Text(
-                        "Create new",
+                        "Join existing",
                         style: TextStyle(color: Theme.of(Get.context!).colorScheme.primary),
                       ),
                     ),

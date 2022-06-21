@@ -44,9 +44,10 @@ class AccountCreationController extends GetxController {
                 'Authorization': "Bearer " + data['token']
               }).then((value) {
             if (value.statusCode == 200) {
-              storage.write('userData', jsonDecode(value.body));
+              storage.write('userID', jsonDecode(value.body)["id"]);
+              storage.write('username', mc.mail.text);
+              storage.write('password', encryptPassword(pc.password.text));
             }
-            print(value.body);
           });
         }
       },

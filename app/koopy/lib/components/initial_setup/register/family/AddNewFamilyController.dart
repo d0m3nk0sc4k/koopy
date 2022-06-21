@@ -8,7 +8,7 @@ import 'package:koopy/components/home/Home.dart';
 import 'package:koopy/components/initial_setup/register/family/AddNewFamily.dart';
 import 'package:koopy/main.dart';
 
-class FamilyController extends GetxController {
+class AddNewFamilyContoller extends GetxController {
   RxMap<String, double> animationOffsets = {
     "title": 500.0,
     "subtitle": 500.0,

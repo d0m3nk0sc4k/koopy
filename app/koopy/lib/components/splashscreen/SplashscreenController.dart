@@ -38,7 +38,7 @@ class SplashscreenController extends GetxController {
       // wait till animation is complete
       await Future.delayed(Duration(milliseconds: 2000));
       // if token is in store
-      if (value != "") {
+      if (value == "OK") {
         offsetLogo.value = -500.0;
         await Future.delayed(Duration(milliseconds: 150));
         offset.value = 100.0;
