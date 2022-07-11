@@ -13,7 +13,7 @@ class User(BaseModel):
     id = AutoField()
     name = TextField()
     mail = TextField(unique=True)
-    profile_img = TextField(null=True)
+    profile_img = TextField(default="placeholder.png")
 
 
 class UserPassword(BaseModel):
