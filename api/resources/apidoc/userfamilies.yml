@@ -1,4 +1,4 @@
-Delete family
+Get families user is part of
 ---
 security:
   bearerAuth:
