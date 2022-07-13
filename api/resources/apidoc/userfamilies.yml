@@ -1,0 +1,29 @@
+Delete family
+---
+security:
+  bearerAuth:
+    type: https
+    scheme: bearer
+    bearerFormat: JWT
+tags:
+  - "User"
+  - "Family"
+parameters:
+  - in: body
+    schema:
+      properties:
+        id:
+          type: integer
+responses:
+  200:
+    description: List of families user is part of
+    schema:
+      properties:
+        message:
+          type: string
+  401:
+    description: Unauthorized - no token present
+    schema:
+      properties:
+        msg:
+          type: string
