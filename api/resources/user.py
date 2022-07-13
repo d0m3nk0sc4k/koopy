@@ -98,4 +98,4 @@ class UserClass(Resource):
         UserPassword.create(
             password=data['password'], last_login=datetime.now(), id_u=user.id)
         token = create_access_token(identity=user.id)
-        return {"token": token, "id": user.id}, 201
+        return {"token": token, "id": user.id, "profile_img": user.profile_img, "mail": user.mail, "name": user.name}, 201
