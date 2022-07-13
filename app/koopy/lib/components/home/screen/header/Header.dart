@@ -155,7 +155,7 @@ class Header extends StatelessWidget {
           ),
           CircleAvatar(
             backgroundImage: NetworkImage(
-              baseUrl + "image/" + storage.read("userData")["profile_img"],
+              baseUrl + "image/" + storage.read("profile_img"),
             ),
           ),
         ],

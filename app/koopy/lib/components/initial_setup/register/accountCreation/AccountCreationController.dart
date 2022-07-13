@@ -38,6 +38,7 @@ class AccountCreationController extends GetxController {
           final data = json.decode(response.body);
           storage.write('token', data["token"]);
           storage.write('userID', data["id"]);
+          storage.write('profile_img', data['profile_img']);
           await http.get(
               Uri.parse(baseUrl + "user/" + storage.read('userID').toString()),
               headers: {

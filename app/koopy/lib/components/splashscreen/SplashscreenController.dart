@@ -1,3 +1,4 @@
+import 'package:get_storage/get_storage.dart';
 import 'package:koopy/components/functions/CheckToken.dart';
 import 'package:koopy/components/home/Home.dart';
 import 'package:get/get.dart';
@@ -43,6 +44,8 @@ class SplashscreenController extends GetxController {
         await Future.delayed(Duration(milliseconds: 150));
         offset.value = 100.0;
         await Future.delayed(Duration(milliseconds: 500));
+        var storage = await GetStorage();
+        print(await storage.read("profile_img"));
         Get.off(() => Home());
       } else {
         offset.value = 0;
