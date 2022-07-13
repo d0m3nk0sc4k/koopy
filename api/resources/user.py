@@ -22,7 +22,7 @@ class UserFamilies(Resource):
             familyName = Family.select(Family.name).where(Family.id == family)
             toReturn[familyName] = family
 
-        return loads(toReturn)
+        return dumps(toReturn)
 
 class UserInfo(Resource):
     @jwt_required()
