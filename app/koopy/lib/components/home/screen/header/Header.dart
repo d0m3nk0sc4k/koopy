@@ -69,19 +69,22 @@ class Header extends StatelessWidget {
 
                                         for (String key in data.keys.toList()) {
                                           widgets.add(Padding(
-                                            padding: const EdgeInsets.only(bottom: 16.0),
+                                            padding: const EdgeInsets.only(
+                                                bottom: 16.0),
                                             child: Row(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
                                               children: [
                                                 Text(
                                                   data[key]["name"],
                                                   style: TextStyle(
-                                                    color: Theme.of(Get.context!)
-                                                        .colorScheme
-                                                        .primary,
+                                                    color:
+                                                        Theme.of(Get.context!)
+                                                            .colorScheme
+                                                            .primary,
                                                     fontSize: 18,
                                                     fontWeight: FontWeight.w700,
                                                   ),
@@ -99,11 +102,15 @@ class Header extends StatelessWidget {
                                         }
 
                                         return LimitedBox(
-                                          maxHeight: MediaQuery.of(Get.context!).size.height / 3,
+                                          maxHeight: MediaQuery.of(Get.context!)
+                                                  .size
+                                                  .height /
+                                              3,
                                           child: ListView(
                                             shrinkWrap: true,
-                                          children: widgets,
-                                        ),);
+                                            children: widgets,
+                                          ),
+                                        );
                                       }
                                     }
 

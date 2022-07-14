@@ -7,16 +7,16 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Theme.of(Get.context!).colorScheme.background,
-        body: Stack(
+    return (Scaffold(
+      backgroundColor: Theme.of(Get.context!).colorScheme.background,
+      body: SafeArea(
+        child: Stack(
           children: [
             //Navigation(),
             HomeScreen(),
           ],
         ),
       ),
-    );
+    ));
   }
 }
