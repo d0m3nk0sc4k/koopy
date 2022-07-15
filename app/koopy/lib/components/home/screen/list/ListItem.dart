@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class ListItem extends StatelessWidget {
@@ -15,17 +16,17 @@ class ListItem extends StatelessWidget {
         children: [
           SlidableAction(
             onPressed: (temp) => print("ASD"),
-            backgroundColor: Color(0xFFFE4A49),
+            backgroundColor: Theme.of(Get.context!).colorScheme.primary,
             foregroundColor: Colors.white,
-            icon: Icons.delete,
-            label: 'Delete',
+            icon: FontAwesomeIcons.check,
+            label: 'Bought',
           ),
           SlidableAction(
             onPressed: (temp) => print("ASD"),
-            backgroundColor: Color(0xFF21B7CA),
+            backgroundColor: Color(0xFFFE4A49),
             foregroundColor: Colors.white,
-            icon: Icons.share,
-            label: 'Share',
+            icon: FontAwesomeIcons.trashCan,
+            label: 'Delete',
           ),
         ],
       ),
@@ -33,37 +34,36 @@ class ListItem extends StatelessWidget {
         motion: DrawerMotion(),
         children: [
           SlidableAction(
-            flex: 2,
             onPressed: (temp) => print("ASD"),
-            backgroundColor: Color(0xFF7BC043),
+            backgroundColor: Theme.of(Get.context!).colorScheme.primary,
             foregroundColor: Colors.white,
-            icon: Icons.archive,
-            label: 'Archive',
+            icon: FontAwesomeIcons.check,
+            label: 'Bought',
           ),
           SlidableAction(
             onPressed: (temp) => print("ASD"),
-            backgroundColor: Color(0xFF0392CF),
+            backgroundColor: Color(0xFFFE4A49),
             foregroundColor: Colors.white,
-            icon: Icons.save,
-            label: 'Save',
+            icon: FontAwesomeIcons.trashCan,
+            label: 'Delete',
           ),
         ],
       ),
       child: GestureDetector(
         onTap: () => {},
         child: Container(
-          color:
-              Theme.of(Get.context!).colorScheme.onBackground.withOpacity(.2),
-          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-          child: Row(children: [
-            Text(
-              "asd",
-              style: TextStyle(
-                color: Theme.of(Get.context!).colorScheme.onBackground,
-                fontSize: 18,
-              ),
-            )
-          ]),
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            children: [
+              Text(
+                "asd",
+                style: TextStyle(
+                  color: Theme.of(Get.context!).colorScheme.onBackground,
+                  fontSize: 18,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

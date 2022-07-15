@@ -12,11 +12,8 @@ class HomeScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(40.0),
+            padding: const EdgeInsets.only(left: 40.0, right: 40.0, bottom: 20.0, top: 40.0),
             child: Header(),
-          ),
-          SizedBox(
-            height: 10,
           ),
           List(),
         ],
