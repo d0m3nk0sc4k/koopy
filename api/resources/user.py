@@ -21,7 +21,7 @@ class UserFamilies(Resource):
         for family in families:
             print(family)
             familyName = Family.select().where(Family.id == 1)
-            print(familyName.name)
+            print(familyName)
             toReturn[familyName] = family
 
         return dumps(toReturn), 200, {'Access-Control-Allow-Origin': '*'}
