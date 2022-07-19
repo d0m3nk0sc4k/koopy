@@ -14,7 +14,9 @@ class UserFamilies(Resource):
     @swag_from('apidoc/userfamilies.yml')
     def get(__self__, user_id):
         user = User.select().where(User.id == user_id).get()
-        families = user.families
+        families = model_to_dict(user.families.get())
+
+        return families
 
         toReturn = dict()
 
@@ -22,7 +24,7 @@ class UserFamilies(Resource):
             familyName = Family.select(Family.name).where(Family.id == family)
             toReturn[familyName] = family
 
-        return dumps(toReturn)
+        return dumps(toReturn), 200, {'Access-Control-Allow-Origin': '*'}
 
 class UserInfo(Resource):
     @jwt_required()
