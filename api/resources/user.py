@@ -15,6 +15,7 @@ class UserFamilies(Resource):
     def get(__self__, user_id):
         user = User.select().where(User.id == user_id).get()
         families = user.families.execute()
+        print(families, list(families))
         return list(families)
 
         toReturn = dict()
