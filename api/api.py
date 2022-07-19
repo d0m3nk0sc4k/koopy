@@ -16,7 +16,7 @@ from flasgger import Swagger
 app = Flask(__name__)
 api = Api(app)
 
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+cors = CORS(app, allow_headers=['Content-Type', 'Authorization'], resources={r"/api/*": {"origins": "*"}})
 
 app.config["JWT_SECRET_KEY"] = "ijpdhnmUb2iArs9x9pLn93EsZgmshLYrbzGpv$f4xQgP@eEWbH$h$N9AfwH3DN@5yX@nBm^3MBGEu$MZ#3Ur4ehh&*66mjJi6CxhXM2Ws6%G*AmGRFD%NEr7BezD2qrg"
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=24)
