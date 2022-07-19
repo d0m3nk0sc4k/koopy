@@ -20,7 +20,7 @@ class UserFamilies(Resource):
 
         for family in families:
             print(family)
-            familyName = Family.select().where(Family.id == 1)
+            familyName = Family.select().where(Family.id == 1).get()
             print(familyName)
             toReturn[familyName] = family
 
