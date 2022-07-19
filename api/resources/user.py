@@ -20,7 +20,7 @@ class UserFamilies(Resource):
         toReturn = dict()
 
         for family in families:
-            print(family)
+            print(family.id_u)
             # familyName = Family.select(Family.name).where(Family.id == family.id_u)
             # toReturn[familyName] = family
 
