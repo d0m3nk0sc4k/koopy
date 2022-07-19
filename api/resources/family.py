@@ -15,7 +15,10 @@ class FamilyInfo(Resource):
     def get(__self__, family_id):
         family = Family.select().where(Family.id == family_id)
         if family.exists():
-            return loads(dumps(model_to_dict(family.get()), sort_keys=True, default=str)), 200
+            toReturn = loads(dumps(model_to_dict(family.get()), sort_keys=True, default=str))
+            lists = family.lists
+            print(lists)
+            return toReturn, 200
         else:
             return {'message': 'Family with that id does not exist.'}, 400
 
