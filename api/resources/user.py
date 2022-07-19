@@ -15,13 +15,14 @@ class UserFamilies(Resource):
     def get(__self__, user_id):
         user = User.select().where(User.id == user_id).get()
         families = list(user.families.execute())
+        print(families)
 
         toReturn = dict()
 
         for family in families:
-            print(family.id_f)
-            familyName = Family.select(Family.name).where(Family.id == family.id_u)
-            toReturn[familyName] = family
+            print(family)
+            # familyName = Family.select(Family.name).where(Family.id == family.id_u)
+            # toReturn[familyName] = family
 
         return dumps(toReturn), 200, {'Access-Control-Allow-Origin': '*'}
 
