@@ -20,8 +20,8 @@ class UserFamilies(Resource):
         toReturn = dict()
 
         for family in families:
-            familyName = Family.select(Family.name).where(Family.id == 1).get()
-            print(familyName)
+            familyName = Family.select().where(Family.id == 1)
+            print(familyName.name)
             toReturn[familyName] = family
 
         return dumps(toReturn), 200, {'Access-Control-Allow-Origin': '*'}
