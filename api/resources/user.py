@@ -16,7 +16,7 @@ class UserFamilies(Resource):
         user = User.select().where(User.id == user_id).get()
         families = user.families.execute()
 
-        return dumps(families)
+        return loads(families)
 
         toReturn = dict()
 
