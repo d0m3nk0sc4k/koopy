@@ -20,8 +20,7 @@ class UserFamilies(Resource):
 
         for family in families:
             familyName = Family.select().where(Family.id == family).get()
-            print(familyName.name)
-            toReturn[familyName] = family
+            toReturn[familyName.name] = familyName
 
         return dumps(toReturn), 200, {'Access-Control-Allow-Origin': '*'}
 
