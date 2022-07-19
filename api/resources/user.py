@@ -22,7 +22,7 @@ class UserFamilies(Resource):
             familyName = Family.select().where(Family.id == family).get()
             toReturn[familyName.name] = familyName
 
-        return dumps(toReturn), 200, {'Access-Control-Allow-Origin': '*'}
+        return toReturn
 
 class UserInfo(Resource):
     @jwt_required()
