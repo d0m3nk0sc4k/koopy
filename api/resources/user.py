@@ -14,7 +14,7 @@ class UserFamilies(Resource):
     @swag_from('apidoc/userfamilies.yml')
     def get(__self__, user_id):
         user = User.select().where(User.id == user_id).get()
-        families = model_to_dict(user.families.get())
+        families = model_to_dict(user.families)
 
         return families
 
