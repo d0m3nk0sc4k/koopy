@@ -3,7 +3,7 @@ from flask_restful import Resource
 from database.tables import User, UserPassword, Family
 from datetime import datetime
 from playhouse.shortcuts import model_to_dict
-from json import dumps, loads, dump
+from json import dumps, loads, dump, load
 from .functions import check_for_data
 from flask_jwt_extended import create_access_token, jwt_required
 from flasgger import swag_from
@@ -16,7 +16,7 @@ class UserFamilies(Resource):
         user = User.select().where(User.id == user_id).get()
         families = user.families.execute()
 
-        return dump(families)
+        return load(families)
 
         toReturn = dict()
 
