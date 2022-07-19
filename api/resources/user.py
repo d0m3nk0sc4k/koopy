@@ -20,7 +20,7 @@ class UserFamilies(Resource):
 
         for family in families:
             familyName = Family.select().where(Family.id == family).get()
-            toReturn[familyName.name] = familyName
+            toReturn[familyName.name] = model_to_dict(familyName)
 
         return toReturn
 
