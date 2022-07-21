@@ -24,7 +24,7 @@ class FamilyInfo(Resource):
 
             toReturn["lists"] = listsAdd
             
-            return loads(dumps(toReturn), default=str), 200
+            return toReturn, 200
         else:
             return {'message': 'Family with that id does not exist.'}, 400
 
