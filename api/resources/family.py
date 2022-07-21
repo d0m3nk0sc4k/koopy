@@ -17,7 +17,7 @@ class FamilyInfo(Resource):
         if family.exists():
             toReturn = loads(dumps(model_to_dict(family.get()), sort_keys=True, default=str))
             lists = family.get().lists
-            listsAdd = []
+            listsAdd = list([])
             for list in lists:
                 listsAdd.append(list)
 

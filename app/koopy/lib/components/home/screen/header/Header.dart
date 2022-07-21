@@ -66,6 +66,9 @@ class Header extends StatelessWidget {
                                       if (snapshot.hasData) {
                                         var data = snapshot.data as Map;
                                         List<Widget> widgets = [];
+                                        if (data.isEmpty) {
+                                          widgets.add(Text("Nisi član nobene družine."));
+                                        }
 
                                         for (String key in data.keys.toList()) {
                                           widgets.add(Padding(
