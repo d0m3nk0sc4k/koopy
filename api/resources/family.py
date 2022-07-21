@@ -21,7 +21,8 @@ class FamilyInfo(Resource):
             for list in lists:
                 listsAdd.append(list)
 
-            toReturn["lists"]  = listsAdd          
+            toReturn["lists"] = listsAdd
+            print(toReturn)
             return toReturn, 200
         else:
             return {'message': 'Family with that id does not exist.'}, 400
