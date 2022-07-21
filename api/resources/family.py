@@ -20,7 +20,7 @@ class FamilyInfo(Resource):
             lists = family.get().lists
             listsAdd = []
             for lista in lists:
-                listsAdd.append(model_to_dict(lista))
+                listsAdd.append(model_to_dict(lista, default=str))
 
             toReturn["lists"] = listsAdd
             
