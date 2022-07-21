@@ -18,13 +18,13 @@ class FamilyInfo(Resource):
         if family.exists():
             toReturn = loads(dumps(model_to_dict(family.get()), sort_keys=True, default=str))
             lists = family.get().lists
-            listsAdd = list([])
+            listsAdd = []
             for lista in lists:
-                listsAdd.append(loads(dumps(model_to_dict(lista)), default=str))
+                listsAdd.append(model_to_dict(lista))
 
             toReturn["lists"] = listsAdd
-            print(toReturn)
-            return toReturn, 200
+            
+            return loads(dumps(toReturn), default=str), 200
         else:
             return {'message': 'Family with that id does not exist.'}, 400
 
