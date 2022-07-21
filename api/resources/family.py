@@ -18,8 +18,8 @@ class FamilyInfo(Resource):
             toReturn = loads(dumps(model_to_dict(family.get()), sort_keys=True, default=str))
             lists = family.get().lists
             listsAdd = list([])
-            for list in lists:
-                listsAdd.append(list)
+            for lista in lists:
+                listsAdd.append(lista)
 
             toReturn["lists"] = listsAdd
             print(toReturn)
