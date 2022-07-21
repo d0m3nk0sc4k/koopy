@@ -12,7 +12,6 @@ class Home extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            //Navigation(),
             HomeScreen(),
           ],
         ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:koopy/components/home/screen/HomeScreenController.dart';
 import 'package:koopy/components/home/screen/header/Header.dart';
+import 'package:koopy/components/home/screen/header/HeaderController.dart';
 import 'package:koopy/components/home/screen/list/List.dart';
 import 'package:get/get.dart';
 
@@ -8,6 +10,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    HomeScreenController c = Get.put(HomeScreenController());
+    HeaderController hc = Get.put(HeaderController());
+
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,12 +38,11 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListView(
-              children: [
-                List(),
-                List(),
-                List(),
-              ],
+            child: ListView.builder(
+              itemCount: 2,
+              itemBuilder: (context, index) {
+                return List();
+              },
             ),
           ),
         ],
