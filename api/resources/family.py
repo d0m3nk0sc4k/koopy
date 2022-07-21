@@ -1,3 +1,4 @@
+from email.policy import default
 from flask import request
 from flask_restful import Resource
 from database.tables import Family
@@ -19,7 +20,7 @@ class FamilyInfo(Resource):
             lists = family.get().lists
             listsAdd = list([])
             for lista in lists:
-                listsAdd.append(model_to_dict(lista))
+                listsAdd.append(loads(dumps(model_to_dict(lista)), default=str))
 
             toReturn["lists"] = listsAdd
             print(toReturn)
