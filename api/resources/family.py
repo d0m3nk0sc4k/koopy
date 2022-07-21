@@ -20,7 +20,7 @@ class FamilyInfo(Resource):
             lists = family.get().lists
             listsAdd = []
             for lista in lists:
-                listsAdd.append(dumps(lista, default=str))
+                listsAdd.append(lista.id)
 
             toReturn["lists"] = listsAdd
             
