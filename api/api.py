@@ -68,6 +68,7 @@ api.add_resource(FamilyJoin, '/api/family/join')
 api.add_resource(ListInfo, '/api/list/info/<string:list_id>')
 api.add_resource(ListNew, '/api/list/new')
 api.add_resource(ListDelete, '/api/list/delete')
+api.add_resource(ListProducts, '/api/list/<string:list_id/products')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

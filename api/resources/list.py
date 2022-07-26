@@ -18,6 +18,13 @@ class ListInfo(Resource):
         else:
             return {'message': 'List with that id does not exist.'}, 400
 
+class ListProducts(Resource):
+    @jwt_required()
+    def get(__self__, list_id):
+        list = List.select().where(List.id == list_id)
+        print(list.products)
+        return "OK"
+
 class ListNew(Resource):
     @jwt_required()
     @swag_from('apidoc/newlist.yml')
