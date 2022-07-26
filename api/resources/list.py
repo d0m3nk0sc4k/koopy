@@ -22,7 +22,7 @@ class ListProducts(Resource):
     @jwt_required()
     def get(__self__, list_id):
         list = List.select().where(List.id == list_id)
-        print(list.products)
+        print(list)
         return "OK"
 
 class ListNew(Resource):
