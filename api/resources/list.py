@@ -21,7 +21,7 @@ class ListInfo(Resource):
 class ListProducts(Resource):
     @jwt_required()
     def get(__self__, list_id):
-        list = List.select().where(List.id == list_id)
+        list = List.select().where(List.id == list_id).get().products
         print(list)
         return "OK"
 
