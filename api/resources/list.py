@@ -24,10 +24,11 @@ class ListProducts(Resource):
         list = List.select().where(List.id == list_id).get()
         seznam = {list.name: []}
         print(list.products)
-        for product in list.products:
-            temp_product = Product.select().where(Product.id == product).get()
-            seznam[list.name].append(model_to_dict(temp_product))
-        return seznam
+        #for product in list.products:
+        #    temp_product = Product.select().where(Product.id == product).get()
+        #    seznam[list.name].append(model_to_dict(temp_product))
+        #return seznam
+        return "ASd"
 
 class ListNew(Resource):
     @jwt_required()
