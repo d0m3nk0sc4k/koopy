@@ -26,7 +26,7 @@ class ListProducts(Resource):
         products = list.products
         for product in products:
             seznam[list.name].append(model_to_dict(product))
-        return seznam
+        return loads(dumps(model_to_dict(seznam), sort_keys=True, default=str))
 
 class ListNew(Resource):
     @jwt_required()
