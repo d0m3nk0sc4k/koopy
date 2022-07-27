@@ -1,4 +1,3 @@
-from flask import request
 from api.database.tables import Product
 from flask_restful import Resource
 from datetime import datetime
