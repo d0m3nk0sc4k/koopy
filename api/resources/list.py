@@ -23,12 +23,12 @@ class ListProducts(Resource):
     def get(__self__, list_id):
         list = List.select().where(List.id == list_id).get()
         seznam = {list.name: []}
-        print(list.products)
-        #for product in list.products:
-        #    temp_product = Product.select().where(Product.id == product).get()
-        #    seznam[list.name].append(model_to_dict(temp_product))
-        #return seznam
-        return "ASd"
+        products = list.products
+        for product in products:
+            print(product)
+            #temp_product = Product.select().where(Product.id == product).get()
+            #seznam[list.name].append(model_to_dict(temp_product))
+        return seznam
 
 class ListNew(Resource):
     @jwt_required()
