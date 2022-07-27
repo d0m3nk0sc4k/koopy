@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -25,8 +26,23 @@ class ListController extends GetxController {
           "Authorization": "Bearer " + storage.read("token")
         }).then((value) {});
 
+    await http.get(
+        Uri.parse(baseUrl +
+            "family/info/" +
+            storage.read("selectedFamily").toString()),
+        headers: {
+          'Authorization': "Bearer " + storage.read("token")
+        }).then((value) {
+      var data = json.decode(value.body);
+      items = data["lists"];
+    });
+
+    if (items.isEmpty) {
+      list.add(Text("No products in this list."));
+    }
+
     for (var item in items) {
-      list.add(ListItem(title: item, producer: "Hofer", barcode: "000",));
+
     }
   }
 }
