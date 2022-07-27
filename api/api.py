@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from datetime import timedelta
-from flask import Flask
+from flask import Flask, url_for
 from flask_restful import Api
 from flask_cors import CORS
 from resources.user import *

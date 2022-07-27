@@ -1,4 +1,3 @@
-from api.database.tables import Product
 from flask_restful import Resource
 from datetime import datetime
 from database.tables import List
@@ -7,6 +6,7 @@ from json import dumps, loads
 from .functions import check_for_data
 from flask_jwt_extended import jwt_required
 from flasgger import swag_from
+from database.tables import Product
 
 class ListInfo(Resource):
     @jwt_required()
