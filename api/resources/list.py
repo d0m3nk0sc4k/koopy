@@ -25,7 +25,7 @@ class ListProducts(Resource):
         seznam = {list.name: []}
         products = list.products
         for product in products:
-            print(product)
+            print(model_to_dict(product))
             #temp_product = Product.select().where(Product.id == product).get()
             #seznam[list.name].append(model_to_dict(temp_product))
         return seznam
