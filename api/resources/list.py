@@ -22,7 +22,7 @@ class ListProducts(Resource):
     @jwt_required()
     def get(__self__, list_id):
         list = List.select().where(List.id == list_id).get()
-        seznam = {}
+        seznam = dict()
         for product in list.products:
             temp_product = Product.select().where(Product.id == product).get()
             seznam[list.name].append(model_to_dict(temp_product))
