@@ -27,7 +27,7 @@ void main() async {
       debugShowCheckedModeBanner: false,
       home: Splash(),
       theme: themeLight,
-      darkTheme: themeDark,
+      //darkTheme: themeDark,
     ),
   );
 }

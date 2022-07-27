@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:koopy/components/home/screen/list/ListController.dart';
 
 class List extends StatelessWidget {
-  const List({Key? key}) : super(key: key);
+  const List({Key? key, required this.listName}) : super(key: key);
+  final String listName;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class List extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 20, left: 25),
             child: Text(
-              "ASD",
+              listName,
               textAlign: TextAlign.left,
               style: TextStyle(
                 color: Theme.of(Get.context!).colorScheme.background,

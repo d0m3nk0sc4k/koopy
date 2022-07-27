@@ -65,32 +65,41 @@ class HeaderController extends GetxController {
                         }
 
                         for (String key in data.keys.toList()) {
-                          widgets.add(Padding(
-                            padding: const EdgeInsets.only(bottom: 16.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  data[key]["name"],
-                                  style: TextStyle(
-                                    color: Theme.of(Get.context!)
-                                        .colorScheme
-                                        .primary,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
+                          widgets.add(
+                            GestureDetector(
+                              onTap: () {changeFamily(data[key]["id"], key);},
+                              child: Container(
+                                color: Theme.of(Get.context!).colorScheme.background,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(bottom: 16.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        data[key]["name"],
+                                        style: TextStyle(
+                                          color: Theme.of(Get.context!)
+                                              .colorScheme
+                                              .primary,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                      Text(
+                                        data[key]["address"],
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                Text(
-                                  data[key]["address"],
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
-                          ));
+                          );
                         }
 
                         return LimitedBox(
@@ -118,7 +127,7 @@ class HeaderController extends GetxController {
           ),
         ],
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(Get.context!).colorScheme.background,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
@@ -126,5 +135,11 @@ class HeaderController extends GetxController {
     );
   }
 
-  void changeFamily(int familyID) {}
+  void changeFamily(int familyID, String familyName) {
+    storage.write("selectedFamily", familyID);
+    name.value = familyName;
+    HomeScreenController hc = Get.find();
+    hc.getLists();
+    Navigator.pop(Get.context!);
+  }
 }
