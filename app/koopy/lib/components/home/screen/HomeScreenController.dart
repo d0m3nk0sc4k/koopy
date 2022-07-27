@@ -15,8 +15,9 @@ class HomeScreenController extends GetxController {
   ].obs;
 
   @override
-  void onReady() {
-    getLists();
+  void onReady() async {
+    await getFamilies();
+    await getLists();
   }
 
   Future getFamilies() async {
