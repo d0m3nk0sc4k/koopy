@@ -1,4 +1,5 @@
 from flask import request
+from api.database.tables import Product
 from flask_restful import Resource
 from datetime import datetime
 from database.tables import List
@@ -22,9 +23,11 @@ class ListProducts(Resource):
     @jwt_required()
     def get(__self__, list_id):
         list = List.select().where(List.id == list_id).get().products
+        lista = []
         for product in list:
-            print(product)
-        return "OK"
+            temp_product = Product.select().where(Product.id == product).get()
+            lista.append(model_to_dict(temp_product))
+        return lista
 
 class ListNew(Resource):
     @jwt_required()
