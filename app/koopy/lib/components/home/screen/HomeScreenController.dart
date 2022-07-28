@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:koopy/components/home/screen/list/List.dart' as myList;
+import 'package:koopy/components/home/screen/list/List.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -13,6 +13,8 @@ class HomeScreenController extends GetxController {
       child: CircularProgressIndicator(),
     )
   ].obs;
+
+  var list = <Widget>[].obs();
 
   @override
   void onReady() async {
@@ -52,11 +54,11 @@ class HomeScreenController extends GetxController {
 
     for (var list in lists) {
       var temp = await http
-          .get(Uri.parse(baseUrl + "list/info/" + list.toString()), headers: {
+          .get(Uri.parse(baseUrl + "list/" + list.toString() + "/products"), headers: {
         'Authorization': "Bearer " + storage.read("token")
       }).then((value) {
         var data = json.decode(value.body);
-        widgets.add(myList.List(listName: data["name"]));
+        widgets.add(new ListWidget(listName: data.keys.toList()[0], children: data[data.keys.toList()[0]],));
       });
     }
 

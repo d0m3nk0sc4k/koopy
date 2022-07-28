@@ -1,13 +1,8 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:koopy/components/home/screen/HomeScreenController.dart';
 import 'package:koopy/components/home/screen/header/Header.dart';
 import 'package:koopy/components/home/screen/header/HeaderController.dart';
-import 'package:koopy/components/home/screen/list/List.dart' as myList;
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'package:koopy/main.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);

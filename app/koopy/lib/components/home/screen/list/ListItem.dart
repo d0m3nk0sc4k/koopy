@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:koopy/components/home/screen/list/ListController.dart';
 import 'package:koopy/components/theme.dart' as t;
 
 class ListItem extends StatelessWidget {
-  const ListItem({Key? key, required this.title, required this.producer, required this.barcode}) : super(key: key);
-
-  final title, producer, barcode;
+  const ListItem({Key? key, required this.itemData, this.striked = false})
+      : super(key: key);
+  final bool striked;
+  final itemData;
 
   @override
   Widget build(BuildContext context) {
-    ListController lc = Get.find();
 
     return GestureDetector(
       onTap: () {
@@ -24,7 +23,7 @@ class ListItem extends StatelessWidget {
                   children: [
                     Center(
                       child: Text(
-                        title,
+                        itemData["id_p"]["name"],
                         style: TextStyle(
                           fontSize: 26,
                           color: Theme.of(Get.context!).colorScheme.primary,
@@ -38,7 +37,7 @@ class ListItem extends StatelessWidget {
                     Container(
                       width: double.infinity,
                       child: Text(
-                        producer,
+                        itemData["id_p"]["producer"],
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                           fontSize: 18,
@@ -48,22 +47,24 @@ class ListItem extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    Container(
-                      width: double.infinity,
-                      child: Row(
-                        children: [
-                          Text(
-                            barcode,
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: FaIcon(FontAwesomeIcons.qrcode),
-                          ),
-                        ],
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      ),
-                    ),
+                    (itemData["id_p"]["barcode"] != null)
+                        ? Container(
+                            width: double.infinity,
+                            child: Row(
+                              children: [
+                                Text(
+                                  itemData["id_p"]["barcode"],
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: FaIcon(FontAwesomeIcons.qrcode),
+                                ),
+                              ],
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            ),
+                          )
+                        : SizedBox(),
                     SizedBox(
                       height: 20,
                     ),
@@ -73,11 +74,10 @@ class ListItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           TextButton(
-                            style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                            style:
+                                TextButton.styleFrom(padding: EdgeInsets.zero),
                             onPressed: () {
                               Navigator.pop(Get.context!);
-                              lc.pop(title);
-                              lc.populateList();
                             },
                             child: Text(
                               "Kupljeno",
@@ -91,8 +91,6 @@ class ListItem extends StatelessWidget {
                           TextButton(
                             onPressed: () {
                               Navigator.pop(Get.context!);
-                              lc.pop(title);
-                              lc.populateList();
                             },
                             child: Text(
                               "Izbriši",
@@ -124,10 +122,18 @@ class ListItem extends StatelessWidget {
         child: Row(
           children: [
             Text(
-              title,
+              itemData["id_p"]["name"],
               style: TextStyle(
-                color: Theme.of(Get.context!).colorScheme.onBackground,
+                color: (this.striked)
+                    ? Theme.of(Get.context!)
+                        .colorScheme
+                        .onBackground
+                        .withOpacity(0.4)
+                    : Theme.of(Get.context!).colorScheme.onBackground,
                 fontSize: 18,
+                decoration: (this.striked)
+                    ? TextDecoration.lineThrough
+                    : TextDecoration.none,
               ),
             )
           ],
