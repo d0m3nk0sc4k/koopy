@@ -12,7 +12,8 @@ class ListRemoveItem(Resource):
     @jwt_required()
     def delete(__self__):
         data = check_for_data()
-        List_has_Product.delete().where(List_has_Product.id_l == int(data["list_id"]), List_has_Product.id_p == id(data["product_id"])).execute()
+        q = List_has_Product.select().where(List_has_Product.id_l == int(data["list_id"]), List_has_Product.id_p == id(data["product_id"]))
+        q.delete().execute()
         return {"message": "Product successfully removed"}, 204
 
 class ListInfo(Resource):
@@ -57,13 +58,12 @@ class ListDelete(Resource):
         data = check_for_data()
 
         list = List.select().where(List.id == data['id'])
+        list_h_prod = List_has_Product.select().where(List_has_Product.id_l == data['id'])
 
         if not list.exist():
             return {"message": "List does not exist"}, 400
 
-        products = List.get().products
-
-        for product in products:
+        for product in list_h_prod:
             product.delete().execute()
 
         list.delete().execute()
