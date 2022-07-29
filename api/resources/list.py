@@ -14,8 +14,7 @@ class ListRemoveItem(Resource):
         data = check_for_data()
         print(data)
         q = List_has_Product.select().where(List_has_Product.id_l == data["list_id"], List_has_Product.id_p == data["product_id"]).get()
-        for i in q:
-            print(i)
+        print(q)
         #q.delete().execute()
         return {"message": "Product successfully removed"}, 204
 
