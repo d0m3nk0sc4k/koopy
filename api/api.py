@@ -69,6 +69,7 @@ api.add_resource(ListInfo, '/api/list/info/<string:list_id>')
 api.add_resource(ListNew, '/api/list/new')
 api.add_resource(ListDelete, '/api/list/delete')
 api.add_resource(ListProducts, '/api/list/<string:list_id>/products')
+api.add_resource(ListRemoveItem, '/api/list/remove/product')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
