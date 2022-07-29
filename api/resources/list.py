@@ -13,7 +13,7 @@ class ListRemoveItem(Resource):
     def delete(__self__):
         data = check_for_data()
 
-        List_has_Product.delete().where(List_has_Product.id_l == data["list_id"] and List_has_Product.id_p == data["product_id"])
+        List_has_Product.delete().where(List_has_Product.id_l == data["list_id"], List_has_Product.id_p == data["product_id"])
         return {"message": "Product successfully removed"}, 204
 
 class ListInfo(Resource):
