@@ -12,7 +12,7 @@ class ListRemoveItem(Resource):
     @jwt_required()
     def delete(__self__):
         data = check_for_data()
-
+        print(data)
         List_has_Product.delete().where(List_has_Product.id_l == int(data["list_id"]), List_has_Product.id_p == id(data["product_id"]))
         return {"message": "Product successfully removed"}, 204
 
