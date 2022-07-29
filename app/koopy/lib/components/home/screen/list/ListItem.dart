@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:koopy/components/home/screen/HomeScreenController.dart';
 import 'package:koopy/components/theme.dart' as t;
 
 class ListItem extends StatelessWidget {
@@ -91,6 +92,9 @@ class ListItem extends StatelessWidget {
                           TextButton(
                             onPressed: () {
                               Navigator.pop(Get.context!);
+                              HomeScreenController c = Get.find();
+                              c.getLists();
+                              
                             },
                             child: Text(
                               "Izbriši",

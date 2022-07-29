@@ -1,5 +1,8 @@
 from flask_restful import Resource
 from datetime import datetime
+
+import jwt
+from api.database.tables import List_has_Product
 from database.tables import List
 from playhouse.shortcuts import model_to_dict
 from json import dumps, loads
@@ -7,6 +10,14 @@ from .functions import check_for_data
 from flask_jwt_extended import jwt_required
 from flasgger import swag_from
 from database.tables import Product
+
+class ListRemoveItem(Resource):
+    @jwt_required()
+    def delete(__self__):
+        data = check_for_data()
+
+        List_has_Product.delete().where(List_has_Product.id_l == data["list_id"] and List_has_Product.id_p == data["product_id"])
+        return {"message": "Product successfully removed"}, 204
 
 class ListInfo(Resource):
     @jwt_required()
