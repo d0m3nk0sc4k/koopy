@@ -8,7 +8,9 @@ import 'package:koopy/components/home/screen/settings/FamilyControllerDelete.dar
 import 'package:koopy/main.dart';
 
 class FamilyDelete extends StatelessWidget {
-  const FamilyDelete({Key? key, required this.familyName, required this.familyId}) : super(key: key);
+  const FamilyDelete(
+      {Key? key, required this.familyName, required this.familyId})
+      : super(key: key);
 
   final String familyName;
   final int familyId;
@@ -25,7 +27,13 @@ class FamilyDelete extends StatelessWidget {
             actions: [
               TextButton(
                 onPressed: () async {
-                  await http.delete(Uri.parse(baseUrl + "family/leave"), body: {"uid": storage.read("userID"), "fid": familyId});
+                  await http.delete(
+                    Uri.parse(baseUrl + "family/leave"),
+                    body: {"uid": storage.read("userID"), "fid": familyId},
+                    headers: {"Authorization": "Bearer " + storage.read("token")},
+                  ).then((response) {
+                    print(response);
+                  });
                   tc.getFamilies();
                   Navigator.pop(Get.context!);
                 },
