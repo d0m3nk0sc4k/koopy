@@ -13,14 +13,14 @@ class UserFamilies(Resource):
     @jwt_required()
     @swag_from('apidoc/userfamilies.yml')
     def get(__self__, user_id):
-        user = User.select().where(User.id == int(user_id)).get()
+        user = User.select().where(User.id == user_id).get()
         print(user)
         families = user.families.execute()
 
         toReturn = dict()
 
         for family in families:
-            familyName = Family.select().where(Family.id == family).get()
+            familyName = Family.select().where(Family.id == int(family)).get()
             toReturn[familyName.name] = model_to_dict(familyName)
 
         return toReturn
