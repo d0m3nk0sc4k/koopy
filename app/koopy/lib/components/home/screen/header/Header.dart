@@ -21,7 +21,7 @@ class Header extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Družina",
+                    "Family",
                     style: TextStyle(
                       fontSize: 14,
                       color: Theme.of(Get.context!).colorScheme.primary,

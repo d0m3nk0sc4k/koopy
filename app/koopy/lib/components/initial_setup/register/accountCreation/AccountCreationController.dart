@@ -39,17 +39,10 @@ class AccountCreationController extends GetxController {
           storage.write('token', data["token"]);
           storage.write('userID', data["id"]);
           storage.write('profile_img', data['profile_img']);
-          await http.get(
-              Uri.parse(baseUrl + "user/" + storage.read('userID').toString()),
-              headers: {
-                'Authorization': "Bearer " + data['token']
-              }).then((value) {
-            if (value.statusCode == 200) {
-              storage.write('userID', jsonDecode(value.body)["id"]);
-              storage.write('username', mc.mail.text);
-              storage.write('password', encryptPassword(pc.password.text));
-            }
-          });
+          storage.write('name', data["name"]);
+          storage.write("mail", data["mail"]);
+          storage.write("username", mc.mail.text);
+          storage.write("password", encryptPassword(pc.password.text));
         }
       },
     );

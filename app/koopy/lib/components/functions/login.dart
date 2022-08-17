@@ -15,8 +15,10 @@ Future login(String username, String password) async {
       storage.write('token', token);
       storage.write('username', username);
       storage.write('password', password);
+      storage.write('name', json.decode(value.body)['name']);
       storage.write('userID', json.decode(value.body)['id']);
       storage.write('profile_img', json.decode(value.body)['profile_img']);
+      storage.write("mail", json.decode(value.body)["mail"]);
       print(json.decode(value.body));
       return "";
     } else {
