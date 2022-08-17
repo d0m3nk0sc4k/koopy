@@ -13,7 +13,7 @@ class UserFamilies(Resource):
     @jwt_required()
     @swag_from('apidoc/userfamilies.yml')
     def get(__self__, user_id):
-        user = User.select().where(User.id == user_id).get()
+        user = User.select().where(User.id == int(user_id)).get()
         print(user)
         families = user.families.execute()
 
