@@ -1,6 +1,7 @@
 from email.policy import default
 from flask import request
 from flask_restful import Resource
+import jwt
 from database.tables import Family
 from database.tables import Family_has_User
 from playhouse.shortcuts import model_to_dict
@@ -27,6 +28,17 @@ class FamilyInfo(Resource):
             return toReturn, 200
         else:
             return {'message': 'Family with that id does not exist.'}, 400
+
+class FamilyLeave(Resource):
+    @jwt_required()
+    def delete(__self__):
+        data = check_for_data()
+        
+        family_has_usr = Family_has_User.select().where((Family_has_User.id_u == data["uid"]) & (Family_has_User.id_f == data["fid"]))
+        for temp in family_has_usr:
+            temp.delete().execute()
+
+        return "OK", 200
 
 class FamilyNew(Resource):
     @jwt_required()
