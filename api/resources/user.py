@@ -19,7 +19,7 @@ class UserFamilies(Resource):
         toReturn = dict()
 
         for family in families:
-            print(families)
+            print(family.id_f)
             familyName = Family.select().where(Family.id == int(family)).get()
             toReturn[familyName.name] = model_to_dict(familyName)
 
