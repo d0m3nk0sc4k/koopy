@@ -93,6 +93,11 @@ class FamilyJoin(Resource):
         
         family = family.get()
 
+        check = Family_has_User.select().where((family.id == Family_has_User.id_f) & (Family_has_User.id_u == data["user"]))
+
+        if (check.exists()):
+            return {"message": "You are already in this family."}, 400
+
         Family_has_User.create(id_u = data["user"], id_f = family.id)
 
         return {"family": family.name}, 201
