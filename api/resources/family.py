@@ -93,4 +93,4 @@ class FamilyJoin(Resource):
         
         Family_has_User.create(id_u = data["user"], id_f = family)
 
-        return {"family": model_to_dict(family.get())}, 201
+        return {"family": family.id}, 201
