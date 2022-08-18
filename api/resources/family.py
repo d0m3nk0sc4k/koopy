@@ -34,9 +34,8 @@ class FamilyLeave(Resource):
     def delete(__self__):
         data = check_for_data()
         
-        family_has_usr = Family_has_User.select().where((Family_has_User.id_u == data["uid"]) & (Family_has_User.id_f == data["fid"]))
-        for temp in family_has_usr:
-            temp.delete().execute()
+        family_has_usr = Family_has_User.delete().where((Family_has_User.id_u == data["uid"]) & (Family_has_User.id_f == data["fid"]))
+        family_has_usr.execute()
 
         return "OK", 200
 
