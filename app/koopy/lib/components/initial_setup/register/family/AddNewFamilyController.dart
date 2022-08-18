@@ -6,13 +6,15 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
 import 'package:koopy/components/home/Home.dart';
 import 'package:koopy/components/initial_setup/register/family/AddNewFamily.dart';
+import 'package:koopy/components/initial_setup/register/family/Family.dart';
 import 'package:koopy/main.dart';
 
 class AddNewFamilyContoller extends GetxController {
   RxMap<String, double> animationOffsets = {
     "title": 500.0,
     "subtitle": 500.0,
-    "input": 500.0,
+    "input1": 500.0,
+    "input2": 500.0,
     "button": 500.0,
   }.obs;
 
@@ -48,13 +50,15 @@ class AddNewFamilyContoller extends GetxController {
   void createNew() async {
     animationOffsets["button"] = -500;
     await Future.delayed(Duration(milliseconds: 100));
-    animationOffsets["input"] = -500;
+    animationOffsets["input2"] = -500;
+    await Future.delayed(Duration(milliseconds: 50));
+    animationOffsets["input1"] = -500;
     await Future.delayed(Duration(milliseconds: 50));
     animationOffsets["subtitle"] = -500;
     await Future.delayed(Duration(milliseconds: 100));
     animationOffsets["title"] = -500;
-
-    Get.to(AddNewFamily());
+    Get.deleteAll();
+    Get.off(AddFamily());
   }
 
   @override
@@ -63,7 +67,9 @@ class AddNewFamilyContoller extends GetxController {
     await Future.delayed(Duration(milliseconds: 100));
     animationOffsets["subtitle"] = 0;
     await Future.delayed(Duration(milliseconds: 50));
-    animationOffsets["input"] = 0;
+    animationOffsets["input1"] = 0;
+    await Future.delayed(Duration(milliseconds: 50));
+    animationOffsets["input2"] = 0;
     await Future.delayed(Duration(milliseconds: 100));
     animationOffsets["button"] = 0;
 

@@ -58,7 +58,6 @@ class PasswordController extends GetxController {
     await Future.delayed(Duration(milliseconds: 100));
     animationOffsets["title"] = -500.0;
     await Future.delayed(Duration(milliseconds: 200));
-    // Get.to(() => i.Image());
     Get.to(() => AccountCreation());
   }
 

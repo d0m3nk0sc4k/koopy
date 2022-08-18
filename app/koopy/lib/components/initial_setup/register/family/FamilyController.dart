@@ -14,6 +14,7 @@ class FamilyController extends GetxController {
     "subtitle": 500.0,
     "input": 500.0,
     "button": 500.0,
+    "button1": 500.0,
   }.obs;
 
   TextEditingController name = TextEditingController();
@@ -46,6 +47,8 @@ class FamilyController extends GetxController {
   }
 
   void createNew() async {
+    animationOffsets["button1"] = -500;
+    await Future.delayed(Duration(milliseconds: 75));
     animationOffsets["button"] = -500;
     await Future.delayed(Duration(milliseconds: 100));
     animationOffsets["input"] = -500;
@@ -53,8 +56,8 @@ class FamilyController extends GetxController {
     animationOffsets["subtitle"] = -500;
     await Future.delayed(Duration(milliseconds: 100));
     animationOffsets["title"] = -500;
-
-    Get.to(AddNewFamily());
+    Get.deleteAll();
+    Get.off(AddNewFamily());
   }
 
   @override
@@ -66,6 +69,9 @@ class FamilyController extends GetxController {
     animationOffsets["input"] = 0;
     await Future.delayed(Duration(milliseconds: 100));
     animationOffsets["button"] = 0;
+    await Future.delayed(Duration(milliseconds: 75));
+    animationOffsets["button1"] = 0;
+
 
     super.onReady();
   }

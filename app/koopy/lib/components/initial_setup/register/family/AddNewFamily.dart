@@ -8,7 +8,7 @@ class AddNewFamily extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AddNewFamilyContoller c = Get.put(AddNewFamilyContoller());
+    AddNewFamilyContoller c = Get.put(new AddNewFamilyContoller());
 
     return Obx(
       () => Scaffold(
@@ -50,6 +50,9 @@ class AddNewFamily extends StatelessWidget {
                     ),
                     AnimatedContainer(
                       duration: Duration(milliseconds: 200),
+                      curve: Curves.easeInOutCubicEmphasized,
+                      transform: Matrix4.translationValues(
+                          c.animationOffsets["input1"]!, 0, 0),
                       child: TextField(
                         controller: c.name,
                         decoration: InputDecoration(
@@ -60,6 +63,9 @@ class AddNewFamily extends StatelessWidget {
                     ),
                     AnimatedContainer(
                       duration: Duration(milliseconds: 200),
+                      curve: Curves.easeInOutCubicEmphasized,
+                      transform: Matrix4.translationValues(
+                          c.animationOffsets["input2"]!, 0, 0),
                       child: TextField(
                         controller: c.address,
                         decoration: InputDecoration(
@@ -87,7 +93,9 @@ class AddNewFamily extends StatelessWidget {
                           child: Text(
                             "CREATE",
                             style: TextStyle(
-                              color: Theme.of(Get.context!).colorScheme.onBackground,
+                              color: Theme.of(Get.context!)
+                                  .colorScheme
+                                  .onBackground,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
@@ -97,18 +105,19 @@ class AddNewFamily extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    TextButton(
-                      onPressed: c.createNew,
-                      child: Text(
-                        "Join existing",
-                        style: TextStyle(color: Theme.of(Get.context!).colorScheme.primary),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: c.notNow,
-                      child: Text(
-                        "Not now",
-                        style: TextStyle(color: Theme.of(Get.context!).colorScheme.primary),
+                    AnimatedContainer(
+                      duration: Duration(milliseconds: 200),
+                      curve: Curves.easeInOutCubicEmphasized,
+                      transform: Matrix4.translationValues(
+                          c.animationOffsets["button"]!, 0, 0),
+                      child: TextButton(
+                        onPressed: c.createNew,
+                        child: Text(
+                          "Join existing",
+                          style: TextStyle(
+                              color:
+                                  Theme.of(Get.context!).colorScheme.primary),
+                        ),
                       ),
                     ),
                     Expanded(

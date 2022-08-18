@@ -8,7 +8,7 @@ class AddFamily extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FamilyController c = Get.put(FamilyController());
+    FamilyController c = Get.put(new FamilyController());
 
     return Obx(
       () => Scaffold(
@@ -59,29 +59,8 @@ class AddFamily extends StatelessWidget {
                     ),
                     AnimatedContainer(
                       duration: Duration(milliseconds: 200),
-                      transform: Matrix4.translationValues(c.animationOffsets["input"]!, 0, 0),
-                      child: TextField(
-                        controller: c.name,
-                        decoration: InputDecoration(
-                          label: Text("Name"),
-                          isDense: true,
-                        ),
-                      ),
-                    ),
-                    AnimatedContainer(
-                      duration: Duration(milliseconds: 200),
-                      transform: Matrix4.translationValues(c.animationOffsets["input"]!, 0, 0),
-                      child: TextField(
-                        controller: c.address,
-                        decoration: InputDecoration(
-                          label: Text("Address"),
-                          isDense: true,
-                        ),
-                      ),
-                    ),
-                    AnimatedContainer(
-                      duration: Duration(milliseconds: 200),
-                      transform: Matrix4.translationValues(c.animationOffsets["input"]!, 0, 0),
+                      transform: Matrix4.translationValues(
+                          c.animationOffsets["input"]!, 0, 0),
                       child: TextField(
                         controller: c.joinKey,
                         decoration: InputDecoration(
@@ -109,7 +88,9 @@ class AddFamily extends StatelessWidget {
                           child: Text(
                             "JOIN",
                             style: TextStyle(
-                              color: Theme.of(Get.context!).colorScheme.onBackground,
+                              color: Theme.of(Get.context!)
+                                  .colorScheme
+                                  .onBackground,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
@@ -119,18 +100,22 @@ class AddFamily extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    TextButton(
-                      onPressed: c.createNew,
-                      child: Text(
-                        "Create new",
-                        style: TextStyle(color: Theme.of(Get.context!).colorScheme.primary),
+                    AnimatedContainer(
+                      duration: Duration(milliseconds: 200),
+                      curve: Curves.easeInOutCubicEmphasized,
+                      transform: Matrix4.translationValues(
+                        c.animationOffsets["button"]!,
+                        0,
+                        0,
                       ),
-                    ),
-                    TextButton(
-                      onPressed: c.notNow,
-                      child: Text(
-                        "Not now",
-                        style: TextStyle(color: Theme.of(Get.context!).colorScheme.primary),
+                      child: TextButton(
+                        onPressed: c.createNew,
+                        child: Text(
+                          "Create new",
+                          style: TextStyle(
+                              color:
+                                  Theme.of(Get.context!).colorScheme.primary),
+                        ),
                       ),
                     ),
                     Expanded(
