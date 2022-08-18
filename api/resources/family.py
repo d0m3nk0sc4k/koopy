@@ -93,4 +93,4 @@ class FamilyJoin(Resource):
         
         Family_has_User.create(id_u = data["user"], id_f = family)
 
-        return {"message": "Joined the family."}, 201
+        return {"family": family.name}, 201
