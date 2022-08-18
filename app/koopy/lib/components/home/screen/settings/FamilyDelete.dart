@@ -1,11 +1,12 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:koopy/components/home/screen/HomeScreenController.dart';
+import 'package:koopy/components/home/screen/header/HeaderController.dart';
 import 'package:koopy/components/home/screen/settings/FamilyControllerDelete.dart';
 import 'package:koopy/main.dart';
+import 'dart:convert';
 
 class FamilyDelete extends StatelessWidget {
   const FamilyDelete(
@@ -18,6 +19,8 @@ class FamilyDelete extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FamilyControllerDelete tc = Get.find();
+    HomeScreenController hc = Get.find();
+    HeaderController hec = Get.find();
     var storage = GetStorage();
     return TextButton(
       onPressed: () {
@@ -29,12 +32,14 @@ class FamilyDelete extends StatelessWidget {
                 onPressed: () async {
                   await http.delete(
                     Uri.parse(baseUrl + "family/leave"),
-                    body: {"uid": storage.read("userID"), "fid": familyId},
+                    body: json.encode({"uid": storage.read("userID"), "fid": familyId}),
                     headers: {"Authorization": "Bearer " + storage.read("token")},
                   ).then((response) {
                     print(response);
                   });
+                  hc.onReady();
                   tc.getFamilies();
+                  hec.onReady();
                   Navigator.pop(Get.context!);
                 },
                 child: Text(

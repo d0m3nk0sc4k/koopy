@@ -76,7 +76,10 @@ class Image extends StatelessWidget {
                       child: Row(
                         children: [
                           TextButton(
-                            onPressed: () => Get.off(AddFamily()),
+                            onPressed: () {
+                              Get.off(AddFamily());
+                              Get.deleteAll();
+                            },
                             child: Text("Not now"),
                           ),
                         ],

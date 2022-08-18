@@ -1,8 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:koopy/components/global/Snackbar.dart';
+import 'package:koopy/components/home/screen/HomeScreenController.dart';
+import 'package:koopy/components/home/screen/header/HeaderController.dart';
 import 'package:koopy/components/home/screen/settings/FamilyControllerDelete.dart';
+import 'package:koopy/components/home/screen/settings/SettingsController.dart';
+import 'package:koopy/components/initial_setup/register/Register.dart';
 import 'package:koopy/main.dart';
+import 'package:http/http.dart' as http;
 
 class Settings extends StatelessWidget {
   const Settings({Key? key}) : super(key: key);
@@ -11,6 +20,7 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     FamilyControllerDelete c = Get.put(FamilyControllerDelete());
     var storage = GetStorage();
+    SettingsController sc = Get.put(SettingsController());
     return Obx(
       () => ConstrainedBox(
         constraints: BoxConstraints(
@@ -83,16 +93,20 @@ class Settings extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 15,
                   ),
-                  (c.families.length <= 1) ? SizedBox() : Text(
-                    "Leave family",
+                  Divider(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Text(
+                    "Families",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     height: 14,
                   ),
-                  (c.families.length <= 1) ? SizedBox() : ConstrainedBox(
+                  ConstrainedBox(
                     constraints: BoxConstraints(
                       minWidth: double.infinity,
                       maxHeight: 100,
@@ -101,7 +115,126 @@ class Settings extends StatelessWidget {
                       children: c.families,
                       shrinkWrap: true,
                     ),
-                  )
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Divider(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          storage.erase();
+                          Get.deleteAll();
+                          Get.off(Register());
+                        },
+                        child: Text(
+                          "LOGOUT",
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      TextButton(
+                        child: Text("Join a family"),
+                        onPressed: () {
+                          sc.te.clear();
+                          sc.error.value = "";
+                          Get.defaultDialog(
+                            title: "Enter join key",
+                            actions: [
+                              TextButton(
+                                onPressed: () async {
+                                  if (sc.te.value.text == "") {
+                                    sc.error.value =
+                                        "Please enter the join key";
+                                  } else {
+                                    await http.put(
+                                      Uri.parse(baseUrl + "family/join"),
+                                      body: json.encode({
+                                        "join_key": sc.te.value.text,
+                                        "user": storage.read("userID")
+                                      }),
+                                      headers: {
+                                        "Authorization":
+                                            "Bearer " + storage.read("token")
+                                      },
+                                    ).then((value) {
+                                      if (value.statusCode == 400) {
+                                        sc.error.value =
+                                            json.decode(value.body)["message"];
+                                      } else if (value.statusCode == 201) {
+                                        Get.closeAllSnackbars();
+                                        while (Get.isDialogOpen! ||
+                                            Get.isBottomSheetOpen!) {
+                                          Get.back();
+                                        }
+                                        FamilyControllerDelete tc = Get.find();
+                                        HomeScreenController hc = Get.find();
+                                        HeaderController hec = Get.find();
+                                        tc.onReady();
+                                        hc.onReady();
+                                        hec.onReady();
+                                        showSnackbar(
+                                            title: "Success",
+                                            message:
+                                                "You have successfully joined the " +
+                                                    json.decode(
+                                                        value.body)["family"] +
+                                                    " family.",
+                                            color: Color(0xff88d840));
+                                      } else {
+                                        // open snackbar
+                                      }
+                                    });
+                                  }
+                                },
+                                child: Text("Join"),
+                              ),
+                            ],
+                            content: Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 10,
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Obx(
+                                      () => TextField(
+                                        controller: sc.te,
+                                        decoration: InputDecoration(
+                                          contentPadding:
+                                              EdgeInsets.only(bottom: 6),
+                                          isDense: true,
+                                          hintText: "Join key",
+                                          errorText: (sc.error.value != "")
+                                              ? sc.error.value
+                                              : null,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  IconButton(
+                                    splashRadius: 2,
+                                    iconSize: 18,
+                                    onPressed: () {
+                                      print("Settings.dart 138");
+                                    },
+                                    icon: FaIcon(FontAwesomeIcons.qrcode),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ],

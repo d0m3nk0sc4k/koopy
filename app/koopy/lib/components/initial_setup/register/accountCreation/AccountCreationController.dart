@@ -74,6 +74,7 @@ class AccountCreationController extends GetxController {
     statusOpacity.value = 0;
     offset.value = 500;
     await Future.delayed(Duration(milliseconds: 500));
+    Get.deleteAll();
     Get.off(() => Image());
     super.onReady();
   }

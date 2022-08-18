@@ -9,8 +9,10 @@ import 'package:koopy/main.dart';
 class HomeScreenController extends GetxController {
   GetStorage storage = GetStorage();
   var widgets = <Widget>[
-    Center(
-      child: CircularProgressIndicator(),
+    Expanded(
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
     )
   ].obs;
 
@@ -53,12 +55,16 @@ class HomeScreenController extends GetxController {
     var widgets = <Widget>[];
 
     for (var list in lists) {
-      var temp = await http
-          .get(Uri.parse(baseUrl + "list/" + list.toString() + "/products"), headers: {
-        'Authorization': "Bearer " + storage.read("token")
-      }).then((value) {
+      var temp = await http.get(
+          Uri.parse(baseUrl + "list/" + list.toString() + "/products"),
+          headers: {
+            'Authorization': "Bearer " + storage.read("token")
+          }).then((value) {
         var data = json.decode(value.body);
-        widgets.add(new ListWidget(listName: data.keys.toList()[0], children: data[data.keys.toList()[0]],));
+        widgets.add(new ListWidget(
+          listName: data.keys.toList()[0],
+          children: data[data.keys.toList()[0]],
+        ));
       });
     }
 

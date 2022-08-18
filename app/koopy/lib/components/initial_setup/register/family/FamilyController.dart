@@ -41,6 +41,7 @@ class FamilyController extends GetxController {
   }
 
   void notNow() async {
+    Get.deleteAll();
     Get.off(() => Home());
   }
 

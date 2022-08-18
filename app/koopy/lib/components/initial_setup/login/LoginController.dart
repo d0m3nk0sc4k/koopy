@@ -41,6 +41,7 @@ class LoginController extends GetxController {
       await Future.delayed(Duration(milliseconds: 100));
       offsetTitle.value = -500;
 
+      Get.deleteAll();
       Get.off(() => Home());
     } else if (status['statusCode'] == 400) {
       showSnackbar(

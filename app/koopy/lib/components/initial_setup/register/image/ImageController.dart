@@ -17,6 +17,7 @@ class ImageController extends GetxController {
   final storage = GetStorage();
 
   void next() async {
+    Get.deleteAll();
     Get.off(() => AddFamily());
   }
 

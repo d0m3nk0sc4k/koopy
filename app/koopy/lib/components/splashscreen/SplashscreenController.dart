@@ -24,6 +24,7 @@ class SplashscreenController extends GetxController {
     await Future.delayed(Duration(milliseconds: 150));
     offset.value = 100.0;
     await Future.delayed(Duration(milliseconds: 500));
+    Get.deleteAll();
     Get.off(() => Register());
   }
 
@@ -46,6 +47,7 @@ class SplashscreenController extends GetxController {
         await Future.delayed(Duration(milliseconds: 500));
         var storage = await GetStorage();
         print(await storage.read("profile_img"));
+        Get.deleteAll();
         Get.off(() => Home());
       } else {
         offset.value = 0;
