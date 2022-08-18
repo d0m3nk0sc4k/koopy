@@ -86,11 +86,13 @@ class FamilyJoin(Resource):
     def put(__self__):
         data = check_for_data()
 
-        family = Family.select(Family.id, Family.name).where(Family.qrcode == data["join_key"]).get()
+        family = Family.select(Family.id, Family.name).where(Family.qrcode == data["join_key"])
 
         if not family.exists():
             return {"message": "Family does not exist."}, 400
         
+        family = family.get()
+
         Family_has_User.create(id_u = data["user"], id_f = family.id)
 
         return {"family": family.name}, 201
