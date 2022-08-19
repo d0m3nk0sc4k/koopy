@@ -69,3 +69,15 @@ class ListDelete(Resource):
         list.delete().execute()
 
         return {"message": "List successfully deleted"}, 204
+
+class AddItemToList(Resource):
+    @jwt_required()
+    def post(__self__):
+        data = check_for_data()
+
+        check = List_has_Product.select().where((List_has_Product.id_p == data["id_p"]) & (List_has_Product.id_l == data["id_l"]))
+        if (check.exists()):
+            return "Product already on that list.", 400
+
+        List_has_Product.create(id_p = data["id_p"], id_l = data["id_l"], added_u = data["user"], quantity = data["quantity"], added = datetime.now())
+        return "OK", 201
