@@ -12,6 +12,7 @@ class HeaderController extends GetxController {
   var id = 0.obs;
   var address = "".obs;
   HomeScreenController hc = Get.find();
+  Map lists = {};
 
   final storage = GetStorage();
 
@@ -19,6 +20,7 @@ class HeaderController extends GetxController {
   void onReady() async {
     await hc.getFamilies().then((value) {
       Map<dynamic, dynamic> val = json.decode(json.encode(json.decode(value)));
+      lists = val;
       name.value = val.keys.toList()[0];
       id.value = val[name.value]["id"];
       address.value = val[name.value]["address"];
@@ -61,7 +63,7 @@ class HeaderController extends GetxController {
                         var data = snapshot.data as Map;
                         List<Widget> widgets = [];
                         if (data.isEmpty) {
-                          widgets.add(Text("Nisi član nobene družine."));
+                          widgets.add(Text("You are not a member of any family."));
                         }
 
                         for (String key in data.keys.toList()) {

@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
+import 'package:koopy/components/global/Snackbar.dart';
 import 'package:koopy/components/home/Home.dart';
 import 'package:koopy/components/initial_setup/register/family/AddNewFamily.dart';
 import 'package:koopy/components/initial_setup/register/family/Family.dart';
@@ -21,30 +22,25 @@ class AddNewFamilyContoller extends GetxController {
   TextEditingController name = TextEditingController();
   TextEditingController address = TextEditingController();
   TextEditingController joinKey = TextEditingController();
-  RxBool disabled = true.obs;
-
-  void readQR() async {
-    String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-      "000000",
-      "Cancel",
-      false,
-      ScanMode.QR,
-    );
-    final data = json.decode(barcodeScanRes);
-    name.text = data["name"];
-    address.text = data["address"];
-    joinKey.text = data["joinKey"];
-    disabled.value = false;
-  }
 
   void joinFam() async {
     final storage = GetStorage();
-    await http.put(Uri.parse(baseUrl+"family"), body: json.encode({"join_key": joinKey.text, "user": storage.read("userID")}));
-  }
-
-  void notNow() async {
-    Get.deleteAll();
-    Get.off(() => Home());
+    await http.post(
+      Uri.parse(baseUrl + "family/new"),
+      body: json.encode(
+        {"address": address.text, "admin": 3, "name": name.text},
+      ),
+      headers: {
+        "Authorization": "Bearer " + storage.read("token"),
+      }
+    ).then((value) {
+      if (value.statusCode == 201) {
+        Get.deleteAll();
+        Get.off(Home());
+      } else if (value.statusCode == 400){
+        showSnackbar(title: "Error", message: json.decode(value.body)["message"]);
+      }
+    });
   }
 
   void createNew() async {

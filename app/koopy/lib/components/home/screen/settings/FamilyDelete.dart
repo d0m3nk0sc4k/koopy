@@ -8,16 +8,19 @@ import 'package:koopy/components/home/screen/header/HeaderController.dart';
 import 'package:koopy/components/home/screen/settings/FamilyControllerDelete.dart';
 import 'package:koopy/main.dart';
 import 'dart:convert';
-import 'package:qr/qr.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class FamilyDelete extends StatelessWidget {
-  const FamilyDelete(
-      {Key? key, required this.familyName, required this.familyId})
-      : super(key: key);
+  const FamilyDelete({
+    Key? key,
+    required this.familyName,
+    required this.familyId,
+    required this.qrdata,
+  }) : super(key: key);
 
   final String familyName;
   final int familyId;
+  final String qrdata;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +90,7 @@ class FamilyDelete extends StatelessWidget {
                 height: 200,
                 width: 200,
                 child: QrImage(
-                  data: "asdasdasd",
+                  data: qrdata,
                   size: 200,
                   foregroundColor: Theme.of(Get.context!).colorScheme.primary,
                 ),

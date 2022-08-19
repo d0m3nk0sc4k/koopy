@@ -28,7 +28,8 @@ class FamilyControllerDelete extends GetxController {
       var data = json.decode(value.body);
       
       for (var key in data.keys) {
-        families.add(FamilyDelete(familyName: key, familyId: data[key]["id"]));
+        print(data[key]["qrcode"]);
+        families.add(FamilyDelete(familyName: key, familyId: data[key]["id"], qrdata: data[key]["qrcode"],));
       }
 
       return data;
