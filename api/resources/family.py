@@ -105,6 +105,9 @@ class FamilyJoin(Resource):
 class GetLists(Resource):
     @jwt_required()
     def get(__self__, id):
-        lists = Family.select().where(Family.id == id).get()
-
-        return lists.lists.get()
+        list = Family.select().where(Family.id == id).get()
+        seznam = {list.name: []}
+        products = list.lists
+        for product in products:
+            seznam[list.name].append(model_to_dict(product))
+        return loads(dumps(seznam, sort_keys=True, default=str))
