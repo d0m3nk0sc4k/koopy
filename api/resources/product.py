@@ -29,7 +29,7 @@ class ProductNew(Resource):
             Product.name == data["name"] and Product.producer == data["producer"])
 
         if product.exists():
-            return {"message": "Product already exists."}, 400
+            return {"message": "Product already exists.", "id": product.id}, 400
 
         try:
             barcode = data["barcode"]
@@ -40,7 +40,7 @@ class ProductNew(Resource):
                 name=data["name"], producer=data["producer"])
 
         if product.id > 0:
-            return {"message": "Product added."}, 201
+            return {"message": "Product added.", "id": product.id}, 201
         else:
             return {"message": "Something went wrong. Please try again."}, 500
 
