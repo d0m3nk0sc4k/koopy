@@ -45,7 +45,7 @@ class FamilyNew(Resource):
     def post(__self__):
         data = check_for_data()
 
-        family = Family.select().where(Family.name == data['name'] and Family.address == data['address'])
+        family = Family.select().where((Family.name == data['name']) & (Family.address == data['address']))
 
         if family.exists():
             return {"message": "Family with that name and address already exists."}, 400

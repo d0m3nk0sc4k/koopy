@@ -26,7 +26,7 @@ class ProductNew(Resource):
         data = check_for_data()
 
         product = Product.select().where(
-            Product.name == data["name"] and Product.producer == data["producer"])
+            (Product.name == data["name"]) & (Product.producer == data["producer"]))
 
         if product.exists():
             return {"message": "Product already exists.", "id": product.get().id}, 400
@@ -51,7 +51,7 @@ class ProductDelete(Resource):
         data = check_for_data()
 
         products = Product.select().where(
-            Product.name == data["name"] and Product.producer == data["producer"])
+            (Product.name == data["name"]) & (Product.producer == data["producer"]))
 
         if not products.exists():
             return {"message": "Product does not exist."}, 400
@@ -59,8 +59,8 @@ class ProductDelete(Resource):
         for product in products:
             product.delete().execute()
 
-        Product.delete().where(Product.name ==
-                               data["name"] and Product.producer == data["producer"]).execute()
+        Product.delete().where((Product.name ==
+                               data["name"]) & (Product.producer == data["producer"])).execute()
 
         return {"message": "Product successfully deleted."}, 204
 
