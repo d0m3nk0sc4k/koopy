@@ -101,3 +101,9 @@ class FamilyJoin(Resource):
         Family_has_User.create(id_u = data["user"], id_f = family.id)
 
         return {"family": family.name}, 201
+
+class GetLists(Resource):
+    @jwt_required()
+    def get(__self__, id):
+        lists = Family.select().where(Family.id == id).get()
+        return lists.lists
