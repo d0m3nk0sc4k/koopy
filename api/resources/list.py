@@ -50,7 +50,7 @@ class ListNew(Resource):
         
         list = List.create(name=data["name"], id_f=data["family_id"], admin=data["admin"], created=datetime.now())
 
-        return model_to_dict(list), 201
+        return loads(dumps(model_to_dict(list), sort_keys=True, default=str)), 201
 
 class ListDelete(Resource):
     @jwt_required()
