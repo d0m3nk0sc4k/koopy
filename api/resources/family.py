@@ -106,4 +106,7 @@ class GetLists(Resource):
     @jwt_required()
     def get(__self__, id):
         lists = Family.select().where(Family.id == id).get()
+
+        print(lists)
+
         return lists.lists
