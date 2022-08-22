@@ -96,7 +96,7 @@ class UserClass(Resource):
         if user.exists():
             return {"message": "User with that mail already exists"}, 400
 
-        user = User.create(name=data["name"], mail=data["mail"], image=images[randint(0, 4)])
+        user = User.create(name=data["name"], mail=data["mail"], profile_img=images[randint(0, 4)])
         UserPassword.create(
             password=data['password'], last_login=datetime.now(), id_u=user.id)
         token = create_access_token(identity=user.id)
