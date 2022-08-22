@@ -29,7 +29,7 @@ class ProductNew(Resource):
             Product.name == data["name"] and Product.producer == data["producer"])
 
         if product.exists():
-            return {"message": "Product already exists.", "id": product.id}, 400
+            return {"message": "Product already exists.", "id": product.get().id}, 400
 
         try:
             barcode = data["barcode"]

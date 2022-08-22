@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:koopy/components/global/Snackbar.dart';
 import 'package:koopy/components/home/screen/header/HeaderController.dart';
 import 'package:koopy/components/theme.dart';
+import 'package:koopy/main.dart';
 
 class AddItem extends StatelessWidget {
   const AddItem({Key? key}) : super(key: key);
@@ -12,7 +17,7 @@ class AddItem extends StatelessWidget {
     TextEditingController name = new TextEditingController(),
         producer = new TextEditingController(),
         quantity = new TextEditingController();
-    int listID;
+    int listID = 0;
     RxString buttonText = "Select...".obs;
 
     return Wrap(
@@ -78,7 +83,10 @@ class AddItem extends StatelessWidget {
                     ),
                   ),
                   TextButton(
-                    child: Obx(() => Text(buttonText.value, style: TextStyle(fontSize: 16),)),
+                    child: Obx(() => Text(
+                          buttonText.value,
+                          style: TextStyle(fontSize: 16),
+                        )),
                     onPressed: () {
                       HeaderController hc = Get.find();
                       var keys = hc.lists.keys.toList();
@@ -144,6 +152,53 @@ class AddItem extends StatelessWidget {
                     },
                   ),
                 ],
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  if (name.value.text.isEmpty ||
+                      producer.value.text.isEmpty ||
+                      quantity.value.text.isEmpty ||
+                      listID == 0) {
+                    showSnackbar(
+                        title: "Error", message: "Please fill in all fields.");
+                    return;
+                  }
+
+                  var storage = GetStorage();
+                  await http.post(Uri.parse(baseUrl + "product/new"),
+                      body: json.encode({
+                        "name": name.value.text,
+                        "producer": producer.value.text
+                      }),
+                      headers: {
+                        "Authorization": "Bearer " + storage.read("token")
+                      }).then(
+                    (value) {
+                      if (value.statusCode == 500) {
+                        showSnackbar(
+                            title: "Error",
+                            message:
+                                "Something went wrong. Please try again later.");
+                      } else {
+                        print(json.decode(value.body));
+                        http.post(Uri.parse(baseUrl + "list/product/add"), headers: {"Authorization": "Bearer " + storage.read("token")}, body: json.encode({
+                          "id_p": json.decode(value.body)["id"],
+                          "id_l": listID,
+                          "user": storage.read("userID"),
+                          "quantity": quantity.value.text
+                        })).then(
+                          (value) {
+                            print(value.body);
+                          },
+                        );
+                      }
+                    },
+                  );
+                },
+                child: Text("ADD"),
               ),
             ],
           ),
