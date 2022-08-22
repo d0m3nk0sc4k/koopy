@@ -23,10 +23,16 @@ class AddNewFamilyContoller extends GetxController {
 
   void joinFam() async {
     final storage = GetStorage();
+    print(storage.getKeys());
+    print(storage.read("userID"));
+    print(address.value.text);
+    print(name.value.text);
+    print(baseUrl + "family/new");
+    print(storage.read("token"));
     await http.post(
       Uri.parse(baseUrl + "family/new"),
       body: json.encode(
-        {"address": address.text, "admin": storage.read("userID"), "name": name.text},
+        {"address": address.value.text, "admin": storage.read("userID"), "name": name.value.text},
       ),
       headers: {
         "Authorization": "Bearer " + storage.read("token"),

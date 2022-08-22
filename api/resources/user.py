@@ -100,4 +100,6 @@ class UserClass(Resource):
         UserPassword.create(
             password=data['password'], last_login=datetime.now(), id_u=user.id)
         token = create_access_token(identity=user.id)
-        return model_to_dict(user), 201
+        data = model_to_dict(user)
+        data["token"] = token
+        return data, 201
