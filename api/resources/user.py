@@ -1,5 +1,4 @@
 from random import randint
-from flask import request
 from flask_restful import Resource
 from database.tables import User, UserPassword, Family
 from datetime import datetime
@@ -97,8 +96,8 @@ class UserClass(Resource):
         if user.exists():
             return {"message": "User with that mail already exists"}, 400
 
-        user = User.create(name=data["name"], mail=data["mail"])
+        user = User.create(name=data["name"], mail=data["mail"], image=images[randint(0, 5)])
         UserPassword.create(
             password=data['password'], last_login=datetime.now(), id_u=user.id)
         token = create_access_token(identity=user.id)
-        return {"token": token, "id": user.id, "profile_img": images[randint(0, 5)], "mail": user.mail, "name": user.name}, 201
+        return model_to_dict(user), 201
