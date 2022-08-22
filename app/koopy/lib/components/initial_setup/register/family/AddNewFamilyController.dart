@@ -26,7 +26,7 @@ class AddNewFamilyContoller extends GetxController {
     await http.post(
       Uri.parse(baseUrl + "family/new"),
       body: json.encode(
-        {"address": address.text, "admin": 3, "name": name.text},
+        {"address": address.text, "admin": storage.read("userID"), "name": name.text},
       ),
       headers: {
         "Authorization": "Bearer " + storage.read("token"),

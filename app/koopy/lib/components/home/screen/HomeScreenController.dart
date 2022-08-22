@@ -64,7 +64,7 @@ class HomeScreenController extends GetxController {
         widgets.add(new ListWidget(
           listName: data.keys.toList()[0],
           children: data[data.keys.toList()[0]],
-          admin: (data["admin"] == storage.read("userID")),
+          admin: (data["admin"]["id"] == storage.read("userID")),
         ));
       });
     }
