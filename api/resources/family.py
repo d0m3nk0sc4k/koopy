@@ -107,6 +107,4 @@ class GetLists(Resource):
     def get(__self__, id):
         lists = Family.select().where(Family.id == id).get()
 
-        print(lists.lists.get())
-
-        return lists.lists
+        return lists.lists.get()
