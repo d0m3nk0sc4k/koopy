@@ -42,7 +42,7 @@ class ListNew(Resource):
     def post(__self__):
         data = check_for_data()
 
-        list = List.select().where(List.name == data["name"] and List.id_f == data["family_id"])
+        list = List.select().where((List.name == data["name"]) and (List.id_f == data["family_id"]))
 
         if list.exists():
             return {"message": "List with that name in family already exists."}, 400

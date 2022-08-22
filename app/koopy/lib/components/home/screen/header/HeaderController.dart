@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:koopy/components/home/HomeController.dart';
 import 'package:koopy/components/home/screen/HomeScreenController.dart';
 import 'package:koopy/main.dart';
 
@@ -24,6 +25,8 @@ class HeaderController extends GetxController {
       name.value = val.keys.toList()[0];
       id.value = val[name.value]["id"];
       address.value = val[name.value]["address"];
+      HomeController tc = Get.find();
+      tc.onReady();
     });
   }
 
@@ -63,21 +66,27 @@ class HeaderController extends GetxController {
                         var data = snapshot.data as Map;
                         List<Widget> widgets = [];
                         if (data.isEmpty) {
-                          widgets.add(Text("You are not a member of any family."));
+                          widgets
+                              .add(Text("You are not a member of any family."));
                         }
 
                         for (String key in data.keys.toList()) {
                           widgets.add(
                             GestureDetector(
-                              onTap: () {changeFamily(data[key]["id"], key);},
+                              onTap: () {
+                                changeFamily(data[key]["id"], key);
+                              },
                               child: Container(
-                                color: Theme.of(Get.context!).colorScheme.background,
+                                color: Theme.of(Get.context!)
+                                    .colorScheme
+                                    .background,
                                 child: Padding(
                                   padding: const EdgeInsets.only(bottom: 16.0),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Text(
                                         data[key]["name"],
@@ -142,6 +151,8 @@ class HeaderController extends GetxController {
     name.value = familyName;
     HomeScreenController hc = Get.find();
     hc.getLists();
+    HomeController tc = Get.find();
+    tc.onReady();
     Navigator.pop(Get.context!);
   }
 }

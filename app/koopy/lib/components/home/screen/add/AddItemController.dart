@@ -4,14 +4,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:koopy/main.dart';
 import 'dart:convert';
 
-class HomeController extends GetxController {
-  RxBool showItem = true.obs;
-
-  @override
-  void onReady() async {
-    List lists = await getLists();
-    showItem.value = !lists.isEmpty;
-  }
+class AddItemController extends GetxController {
+  RxList lists = [].obs;
 
   Future getLists() async {
     var storage = GetStorage();
@@ -26,5 +20,10 @@ class HomeController extends GetxController {
         return json.decode(value.body);
       },
     );
+  }
+
+  @override
+  void onReady() async {
+    lists.value = await getLists();
   }
 }

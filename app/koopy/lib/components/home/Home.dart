@@ -3,8 +3,10 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:koopy/components/home/HomeController.dart';
 import 'package:koopy/components/home/screen/HomeScreen.dart';
 import 'package:koopy/components/home/screen/add/AddItem.dart';
+import 'package:koopy/components/home/screen/add/AddList.dart';
 import 'package:koopy/components/home/screen/settings/Settings.dart';
 import 'package:koopy/components/theme.dart';
 
@@ -14,6 +16,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var storage = GetStorage();
+    HomeController c = Get.put(HomeController());
 
     return (Scaffold(
       backgroundColor: Theme.of(Get.context!).colorScheme.background,
@@ -49,31 +52,71 @@ class Home extends StatelessWidget {
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              TextButton(
-                                child: Text("Item"),
-                                onPressed: () {
-                                  Get.back();
-                                  Get.bottomSheet(
-                                    AddItem(),
-                                    backgroundColor: Theme.of(Get.context!)
-                                        .colorScheme
-                                        .background,
-                                    elevation: 0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(20),
-                                      ),
+                            children: (c.showItem.value)
+                                ? [
+                                    TextButton(
+                                      child: Text("Item"),
+                                      onPressed: () {
+                                        Get.back();
+                                        Get.bottomSheet(
+                                          AddItem(),
+                                          backgroundColor:
+                                              Theme.of(Get.context!)
+                                                  .colorScheme
+                                                  .background,
+                                          elevation: 0,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(20),
+                                            ),
+                                          ),
+                                          isScrollControlled: true,
+                                        );
+                                      },
                                     ),
-                                    isScrollControlled: true,
-                                  );
-                                },
-                              ),
-                              TextButton(
-                                onPressed: () {},
-                                child: Text("List"),
-                              ),
-                            ],
+                                    TextButton(
+                                      onPressed: () {
+                                        Get.back();
+                                        Get.bottomSheet(
+                                          AddList(),
+                                          backgroundColor:
+                                              Theme.of(Get.context!)
+                                                  .colorScheme
+                                                  .background,
+                                          elevation: 0,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(20),
+                                            ),
+                                          ),
+                                          isScrollControlled: true,
+                                        );
+                                      },
+                                      child: Text("List"),
+                                    ),
+                                  ]
+                                : [
+                                    TextButton(
+                                      onPressed: () {
+                                        Get.back();
+                                        Get.bottomSheet(
+                                          AddList(),
+                                          backgroundColor:
+                                              Theme.of(Get.context!)
+                                                  .colorScheme
+                                                  .background,
+                                          elevation: 0,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(20),
+                                            ),
+                                          ),
+                                          isScrollControlled: true,
+                                        );
+                                      },
+                                      child: Text("List"),
+                                    )
+                                  ],
                           ),
                         ],
                       ),

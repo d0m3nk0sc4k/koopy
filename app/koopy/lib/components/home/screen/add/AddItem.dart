@@ -1,11 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:koopy/components/global/Snackbar.dart';
-import 'package:koopy/components/home/screen/header/HeaderController.dart';
+import 'package:koopy/components/home/screen/HomeScreenController.dart';
+import 'package:koopy/components/home/screen/add/AddItemController.dart';
 import 'package:koopy/components/theme.dart';
 import 'package:koopy/main.dart';
 
@@ -19,6 +19,8 @@ class AddItem extends StatelessWidget {
         quantity = new TextEditingController();
     int listID = 0;
     RxString buttonText = "Select...".obs;
+
+    AddItemController c = Get.put(AddItemController());
 
     return Wrap(
       children: [
@@ -83,13 +85,13 @@ class AddItem extends StatelessWidget {
                     ),
                   ),
                   TextButton(
-                    child: Obx(() => Text(
-                          buttonText.value,
-                          style: TextStyle(fontSize: 16),
-                        )),
+                    child: Obx(
+                      () => Text(
+                        buttonText.value,
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
                     onPressed: () {
-                      HeaderController hc = Get.find();
-                      var keys = hc.lists.keys.toList();
                       Get.bottomSheet(
                         Wrap(
                           children: [
@@ -113,19 +115,19 @@ class AddItem extends StatelessWidget {
                                       children: [
                                         ListView.builder(
                                           shrinkWrap: true,
-                                          itemCount: keys.length,
+                                          itemCount: c.lists.length,
                                           itemBuilder: (context, i) {
                                             return TextButton(
                                               child: Text(
-                                                keys[i],
+                                                c.lists[i]["name"],
                                                 style: TextStyle(
                                                   fontSize: 18,
                                                 ),
                                               ),
                                               onPressed: () {
-                                                listID =
-                                                    hc.lists[keys[i]]["id"];
-                                                buttonText.value = keys[i];
+                                                listID = c.lists[i]["id"];
+                                                buttonText.value =
+                                                    c.lists[i]["name"];
                                                 Get.back();
                                               },
                                             );
@@ -184,19 +186,38 @@ class AddItem extends StatelessWidget {
                                 "Something went wrong. Please try again later.");
                       } else {
                         print(json.decode(value.body));
-                        http.post(Uri.parse(baseUrl + "list/product/add"), headers: {"Authorization": "Bearer " + storage.read("token")}, body: json.encode({
-                          "id_p": json.decode(value.body)["id"],
-                          "id_l": listID,
-                          "user": storage.read("userID"),
-                          "quantity": quantity.value.text
-                        })).then(
+                        http
+                            .post(Uri.parse(baseUrl + "list/product/add"),
+                                headers: {
+                                  "Authorization":
+                                      "Bearer " + storage.read("token")
+                                },
+                                body: json.encode({
+                                  "id_p": json.decode(value.body)["id"],
+                                  "id_l": listID,
+                                  "user": storage.read("userID"),
+                                  "quantity": quantity.value.text
+                                }))
+                            .then(
                           (value) {
-                            print(value.body);
+                            if (value.statusCode == 400) {
+                              showSnackbar(
+                                  title: "Error",
+                                  message: "Product is already on that list.");
+                            }
                           },
                         );
                       }
                     },
                   );
+
+                  HomeScreenController hc = Get.find();
+                  hc.getLists();
+                  Get.back();
+                  showSnackbar(
+                      title: "Success",
+                      message: "Product successfully added to the list!",
+                      color: Color(0xff88d840));
                 },
                 child: Text("ADD"),
               ),
