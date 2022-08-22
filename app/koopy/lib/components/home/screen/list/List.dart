@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:koopy/components/home/screen/list/ListItem.dart';
 
 class ListWidget extends StatelessWidget {
-  const ListWidget({Key? key, required this.listName, required this.children})
+  const ListWidget({Key? key, required this.listName, required this.children, required this.admin})
       : super(key: key);
   final String listName;
+  final bool admin;
 
   final List children;
 
@@ -32,14 +34,29 @@ class ListWidget extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.only(top: 20, left: 25),
-            child: Text(
-              listName.toUpperCase(),
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                color: Theme.of(Get.context!).colorScheme.background,
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  listName.toUpperCase(),
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: Theme.of(Get.context!).colorScheme.background,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                IconButton(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  constraints: BoxConstraints(),
+                  onPressed: () {},
+                  icon: FaIcon(
+                    FontAwesomeIcons.trashCan,
+                    color: Theme.of(Get.context!).colorScheme.background,
+                    size: 20,
+                  ),
+                ),
+              ],
             ),
           ),
           Container(
@@ -54,7 +71,15 @@ class ListWidget extends StatelessWidget {
             ),
             child: (children.isEmpty)
                 ? ListView(
-                    children: [Container(height: 50, child: Center(child: Text("No products in this list!", style: TextStyle(fontSize: 16),)))],
+                    children: [
+                      Container(
+                          height: 50,
+                          child: Center(
+                              child: Text(
+                            "No products in this list!",
+                            style: TextStyle(fontSize: 16),
+                          )))
+                    ],
                     shrinkWrap: true,
                   )
                 : ListView.builder(

@@ -2,11 +2,9 @@ import 'dart:convert';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
 import 'package:koopy/components/global/Snackbar.dart';
 import 'package:koopy/components/home/Home.dart';
-import 'package:koopy/components/initial_setup/register/family/AddNewFamily.dart';
 import 'package:koopy/components/initial_setup/register/family/Family.dart';
 import 'package:koopy/main.dart';
 

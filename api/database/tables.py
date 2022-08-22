@@ -48,7 +48,7 @@ class List(BaseModel):
     id = AutoField()
     name = TextField()
     id_f = ForeignKeyField(Family, backref='lists')
-    admin = ForeignKeyField(User, backref='lists'),
+    admin = ForeignKeyField(User, backref='list_admin'),
     created = DateTimeField()
 
 
