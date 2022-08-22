@@ -34,6 +34,7 @@ class ListProducts(Resource):
         products = list.products
         for product in products:
             seznam[list.name].append(model_to_dict(product))
+        seznam[list.name]["admin"] = list.admin
         return loads(dumps(seznam, sort_keys=True, default=str))
 
 class ListNew(Resource):

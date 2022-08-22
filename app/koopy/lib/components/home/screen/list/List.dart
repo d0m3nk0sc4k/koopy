@@ -46,7 +46,7 @@ class ListWidget extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                (admin) ? IconButton(
+                IconButton(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   constraints: BoxConstraints(),
                   onPressed: () {},
@@ -55,7 +55,7 @@ class ListWidget extends StatelessWidget {
                     color: Theme.of(Get.context!).colorScheme.background,
                     size: 20,
                   ),
-                ) : Container(),
+                ),
               ],
             ),
           ),

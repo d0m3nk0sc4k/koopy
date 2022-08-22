@@ -61,10 +61,11 @@ class HomeScreenController extends GetxController {
             'Authorization': "Bearer " + storage.read("token")
           }).then((value) {
         var data = json.decode(value.body);
+        print(data);
         widgets.add(new ListWidget(
           listName: data.keys.toList()[0],
           children: data[data.keys.toList()[0]],
-          admin: (data["admin"]["id"] == storage.read("userID")),
+          admin: true//(data["admin"]["id"] == storage.read("userID")),
         ));
       });
     }
