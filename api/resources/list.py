@@ -30,10 +30,10 @@ class ListProducts(Resource):
     @jwt_required()
     def get(__self__, list_id):
         list = List.select().where(List.id == list_id).get()
-        seznam = {list.name: []}
+        seznam = {list.name: {"data": [], "admin": {}}}
         products = list.products
         for product in products:
-            seznam[list.name].append(model_to_dict(product))
+            seznam[list.name]["data"].append(model_to_dict(product))
         seznam[list.name]["admin"] = list.admin
         return loads(dumps(seznam, sort_keys=True, default=str))
 
