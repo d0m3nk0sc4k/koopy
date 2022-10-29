@@ -67,7 +67,7 @@ class ListDelete(Resource):
         for product in list_h_prod:
             product.delete().execute()
 
-        List.delete.where(List.id == data['id']).execute()
+        List.delete().where(List.id == data['id']).execute()
 
         return {"message": "List successfully deleted"}, 204
 
