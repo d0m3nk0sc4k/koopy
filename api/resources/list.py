@@ -43,15 +43,14 @@ class ListNew(Resource):
     def post(__self__):
         data = check_for_data()
 
-        list = List.select().where((List.id_f == data["family_id"]) & (List.name == data["name"]))
-        print(list)
+        listek = List.select().where((List.id_f == data["family_id"]) & (List.name == data["name"]))
 
-        if list.exists():
+        if listek.exists():
             return {"message": "List with that name in family already exists."}, 400
         
-        list = List.create(name=data["name"], id_f=data["family_id"], admin=data["admin"], created=datetime.now())
+        listek = List.create(name=data["name"], id_f=data["family_id"], admin=data["admin"], created=datetime.now())
 
-        return loads(dumps(model_to_dict(list), sort_keys=True, default=str)), 201
+        return loads(dumps(model_to_dict(listek), sort_keys=True, default=str)), 201
 
 class ListDelete(Resource):
     @jwt_required()
@@ -59,13 +58,16 @@ class ListDelete(Resource):
     def delete(__self__):
         data = check_for_data()
 
-        list = List.select().where(List.id == data['id'])
+        listek = List.select().where(List.id == data['id'])
         list_h_prod = List_has_Product.select().where(List_has_Product.id_l == data['id'])
+
+        if not listek.exist():
+            return {"message": "List does not exist"}, 400
 
         for product in list_h_prod:
             product.delete().execute()
 
-        list.delete().execute()
+        listek.delete().execute()
 
         return {"message": "List successfully deleted"}, 204
 
