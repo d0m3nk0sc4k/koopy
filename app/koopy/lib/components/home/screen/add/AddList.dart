@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:koopy/components/global/Snackbar.dart';
+import 'package:koopy/components/home/HomeController.dart';
 import 'package:koopy/components/home/screen/HomeScreenController.dart';
 import 'package:koopy/components/home/screen/header/HeaderController.dart';
 import 'package:koopy/components/theme.dart';
@@ -217,6 +218,8 @@ class AddList extends StatelessWidget {
                         HomeScreenController hc = Get.find();
                         hc.getLists();
                         Get.back();
+                        HomeController homec = Get.find();
+                        homec.showItem.value = true;
                         showSnackbar(
                           title: "Success",
                           message: "List successfully created.",

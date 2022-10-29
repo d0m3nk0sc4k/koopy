@@ -62,9 +62,6 @@ class ListDelete(Resource):
         list = List.select().where(List.id == data['id'])
         list_h_prod = List_has_Product.select().where(List_has_Product.id_l == data['id'])
 
-        if not list.exist():
-            return {"message": "List does not exist"}, 400
-
         for product in list_h_prod:
             product.delete().execute()
 

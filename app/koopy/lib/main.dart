@@ -6,7 +6,7 @@ import 'package:koopy/components/splashscreen/Splashscreen.dart';
 import 'package:koopy/components/theme.dart';
 import 'package:get_storage/get_storage.dart';
 
-String baseUrl = "https://koopy.koscak.xyz/api/";
+String baseUrl = "https://koopy.koscak.tk/api/";
 
 class MyHttpOverrides extends HttpOverrides{
   @override

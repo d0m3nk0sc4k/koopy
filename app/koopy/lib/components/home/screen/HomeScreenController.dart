@@ -52,6 +52,18 @@ class HomeScreenController extends GetxController {
       return data["lists"];
     });
 
+    if (lists.length == 0) {
+      this.widgets.value = [
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Text("No lists in this family."),
+          ),
+        ),
+      ];
+      return;
+    }
+
     var widgets = <Widget>[];
 
     for (var list in lists) {
@@ -63,8 +75,10 @@ class HomeScreenController extends GetxController {
         var data = json.decode(value.body);
         widgets.add(new ListWidget(
           listName: data.keys.toList()[0],
+          id: list,
           children: data[data.keys.toList()[0]]["data"],
-          admin: (data[data.keys.toList()[0]]["admin"] == storage.read("userID").toString()),
+          admin: (data[data.keys.toList()[0]]["admin"] ==
+              storage.read("userID").toString()),
         ));
       });
     }

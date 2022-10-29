@@ -15,6 +15,19 @@ class HomeController extends GetxController {
 
   Future getLists() async {
     var storage = GetStorage();
+    if (storage.read("selectedFamily") == null) {
+      var families = await http.get(
+          Uri.parse(
+              baseUrl + "user/families/" + storage.read("userID").toString()),
+          headers: {
+            'Authorization': "Bearer " + storage.read("token")
+          }).then((value) {
+        var data = json.decode(value.body);
+        return data;
+      });
+      storage.write(
+          'selectedFamily', families[families.keys.toList()[0]]['id']);
+    }
     return await http.get(
       Uri.parse(baseUrl +
           "family/lists/" +
@@ -22,7 +35,6 @@ class HomeController extends GetxController {
       headers: {"Authorization": "Bearer " + storage.read("token")},
     ).then(
       (value) {
-        print(json.decode(value.body));
         return json.decode(value.body);
       },
     );

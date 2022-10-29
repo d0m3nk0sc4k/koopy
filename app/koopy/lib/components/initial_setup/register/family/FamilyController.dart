@@ -20,7 +20,6 @@ class FamilyController extends GetxController {
   TextEditingController name = TextEditingController();
   TextEditingController address = TextEditingController();
   TextEditingController joinKey = TextEditingController();
-  RxBool disabled = true.obs;
 
   void readQR() async {
     String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
@@ -33,12 +32,23 @@ class FamilyController extends GetxController {
     name.text = data["name"];
     address.text = data["address"];
     joinKey.text = data["joinKey"];
-    disabled.value = false;
   }
 
   void joinFam() async {
     final storage = GetStorage();
-    await http.put(Uri.parse(baseUrl+"family"), body: json.encode({"join_key": joinKey.text, "user": storage.read("userID")}));
+    await http.put(Uri.parse(baseUrl + "family/join"),
+        body: json.encode(
+          {"join_key": joinKey.text, "user": storage.read("userID")},
+        ),
+        headers: {
+          "Authorization": "Bearer " + storage.read("token")
+        }).then((value) {
+      print(value.statusCode);
+      if (value.statusCode == 201) {
+        Get.deleteAll();
+        Get.off(() => Home());
+      }
+    });
   }
 
   void notNow() async {
@@ -71,7 +81,6 @@ class FamilyController extends GetxController {
     animationOffsets["button"] = 0;
     await Future.delayed(Duration(milliseconds: 75));
     animationOffsets["button1"] = 0;
-
 
     super.onReady();
   }

@@ -14,6 +14,7 @@ class HomeScreen extends StatelessWidget {
 
     return Obx(
       () => Container(
+        height: MediaQuery.of(Get.context!).size.height,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -21,12 +22,12 @@ class HomeScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(Get.context!)
-                        .colorScheme
-                        .onBackground
-                        .withOpacity(.2),
-                    blurRadius: 10,
-                  )
+                      color: Theme.of(Get.context!)
+                          .colorScheme
+                          .onBackground
+                          .withOpacity(.2),
+                      blurRadius: 4,
+                      offset: Offset(0, 4))
                 ],
                 color: Theme.of(Get.context!).colorScheme.background,
               ),
@@ -35,7 +36,7 @@ class HomeScreen extends StatelessWidget {
                   left: 40.0,
                   right: 40.0,
                   bottom: 20.0,
-                  top: 40.0,
+                  top: 10.0,
                 ),
                 child: Header(),
               ),

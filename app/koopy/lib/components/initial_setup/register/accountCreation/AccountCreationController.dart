@@ -37,6 +37,7 @@ class AccountCreationController extends GetxController {
         if (response.statusCode == 201) {
           final storage = GetStorage();
           final data = json.decode(response.body);
+          print(data);
           storage.write('token', data["token"]);
           storage.write('userID', data["id"]);
           storage.write('profile_img', data['profile_img']);

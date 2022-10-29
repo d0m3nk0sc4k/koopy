@@ -79,7 +79,7 @@ class AddFamily extends StatelessWidget {
                           c.animationOffsets["button"]!, 0, 0),
                       child: Center(
                         child: ElevatedButton(
-                          onPressed: c.disabled.value ? null : c.joinFam,
+                          onPressed: c.joinFam,
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12)),
