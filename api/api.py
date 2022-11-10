@@ -57,6 +57,7 @@ api.add_resource(ProductInfo, '/api/product/info/<string:product_name>')
 api.add_resource(ProductNew, '/api/product/new')
 api.add_resource(ProductDelete, '/api/product/delete')
 api.add_resource(ProductUpdate, '/api/product/update')
+api.add_resource(ProductBought, '/api/product/bought')
 
 # FAMILY API
 api.add_resource(FamilyInfo, '/api/family/info/<string:family_id>')
