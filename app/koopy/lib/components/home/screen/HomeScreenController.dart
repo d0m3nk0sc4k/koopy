@@ -9,10 +9,8 @@ import 'package:koopy/main.dart';
 class HomeScreenController extends GetxController {
   GetStorage storage = GetStorage();
   var widgets = <Widget>[
-    Expanded(
-      child: Center(
-        child: CircularProgressIndicator(),
-      ),
+    Center(
+      child: CircularProgressIndicator(),
     )
   ].obs;
 

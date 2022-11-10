@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:get_storage/get_storage.dart';
 import 'package:koopy/components/functions/CheckToken.dart';
 import 'package:koopy/components/home/Home.dart';
 import 'package:get/get.dart';
 import 'package:koopy/components/initial_setup/register/Register.dart';
+import 'package:koopy/main.dart';
 import 'package:rive/rive.dart';
+import 'package:http/http.dart' as http;
 
 class SplashscreenController extends GetxController {
   RxDouble offset = 100.0.obs;
@@ -28,6 +32,19 @@ class SplashscreenController extends GetxController {
     Get.off(() => Register());
   }
 
+  Future CheckFamilies() async {
+    var storage = GetStorage();
+    await http.get(
+        Uri.parse(
+            baseUrl + "user/families/" + storage.read("userID").toString()),
+        headers: {
+          'Authorization': "Bearer " + storage.read("token")
+        }).then((value) {
+          print(value.body);
+      print(value.statusCode);
+    });
+  }
+
   // Run once, when widget is rendered
   @override
   void onReady() async {
@@ -45,8 +62,9 @@ class SplashscreenController extends GetxController {
         await Future.delayed(Duration(milliseconds: 150));
         offset.value = 100.0;
         await Future.delayed(Duration(milliseconds: 500));
-        var storage = await GetStorage();
-        print(await storage.read("profile_img"));
+        await CheckFamilies().then((value) async {
+
+        });
         Get.deleteAll();
         Get.off(() => Home());
       } else {

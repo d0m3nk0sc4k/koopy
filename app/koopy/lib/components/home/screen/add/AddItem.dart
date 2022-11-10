@@ -10,15 +10,17 @@ import 'package:koopy/components/theme.dart';
 import 'package:koopy/main.dart';
 
 class AddItem extends StatelessWidget {
-  const AddItem({Key? key}) : super(key: key);
+  final int list_id;
+  final String placeholder;
+  const AddItem({this.list_id: 0, this.placeholder: "Select..."});
 
   @override
   Widget build(BuildContext context) {
     TextEditingController name = new TextEditingController(),
         producer = new TextEditingController(),
         quantity = new TextEditingController();
-    int listID = 0;
-    RxString buttonText = "Select...".obs;
+    int listID = list_id;
+    RxString buttonText = placeholder.obs;
 
     AddItemController c = Get.put(AddItemController());
 

@@ -19,49 +19,4 @@ Future<String> CheckToken() async {
     });
     return temp;
   }
-
-  /*
-  if (storage.read('token') != null) {
-    return await http.get(
-        Uri.parse(baseUrl + "user/" + storage.read('userID').toString()),
-        headers: {
-          'Authorization': "Bearer " + storage.read('token')
-        }).then((response) async {
-      if (response.statusCode == 401) {
-        if (storage.read('username') != null &&
-            storage.read('password') != null) {
-          await login(storage.read('username'), storage.read('password'));
-          await http.get(
-              Uri.parse(baseUrl + "user/" + storage.read('userID').toString()),
-              headers: {
-                'Authorization': "Bearer " + storage.read('token')
-              }).then((response) async {
-            if (response.statusCode == 200) {
-              storage.write('userData', json.decode(response.body));
-            }
-          });
-          return storage.read('token');
-        } else {
-          return "";
-        }
-      } else {
-        return storage.read('token');
-      }
-    });
-  } else if (storage.read('username') != null &&
-      storage.read('password') != null) {
-    await login(storage.read('username'), storage.read('password'));
-    await http.get(
-        Uri.parse(baseUrl + "user/" + storage.read('userID').toString()),
-        headers: {
-          'Authorization': "Bearer " + storage.read('token')
-        }).then((response) async {
-      if (response.statusCode == 200) {
-        storage.write('userData', json.decode(response.body));
-      }
-    });
-    return storage.read('token');
-  } else {
-    return "";
-  }*/
 }

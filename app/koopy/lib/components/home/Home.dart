@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -153,11 +154,14 @@ class Home extends StatelessWidget {
           ),
         ],
       ),
-      body: SafeArea(
-        child: Stack(
-          children: [
-            HomeScreen(),
-          ],
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.dark,
+        child: SafeArea(
+          child: Stack(
+            children: [
+              HomeScreen(),
+            ],
+          ),
         ),
       ),
     ));

@@ -22,7 +22,7 @@ class UserFamilies(Resource):
             familyName = Family.select().where(Family.id == family.id_f).get()
             toReturn[familyName.name] = model_to_dict(familyName)
 
-        if len(toReturn.items) == 0:
+        if not toReturn:
             return "No families", 400
 
         return toReturn

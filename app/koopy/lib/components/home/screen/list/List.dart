@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:koopy/components/home/screen/HomeScreenController.dart';
+import 'package:koopy/components/home/screen/add/AddItem.dart';
 import 'package:koopy/components/home/screen/list/ListItem.dart';
 import 'package:http/http.dart' as http;
 import 'package:koopy/main.dart';
@@ -59,34 +60,66 @@ class ListWidget extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                (admin)
-                    ? IconButton(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        constraints: BoxConstraints(),
-                        onPressed: () async {
-                          // list/delete
-                          await http.delete(Uri.parse(baseUrl + "list/delete"),
-                              body: json.encode({
-                                "id": this.id
-                              }),
-                              headers: {
-                                'Authorization':
-                                    "Bearer " + storage.read("token")
-                              }).then((value) {
-                                if (value.statusCode == 204) {
-                                  HomeScreenController hcc = Get.find();
-                                  hcc.getLists();
-                                }
-                              });
-                              print("ASD");
-                        },
-                        icon: FaIcon(
-                          FontAwesomeIcons.trashCan,
-                          color: Theme.of(Get.context!).colorScheme.background,
-                          size: 20,
-                        ),
-                      )
-                    : Container(),
+                Row(
+                  children: [
+                    IconButton(
+                      padding: EdgeInsets.only(right: 10),
+                      constraints: BoxConstraints(),
+                      onPressed: () async {
+                        Get.bottomSheet(
+                          AddItem(
+                            list_id: this.id,
+                            placeholder: this.listName,
+                          ),
+                          backgroundColor:
+                              Theme.of(Get.context!).colorScheme.background,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(20),
+                            ),
+                          ),
+                          isScrollControlled: true,
+                        );
+                      },
+                      icon: FaIcon(
+                        FontAwesomeIcons.plus,
+                        color: Theme.of(Get.context!).colorScheme.background,
+                        size: 20,
+                      ),
+                    ),
+                    (admin)
+                        ? IconButton(
+                            padding: EdgeInsets.only(right: 20),
+                            constraints: BoxConstraints(),
+                            onPressed: () async {
+                              // list/delete
+                              await http.delete(
+                                Uri.parse(baseUrl + "list/delete"),
+                                body: json.encode({"id": this.id}),
+                                headers: {
+                                  'Authorization':
+                                      "Bearer " + storage.read("token")
+                                },
+                              ).then(
+                                (value) {
+                                  if (value.statusCode == 204) {
+                                    HomeScreenController hcc = Get.find();
+                                    hcc.getLists();
+                                  }
+                                },
+                              );
+                            },
+                            icon: FaIcon(
+                              FontAwesomeIcons.trashCan,
+                              color:
+                                  Theme.of(Get.context!).colorScheme.background,
+                              size: 20,
+                            ),
+                          )
+                        : Container(),
+                  ],
+                ),
               ],
             ),
           ),

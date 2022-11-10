@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -222,8 +223,16 @@ class Settings extends StatelessWidget {
                                   IconButton(
                                     splashRadius: 2,
                                     iconSize: 18,
-                                    onPressed: () {
-                                      print("Settings.dart 138");
+                                    onPressed: () async {
+                                      String barcodeScanRes =
+                                          await FlutterBarcodeScanner
+                                              .scanBarcode(
+                                        "#000000",
+                                        "Cancel",
+                                        false,
+                                        ScanMode.QR,
+                                      );
+                                      sc.te.text = barcodeScanRes;
                                     },
                                     icon: FaIcon(FontAwesomeIcons.qrcode),
                                   ),

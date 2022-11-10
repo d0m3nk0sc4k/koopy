@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:koopy/components/home/screen/HomeScreenController.dart';
 import 'package:koopy/components/home/screen/header/Header.dart';
@@ -42,8 +44,17 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: ListView(
-                children: c.widgets,
+              child: RefreshIndicator(
+                backgroundColor: Theme.of(Get.context!).colorScheme.background,
+                child: ListView(
+                  children: c.widgets,
+                ),
+                onRefresh: () {
+                  c.getLists();
+                  return Future(
+                    () {},
+                  );
+                },
               ),
             ),
           ],

@@ -34,8 +34,7 @@ Color success = Color(0xFF5AB53B);
 Color warning = Color(0xFFF2C500);
 Color error = Color(0xFFFF3333);
 
-ThemeData themeLight = ThemeData(
-  brightness: Brightness.light,
+ThemeData themeLight = ThemeData.dark().copyWith(
   colorScheme: light,
   backgroundColor: light.primary,
   scaffoldBackgroundColor: light.background,
