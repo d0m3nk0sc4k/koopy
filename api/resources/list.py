@@ -98,5 +98,7 @@ class ProductBought(Resource):
         for info in data:
             product[info] = data[info]
 
+        product["bought"] = datetime.now()
+
         product = dict_to_model(List_has_Product, product)
         product.save()
