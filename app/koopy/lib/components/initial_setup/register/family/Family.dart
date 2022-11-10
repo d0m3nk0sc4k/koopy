@@ -45,27 +45,20 @@ class AddFamily extends StatelessWidget {
               SizedBox(
                 height: 30,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                    onPressed: c.readQR,
-                    icon: Icon(Icons.qr_code),
-                  ),
-                ],
-              ),
               AnimatedContainer(
                 duration: Duration(milliseconds: 200),
                 transform: Matrix4.translationValues(
                     c.animationOffsets["input"]!, 0, 0),
                 child: Row(
                   children: [
-                    TextField(
-                      controller: c.joinKey,
-                      decoration: InputDecoration(
-                        label: Text("Join key"),
-                        labelStyle: TextStyle(
-                            color: Theme.of(Get.context!).colorScheme.primary),
+                    Expanded(
+                      child: TextField(
+                        controller: c.joinKey,
+                        decoration: InputDecoration(
+                          label: Text("Join key"),
+                          labelStyle: TextStyle(
+                              color: Theme.of(Get.context!).colorScheme.primary),
+                        ),
                       ),
                     ),
                     IconButton(
@@ -81,7 +74,7 @@ class AddFamily extends StatelessWidget {
                         );
                         c.joinKey.text = barcodeScanRes;
                       },
-                      icon: FaIcon(FontAwesomeIcons.qrcode),
+                      icon: FaIcon(FontAwesomeIcons.qrcode, color: Theme.of(Get.context!).colorScheme.onBackground,),
                     ),
                   ],
                 ),
