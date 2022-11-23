@@ -13,7 +13,7 @@ from os import path
 class ImageGet(Resource):
     @swag_from('apidoc/getimage.yml')
     def get(__self__, image_name):
-        return send_file('/mnt/koopy/profile/' + image_name, mimetype='image/png')
+        return send_file('/home/koopy/images/' + image_name, mimetype='image/png')
 
 class ImagePost(Resource):
     @jwt_required()
@@ -21,7 +21,7 @@ class ImagePost(Resource):
     def post(__self__):
         file = request.files['file']
         filename = secure_filename(file.filename)
-        file.save(path.join('/mnt/koopy/profile', filename))
+        file.save(path.join('/home/koopy/images/', filename))
         user = request.form['user']
         
         User.update({'profile_img': filename}).where(User.id == user).execute()
